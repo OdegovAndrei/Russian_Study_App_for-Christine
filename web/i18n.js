@@ -163,7 +163,12 @@ export const STRINGS = {
     "stats.historyEmpty": "L’historique apparaîtra après la première révision.",
     "stats.deletedCard": "Carte supprimée",
     "review.direction": "Sens",
-    "review.fallbackVoice": "Voix du navigateur utilisée (la voix neuronale n’est pas disponible)."
+    "review.fallbackVoice": "Voix du navigateur utilisée (la voix neuronale n’est pas disponible).",
+    "review.reviewCard": "Révision",
+    "review.noWordsTitle": "Votre vocabulaire est vide",
+    "review.noWordsBody": "Ajoutez vos premiers mots dans l’onglet Vocabulaire : ils apparaîtront ici sous forme de cartes.",
+    "review.goVocabulary": "Ajouter des mots",
+    "vocab.empty": "Aucun mot pour l’instant. Ajoutez-en avec le formulaire ci-dessus."
   },
   en: {
     "tab.review": "Review",
@@ -325,7 +330,12 @@ export const STRINGS = {
     "stats.historyEmpty": "History appears after the first review.",
     "stats.deletedCard": "Deleted card",
     "review.direction": "Direction",
-    "review.fallbackVoice": "Using the browser voice (neural voice unavailable)."
+    "review.fallbackVoice": "Using the browser voice (neural voice unavailable).",
+    "review.reviewCard": "Review",
+    "review.noWordsTitle": "Your vocabulary is empty",
+    "review.noWordsBody": "Add your first words in the Vocabulary tab: they will show up here as cards.",
+    "review.goVocabulary": "Add words",
+    "vocab.empty": "No words yet. Add some with the form above."
   }
 };
 

@@ -45,11 +45,10 @@ function setLanguage(language) {
   render();
 }
 
-let vocabulary = [];
 let state = defaultState();
 let view = "review";
 let session = null;
-let vocabFilter = { text: "", kind: "all" };
+let vocabFilter = { text: "" };
 
 function defaultState() {
   return { version: 2, settings: { ...DEFAULT_SETTINGS }, schedules: {}, custom: [], logs: [] };
@@ -106,19 +105,15 @@ function scheduleSave() {
 }
 
 async function loadAll() {
-  const [vocabResponse, stateResponse] = await Promise.all([
-    fetch("vocabulary.json"),
-    fetch("/api/state").catch(() => null)
-  ]);
-  vocabulary = await vocabResponse.json();
-  if (stateResponse && stateResponse.ok) {
-    const payload = await stateResponse.json();
+  const response = await fetch("/api/state").catch(() => null);
+  if (response && response.ok) {
+    const payload = await response.json();
     state = normalizeState(payload.state);
   }
 }
 
 function allItems() {
-  return [...vocabulary, ...state.custom];
+  return state.custom;
 }
 
 // ---- speech --------------------------------------------------------------
@@ -234,6 +229,15 @@ function grade(name) {
 function renderReview() {
   if (!session) startSession();
   const card = currentCard();
+  if (!card && !allItems().length) {
+    return h(
+      "section",
+      { class: "empty" },
+      h("h2", {}, t("review.noWordsTitle")),
+      h("p", {}, t("review.noWordsBody")),
+      h("button", { class: "btn primary", type: "button", onClick: () => { view = "vocabulary"; render(); } }, t("review.goVocabulary"))
+    );
+  }
   if (!card) {
     const studiedToday = reviewsToday();
     return h(
@@ -256,7 +260,7 @@ function renderReview() {
   );
 
   const isNew = session.newKeys.has(card.key);
-  const label = h("div", { class: "card-label" }, `${isNew ? `${t("review.newCard")} · ` : ""}${t(card.kind === "phrase" ? "review.phrase" : "review.word")}`);
+  const label = h("div", { class: "card-label" }, isNew ? t("review.newCard") : t("review.reviewCard"));
   const front = h("div", { class: "card-front", lang: card.frontLang }, card.front);
   const children = [label, front];
   if (card.frontLang === "ru") {
@@ -427,7 +431,6 @@ function renderStats() {
       metric(t("stats.cards"), cards.length, t("stats.cardsNote", { n: studied })),
       metric(t("stats.due"), dueCount, t("stats.dueNote")),
       metric(t("stats.mastered"), masteredCount, t("stats.masteredNote")),
-      metric(t("stats.custom"), state.custom.length, t("stats.customNote")),
       metric(t("stats.reviews"), state.logs.length, t("stats.reviewsNote", { n: today })),
       metric(t("stats.accuracy"), accuracy, t("stats.accuracyNote")),
       metric(t("stats.streak"), streakDays(now), t("stats.streakNote"))
@@ -474,17 +477,12 @@ function statusOf(item) {
 }
 
 function matchesFilter(item) {
-  const kind = vocabFilter.kind;
-  if (kind === "word" && item.kind !== "word") return false;
-  if (kind === "phrase" && item.kind !== "phrase") return false;
-  if (kind === "custom" && item.kind !== "custom") return false;
   const needle = vocabFilter.text.trim().toLocaleLowerCase();
   if (!needle) return true;
   return item.ru.toLocaleLowerCase().includes(needle) || item.fr.toLocaleLowerCase().includes(needle);
 }
 
 function renderVocabulary() {
-  const items = allItems();
   const search = h("input", {
     type: "search",
     placeholder: t("vocab.search"),
@@ -494,6 +492,10 @@ function renderVocabulary() {
   const listHost = h("div", {});
   const refresh = () => {
     const shown = allItems().filter(matchesFilter);
+    if (!allItems().length) {
+      listHost.replaceChildren(h("div", { class: "empty-state" }, t("vocab.empty")));
+      return;
+    }
     listHost.replaceChildren(
       h("p", { class: "count-note" }, t("count", { shown: shown.length, total: allItems().length })),
       h(
@@ -511,9 +513,7 @@ function renderVocabulary() {
               h("div", { class: "word-fr", lang: "fr" }, item.fr)
             ),
             h("span", { class: "badge" }, statusOf(item)),
-            item.kind === "custom"
-              ? h("button", { class: "btn danger", type: "button", onClick: () => removeCustom(item.id) }, t("vocab.delete"))
-              : null
+            h("button", { class: "btn danger", type: "button", onClick: () => removeCustom(item.id) }, t("vocab.delete"))
           )
         )
       )
@@ -523,19 +523,6 @@ function renderVocabulary() {
     vocabFilter.text = search.value;
     refresh();
   });
-
-  const kinds = [["all", t("vocab.all")], ["word", t("vocab.words")], ["phrase", t("vocab.phrases")], ["custom", t("vocab.custom")]];
-  const chips = h(
-    "div",
-    { class: "chips" },
-    kinds.map(([kind, text]) =>
-      h("button", {
-        class: `chip${vocabFilter.kind === kind ? " active" : ""}`,
-        type: "button",
-        onClick: () => { vocabFilter.kind = kind; render(); }
-      }, text)
-    )
-  );
 
   const frInput = h("input", { type: "text", placeholder: t("vocab.frPlaceholder"), "aria-label": t("vocab.frLabel"), required: true });
   const ruInput = h("input", { type: "text", placeholder: t("vocab.ruPlaceholder"), "aria-label": t("vocab.ruLabel"), lang: "ru", required: true });
@@ -551,7 +538,7 @@ function renderVocabulary() {
   );
 
   refresh();
-  return h("section", {}, h("div", { class: "toolbar" }, search, chips), listHost, form, h("p", { class: "count-note" }, t("vocab.total", { total: items.length })));
+  return h("section", {}, form, h("div", { class: "toolbar" }, search), listHost);
 }
 
 function addCustom(fr, ru) {
