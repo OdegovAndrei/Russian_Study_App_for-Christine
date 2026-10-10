@@ -21,6 +21,21 @@ class ServerTestCase(unittest.TestCase):
         self.thread = threading.Thread(target=self.httpd.serve_forever, daemon=True)
         self.thread.start()
 
+    def start_with_mirrors(self):
+        """Restart the server with the second and third storage places enabled."""
+        self.httpd.shutdown()
+        self.httpd.server_close()
+        root = Path(self.tmp.name)
+        self.mirror_dir = root / "appdata" / "RussianStudy"
+        self.words_file = root / "my-words.txt"
+        self.httpd = server.make_server(
+            0, web_dir=root / "web", cache_dir=self.cache_dir, state_file=self.state_file,
+            mirror_dir=self.mirror_dir, words_file=self.words_file,
+        )
+        self.port = self.httpd.server_address[1]
+        self.thread = threading.Thread(target=self.httpd.serve_forever, daemon=True)
+        self.thread.start()
+
     def tearDown(self):
         self.httpd.shutdown()
         self.httpd.server_close()
@@ -130,6 +145,52 @@ class ServerTestCase(unittest.TestCase):
         self.state_file.write_text("{ not json", encoding="utf-8")
         status, _ = self.get_state()
         self.assertEqual(status, 500)
+
+    WORDS_STATE = {"custom": [
+        {"id": "a", "fr": "bonjour", "ru": "здравствуйте", "kind": "custom"},
+        {"id": "b", "fr": "un livre ; une œuvre", "ru": "книга", "kind": "custom"},
+    ]}
+
+    def test_every_save_is_mirrored_to_appdata_and_a_readable_words_file(self):
+        self.start_with_mirrors()
+        status, _ = self.put_state(self.WORDS_STATE)
+        self.assertEqual(status, 200)
+        mirrored = json.loads((self.mirror_dir / "russian-study.json").read_text(encoding="utf-8"))
+        self.assertEqual(len(mirrored["custom"]), 2)
+        lines = self.words_file.read_text(encoding="utf-8").splitlines()
+        self.assertEqual(lines[0], "bonjour ; здравствуйте")
+        self.assertEqual(len(lines), 2)
+        # the exported file can be pasted straight back into "add several words"
+        self.assertEqual(lines[1].count(";"), 1)
+
+    def test_progress_is_restored_from_appdata_when_the_local_file_is_gone(self):
+        self.start_with_mirrors()
+        self.put_state(self.WORDS_STATE)
+        self.state_file.unlink()
+        status, body = self.get_state()
+        self.assertEqual(status, 200)
+        self.assertTrue(body["recovered"])
+        self.assertEqual(len(body["state"]["custom"]), 2)
+
+    def test_a_failing_mirror_never_fails_the_save(self):
+        self.start_with_mirrors()
+        self.mirror_dir.parent.mkdir(parents=True)
+        self.mirror_dir.write_text("i am a file, not a folder", encoding="utf-8")
+        status, _ = self.put_state(self.WORDS_STATE)
+        self.assertEqual(status, 200)
+        self.assertTrue(self.state_file.exists())
+        status, data = self.request("GET", "/api/storage")
+        places = json.loads(data)["places"]
+        self.assertEqual([place["ok"] for place in places], [True, False, True])
+
+    def test_storage_info_lists_the_three_places(self):
+        self.start_with_mirrors()
+        self.put_state(self.WORDS_STATE)
+        status, data = self.request("GET", "/api/storage")
+        self.assertEqual(status, 200)
+        places = json.loads(data)["places"]
+        self.assertEqual([place["id"] for place in places], ["local", "appdata", "words"])
+        self.assertTrue(all(place["path"] for place in places))
 
     def test_script_and_style_types_do_not_depend_on_the_os_registry(self):
         web = Path(self.tmp.name) / "web"

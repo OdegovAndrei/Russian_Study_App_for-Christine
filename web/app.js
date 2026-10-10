@@ -30,6 +30,9 @@ function applyStaticText() {
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     element.textContent = t(element.dataset.i18n);
   });
+  document.querySelectorAll("[data-i18n-label]").forEach((element) => {
+    element.setAttribute("aria-label", t(element.dataset.i18nLabel));
+  });
   document.querySelector(".tabs").setAttribute("aria-label", t("nav.label"));
   if (bannerKey && !banner.hidden && banner.firstChild) banner.firstChild.textContent = t(bannerKey);
   configureAnalytics({
@@ -84,6 +87,20 @@ function h(tag, props = {}, ...children) {
   }
   return element;
 }
+
+// ---- offline notice ----------------------------------------------------
+const offlineNote = document.getElementById("offline-note");
+
+function updateOffline(isOffline) {
+  offlineNote.hidden = !isOffline;
+}
+
+document.getElementById("offline-close").addEventListener("click", () => {
+  offlineNote.hidden = true;
+});
+window.addEventListener("offline", () => updateOffline(true));
+window.addEventListener("online", () => updateOffline(false));
+updateOffline(!navigator.onLine);
 
 // ---- persistence -------------------------------------------------------
 const banner = document.getElementById("banner");
@@ -738,8 +755,32 @@ function renderSettings() {
       row(t("settings.voice"), null, voice),
       row(t("settings.rate"), null, h("div", {}, rate, " ", rateLabel))
     ),
+    storageSection(),
     h("p", {}, h("button", { class: "btn danger", type: "button", onClick: resetProgress }, t("settings.reset")))
   );
+}
+
+function storageSection() {
+  const list = h("ul", { class: "storage-list" });
+  const box = h("div", { class: "settings storage" }, h("strong", {}, t("settings.storage")), h("small", {}, t("settings.storageNote")), list);
+  fetch("/api/storage")
+    .then((response) => response.json())
+    .then(({ places }) => {
+      list.replaceChildren(
+        ...places.map((place) =>
+          h(
+            "li",
+            {},
+            h("span", { class: place.ok ? "storage-ok" : "storage-bad" }, place.ok ? "✓" : "✗"),
+            " ",
+            h("strong", {}, t(`storage.${place.id}`)),
+            h("code", {}, place.path || t("storage.unavailable"))
+          )
+        )
+      );
+    })
+    .catch(() => {});
+  return box;
 }
 
 function resetProgress() {

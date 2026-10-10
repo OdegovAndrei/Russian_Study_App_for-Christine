@@ -24,6 +24,10 @@
       <span class="save-indicator" id="save-indicator" aria-live="polite"></span>
     </header>
     <div id="banner" class="banner" role="alert" hidden></div>
+    <div id="offline-note" class="offline-note" role="status" hidden>
+      <span data-i18n="offline.note">Pas de connexion Internet : la voix de certains mots peut ne pas fonctionner.</span>
+      <button type="button" id="offline-close" class="offline-close" data-i18n-label="offline.close" aria-label="Fermer">×</button>
+    </div>
     <main id="app" aria-live="polite"></main>
     <div id="modal-root"></div>
     <script type="module" src="app.js"></script>

@@ -181,7 +181,15 @@ export const STRINGS = {
     "banner.loadFailed": "Impossible de lire la progression : rien n’est enregistré pour éviter d’écraser vos données. Vérifiez que le serveur tourne, puis rechargez.",
     "banner.conflict": "La progression a été modifiée dans une autre fenêtre. Rechargez pour continuer sans perdre de données.",
     "banner.recovered": "Le fichier principal était endommagé : la dernière copie de sauvegarde a été restaurée.",
-    "banner.reload": "Recharger"
+    "banner.reload": "Recharger",
+    "offline.note": "Pas de connexion Internet : la voix de certains mots peut ne pas fonctionner.",
+    "offline.close": "Fermer l’avertissement",
+    "settings.storage": "Où sont enregistrés vos mots",
+    "settings.storageNote": "Chaque enregistrement est copié à ces trois endroits.",
+    "storage.local": "Fichier de l’application",
+    "storage.appdata": "Dossier utilisateur du système",
+    "storage.words": "Liste lisible des mots",
+    "storage.unavailable": "indisponible"
   },
   en: {
     "tab.review": "Review",
@@ -361,7 +369,15 @@ export const STRINGS = {
     "banner.loadFailed": "Could not read your progress: nothing is being saved so your data is not overwritten. Check that the server is running, then reload.",
     "banner.conflict": "Your progress was changed in another window. Reload to continue without losing data.",
     "banner.recovered": "The main file was damaged: the latest backup copy was restored.",
-    "banner.reload": "Reload"
+    "banner.reload": "Reload",
+    "offline.note": "No Internet connection: some words may not be spoken.",
+    "offline.close": "Dismiss warning",
+    "settings.storage": "Where your words are stored",
+    "settings.storageNote": "Every save is copied to these three places.",
+    "storage.local": "Application file",
+    "storage.appdata": "System user data folder",
+    "storage.words": "Readable word list",
+    "storage.unavailable": "unavailable"
   }
 };
 

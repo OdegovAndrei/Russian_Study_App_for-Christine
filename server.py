@@ -98,12 +98,34 @@ def read_state_file(path):
     """Returns the parsed object, or None when the file is missing. Raises ValueError if corrupt."""
     try:
         raw = path.read_text(encoding="utf-8")
-    except FileNotFoundError:
+    except (FileNotFoundError, NotADirectoryError):
         return None
     state = json.loads(raw)
     if not isinstance(state, dict):
         raise ValueError("state is not an object")
     return state
+
+
+def standard_data_dir():
+    """The per-user place applications normally keep their data."""
+    home = Path.home()
+    if sys.platform == "win32":
+        return Path(os.environ.get("APPDATA") or home / "AppData" / "Roaming") / "RussianStudy"
+    if sys.platform == "darwin":
+        return home / "Library" / "Application Support" / "RussianStudy"
+    return Path(os.environ.get("XDG_DATA_HOME") or home / ".local" / "share") / "RussianStudy"
+
+
+def format_words(state):
+    """One `french ; russian` pair per line: readable, and importable with "add several words"."""
+    def clean(text):
+        return " ".join(str(text).replace(";", ",").replace("|", "/").split())
+
+    lines = []
+    for item in state.get("custom", []):
+        if isinstance(item, dict) and item.get("fr") and item.get("ru"):
+            lines.append(f"{clean(item['fr'])} ; {clean(item['ru'])}")
+    return ("\n".join(lines) + "\n") if lines else ""
 
 
 def backup_paths(state_file):
@@ -155,6 +177,9 @@ class Handler(SimpleHTTPRequestHandler):
     web_dir = WEB_DIR
     cache_dir = CACHE_DIR
     state_file = STATE_FILE
+    mirror_dir = None   # second place: the standard per-user data folder
+    words_file = None   # third place: a readable word list next to the app
+    mirror_status = {}
     # Windows reads MIME types from the registry, where .js is sometimes
     # "text/plain" and browsers then refuse to run ES modules.
     extensions_map = {
@@ -201,6 +226,8 @@ class Handler(SimpleHTTPRequestHandler):
         parsed = urlparse(self.path)
         if parsed.path == "/api/state":
             return self.handle_state_get()
+        if parsed.path == "/api/storage":
+            return self.handle_storage_info()
         if parsed.path == "/tts":
             return self.handle_tts(parse_qs(parsed.query))
         super().do_GET()
@@ -221,24 +248,71 @@ class Handler(SimpleHTTPRequestHandler):
         return None
 
     # -- progress --------------------------------------------------------
+    def mirror_file(self):
+        return self.mirror_dir / "russian-study.json" if self.mirror_dir else None
+
+    def load_best_state(self):
+        """(state, source, found_something). Order: main file, last backup, standard-folder copy."""
+        found = False
+        candidates = [
+            ("main", self.state_file),
+            ("backup", backup_paths(self.state_file)[0]),
+            ("appdata", self.mirror_file()),
+        ]
+        for source, path in candidates:
+            if path is None:
+                continue
+            try:
+                state = read_state_file(path)
+            except (OSError, ValueError):
+                found = True  # a file exists but cannot be used
+                continue
+            if state is not None:
+                return state, source, True
+        return None, None, found
+
     def handle_state_get(self):
         with STATE_LOCK:
-            try:
-                state = read_state_file(self.state_file)
-                if state is None:
-                    return self.send_json(200, {"exists": False, "state": None})
-                return self.send_json(200, {"exists": True, "state": state})
-            except (OSError, ValueError):
-                pass
-            # The main file is damaged: serve the last good copy rather than nothing.
-            latest, _ = backup_paths(self.state_file)
-            try:
-                state = read_state_file(latest)
-            except (OSError, ValueError):
-                state = None
-            if state is None:
+            state, source, found = self.load_best_state()
+        if state is None:
+            if found:
                 return self.send_json(500, {"error": "Fichier de progression illisible."})
-        self.send_json(200, {"exists": True, "state": state, "recovered": True})
+            return self.send_json(200, {"exists": False, "state": None})
+        payload = {"exists": True, "state": state}
+        if source != "main":
+            payload["recovered"] = True
+        self.send_json(200, payload)
+
+    def write_extra_places(self, state):
+        """Best effort: a failure here must never fail the save itself."""
+        status = {}
+        try:
+            mirror = self.mirror_file()
+            if mirror is not None:
+                atomic_write(mirror, json.dumps(state, ensure_ascii=False).encode("utf-8"))
+            status["appdata"] = None
+        except Exception as error:  # noqa: BLE001 - report, don't crash
+            status["appdata"] = str(error)
+        try:
+            if self.words_file is not None:
+                atomic_write(self.words_file, format_words(state).encode("utf-8"))
+            status["words"] = None
+        except Exception as error:  # noqa: BLE001
+            status["words"] = str(error)
+        type(self).mirror_status = status
+
+    def handle_storage_info(self):
+        status = type(self).mirror_status
+        places = [{"id": "local", "path": str(self.state_file), "ok": True}]
+        if self.mirror_dir is not None:
+            places.append({"id": "appdata", "path": str(self.mirror_file()), "ok": status.get("appdata") is None})
+        else:
+            places.append({"id": "appdata", "path": "", "ok": False})
+        if self.words_file is not None:
+            places.append({"id": "words", "path": str(self.words_file), "ok": status.get("words") is None})
+        else:
+            places.append({"id": "words", "path": "", "ok": False})
+        self.send_json(200, {"places": places})
 
     def handle_state_put(self):
         try:
@@ -255,16 +329,9 @@ class Handler(SimpleHTTPRequestHandler):
         if not isinstance(state, dict):
             return self.send_json(400, {"error": "Un objet JSON est attendu"})
         with STATE_LOCK:
-            try:
-                on_disk = read_state_file(self.state_file)
-            except ValueError:
-                # Damaged file: continue the revision count from the last good copy.
-                try:
-                    on_disk = read_state_file(backup_paths(self.state_file)[0])
-                except (OSError, ValueError):
-                    on_disk = None
-            except OSError as error:
-                return self.send_json(500, {"error": f"Lecture impossible: {error}"})
+            on_disk, _, found = self.load_best_state()
+            if on_disk is None and found:
+                return self.send_json(500, {"error": "Lecture impossible"})
             disk_rev = int(on_disk.get("rev", 0)) if on_disk and str(on_disk.get("rev", 0)).isdigit() else 0
             client_rev = state.get("rev", 0)
             if not isinstance(client_rev, int) or client_rev < disk_rev:
@@ -275,6 +342,7 @@ class Handler(SimpleHTTPRequestHandler):
                 atomic_write(self.state_file, json.dumps(state, ensure_ascii=False).encode("utf-8"))
             except OSError as error:
                 return self.send_json(500, {"error": f"Écriture impossible: {error}"})
+            self.write_extra_places(state)
         self.send_json(200, {"ok": True, "rev": state["rev"]})
 
     # -- speech ----------------------------------------------------------
@@ -320,11 +388,14 @@ class Handler(SimpleHTTPRequestHandler):
         pass
 
 
-def make_server(port, web_dir=WEB_DIR, cache_dir=CACHE_DIR, state_file=STATE_FILE):
+def make_server(port, web_dir=WEB_DIR, cache_dir=CACHE_DIR, state_file=STATE_FILE, mirror_dir=None, words_file=None):
     handler = type("BoundHandler", (Handler,), {
         "web_dir": Path(web_dir),
         "cache_dir": Path(cache_dir),
         "state_file": Path(state_file),
+        "mirror_dir": Path(mirror_dir) if mirror_dir else None,
+        "words_file": Path(words_file) if words_file else None,
+        "mirror_status": {},
     })
     return ThreadingHTTPServer(("127.0.0.1", port), handler)
 
@@ -357,7 +428,11 @@ def main():
         webbrowser.open(f"http://localhost:{requested}/")
         return
     port = pick_port(requested)
-    httpd = make_server(port)
+    httpd = make_server(
+        port,
+        mirror_dir=standard_data_dir(),
+        words_file=STATE_FILE.parent.parent / "my-words.txt",
+    )
     print(f"Russian Study: http://localhost:{port}  (Ctrl+C pour arreter)", flush=True)
     if FROZEN:
         print("Fermez cette fenetre pour arreter l'application.", flush=True)
