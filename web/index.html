@@ -10,10 +10,14 @@
     <header class="topbar">
       <h1 class="brand">Russian Study <span>français → русский</span></h1>
       <nav class="tabs" aria-label="Sections">
-        <button type="button" class="tab active" data-view="review">Révision</button>
-        <button type="button" class="tab" data-view="vocabulary">Vocabulaire</button>
-        <button type="button" class="tab" data-view="settings">Réglages</button>
+        <button type="button" class="tab active" data-view="review" data-i18n="tab.review">Révision</button>
+        <button type="button" class="tab" data-view="vocabulary" data-i18n="tab.vocabulary">Vocabulaire</button>
+        <button type="button" class="tab" data-view="settings" data-i18n="tab.settings">Réglages</button>
       </nav>
+      <div class="lang-switch" role="group" aria-label="Language / Langue">
+        <button type="button" class="lang-btn active" data-lang="fr" lang="fr">FR</button>
+        <button type="button" class="lang-btn" data-lang="en" lang="en">EN</button>
+      </div>
       <span class="save-indicator" id="save-indicator" aria-live="polite"></span>
     </header>
     <main id="app" aria-live="polite"></main>

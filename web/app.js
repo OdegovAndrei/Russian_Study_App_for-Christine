@@ -1,27 +1,42 @@
 import { newCardState, review, previewIntervals, GRADES, DAY_MS } from "./srs.js";
 import { buildQueue, cardKey, dayKey } from "./deck.js";
+import { LANGUAGES, normalizeLanguage, translate } from "./i18n.js";
 
-const GRADE_LABELS = { again: "À revoir", hard: "Difficile", good: "Bien", easy: "Facile" };
-const DIRECTION_LABELS = {
-  "fr-ru": "Français → russe",
-  "ru-fr": "Russe → français",
-  both: "Les deux sens"
-};
-const VOICE_LABELS = {
-  "ru-RU-SvetlanaNeural": "Svetlana (voix féminine)",
-  "ru-RU-DmitryNeural": "Dmitry (voix masculine)"
-};
+const VOICES = ["ru-RU-SvetlanaNeural", "ru-RU-DmitryNeural"];
+const DIRECTIONS = ["fr-ru", "ru-fr", "both"];
 
 const DEFAULT_SETTINGS = {
   direction: "fr-ru",
   voice: "ru-RU-SvetlanaNeural",
   rate: 0.9,
   newPerDay: 10,
-  autoplay: true
+  autoplay: true,
+  uiLang: "fr"
 };
 
 const app = document.getElementById("app");
 const saveIndicator = document.getElementById("save-indicator");
+
+function t(key, vars) {
+  return translate(normalizeLanguage(state.settings.uiLang), key, vars);
+}
+
+function applyStaticText() {
+  document.documentElement.lang = normalizeLanguage(state.settings.uiLang);
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    element.textContent = t(element.dataset.i18n);
+  });
+  document.querySelector(".tabs").setAttribute("aria-label", t("nav.label"));
+  document.querySelectorAll(".lang-btn").forEach((button) => {
+    button.classList.toggle("active", button.dataset.lang === normalizeLanguage(state.settings.uiLang));
+  });
+}
+
+function setLanguage(language) {
+  state.settings.uiLang = normalizeLanguage(language);
+  scheduleSave();
+  render();
+}
 
 let vocabulary = [];
 let state = defaultState();
@@ -70,7 +85,7 @@ function setSaveStatus(text) {
 }
 
 function scheduleSave() {
-  setSaveStatus("Enregistrement…");
+  setSaveStatus(t("save.saving"));
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     const body = JSON.stringify(state);
@@ -78,9 +93,9 @@ function scheduleSave() {
       .then(() => fetch("/api/state", { method: "PUT", headers: { "Content-Type": "application/json" }, body }))
       .then((response) => {
         if (!response.ok) throw new Error(String(response.status));
-        setSaveStatus("Enregistré");
+        setSaveStatus(t("save.saved"));
       })
-      .catch(() => setSaveStatus("Erreur d’enregistrement"));
+      .catch(() => setSaveStatus(t("save.error")));
   }, 300);
 }
 
@@ -195,9 +210,9 @@ function renderReview() {
     return h(
       "section",
       { class: "empty" },
-      h("h2", {}, studiedToday ? "Bravo, c’est terminé pour aujourd’hui !" : "Rien à réviser pour le moment"),
-      h("p", {}, studiedToday ? `${studiedToday} cartes révisées aujourd’hui.` : "Revenez plus tard ou augmentez le nombre de nouvelles cartes dans les réglages."),
-      h("button", { class: "btn", type: "button", onClick: () => { startSession(); render(); } }, "Vérifier à nouveau")
+      h("h2", {}, t(studiedToday ? "review.doneTitle" : "review.nothingTitle")),
+      h("p", {}, studiedToday ? t("review.doneBody", { count: studiedToday }) : t("review.nothingBody")),
+      h("button", { class: "btn", type: "button", onClick: () => { startSession(); render(); } }, t("review.checkAgain"))
     );
   }
 
@@ -206,13 +221,13 @@ function renderReview() {
   const counters = h(
     "div",
     { class: "counters" },
-    h("span", {}, "Restantes : ", h("strong", {}, remaining)),
-    h("span", {}, "Nouvelles : ", h("strong", {}, newLeft)),
-    h("span", {}, "Faites : ", h("strong", {}, session.done))
+    h("span", {}, t("review.remaining") + " ", h("strong", {}, remaining)),
+    h("span", {}, t("review.new") + " ", h("strong", {}, newLeft)),
+    h("span", {}, t("review.done") + " ", h("strong", {}, session.done))
   );
 
   const isNew = session.newKeys.has(card.key);
-  const label = h("div", { class: "card-label" }, `${isNew ? "Nouvelle carte · " : ""}${card.kind === "phrase" ? "Phrase" : "Mot"}`);
+  const label = h("div", { class: "card-label" }, `${isNew ? `${t("review.newCard")} · ` : ""}${t(card.kind === "phrase" ? "review.phrase" : "review.word")}`);
   const front = h("div", { class: "card-front", lang: card.frontLang }, card.front);
   const children = [label, front];
   if (card.frontLang === "ru") {
@@ -230,7 +245,7 @@ function renderReview() {
     controls = h(
       "div",
       { class: "answer-row" },
-      h("button", { class: "btn primary", type: "button", onClick: reveal }, "Afficher la réponse")
+      h("button", { class: "btn primary", type: "button", onClick: reveal }, t("review.show"))
     );
   } else {
     const preview = previewIntervals(card.state || state.schedules[card.key] || newCardState());
@@ -241,20 +256,20 @@ function renderReview() {
         h(
           "button",
           { class: "grade", type: "button", "data-grade": name, onClick: () => grade(name) },
-          h("span", {}, GRADE_LABELS[name]),
+          h("span", {}, t(`grade.${name}`)),
           h("small", {}, `${preview[name]} · ${index + 1}`)
         )
       )
     );
   }
-  const hint = h("p", { class: "hint" }, "Espace : afficher · 1–4 : noter · R : réécouter");
+  const hint = h("p", { class: "hint" }, t("review.hint"));
   return h("section", {}, counters, cardElement, controls, hint);
 }
 
 function speakButton(text) {
   return h(
     "button",
-    { class: "icon-btn", type: "button", title: "Écouter (R)", "aria-label": "Écouter", onClick: () => speak(text) },
+    { class: "icon-btn", type: "button", title: t("listen.key"), "aria-label": t("listen"), onClick: () => speak(text) },
     "🔊"
   );
 }
@@ -263,12 +278,12 @@ function speakButton(text) {
 function statusOf(item) {
   const directions = state.settings.direction === "both" ? ["fr-ru", "ru-fr"] : [state.settings.direction];
   const states = directions.map((dir) => state.schedules[cardKey(item.id, dir)]).filter(Boolean);
-  if (!states.length) return "Nouveau";
+  if (!states.length) return t("status.new");
   const state0 = states[0];
-  if (state0.interval >= 21) return "Acquis";
-  if (state0.due <= Date.now()) return "À réviser";
+  if (state0.interval >= 21) return t("status.mastered");
+  if (state0.due <= Date.now()) return t("status.due");
   const days = Math.max(1, Math.round((state0.due - Date.now()) / DAY_MS));
-  return state0.interval === 0 ? "En cours" : `Dans ${days} j`;
+  return state0.interval === 0 ? t("status.learning") : t("status.inDays", { days });
 }
 
 function matchesFilter(item) {
@@ -285,15 +300,15 @@ function renderVocabulary() {
   const items = allItems();
   const search = h("input", {
     type: "search",
-    placeholder: "Rechercher en français ou en russe…",
-    "aria-label": "Rechercher",
+    placeholder: t("vocab.search"),
+    "aria-label": t("vocab.searchLabel"),
     value: vocabFilter.text
   });
   const listHost = h("div", {});
   const refresh = () => {
     const shown = allItems().filter(matchesFilter);
     listHost.replaceChildren(
-      h("p", { class: "count-note" }, `${shown.length} sur ${allItems().length}`),
+      h("p", { class: "count-note" }, t("count", { shown: shown.length, total: allItems().length })),
       h(
         "ul",
         { class: "word-list" },
@@ -310,7 +325,7 @@ function renderVocabulary() {
             ),
             h("span", { class: "badge" }, statusOf(item)),
             item.kind === "custom"
-              ? h("button", { class: "btn danger", type: "button", onClick: () => removeCustom(item.id) }, "Supprimer")
+              ? h("button", { class: "btn danger", type: "button", onClick: () => removeCustom(item.id) }, t("vocab.delete"))
               : null
           )
         )
@@ -322,7 +337,7 @@ function renderVocabulary() {
     refresh();
   });
 
-  const kinds = [["all", "Tout"], ["word", "Mots"], ["phrase", "Phrases"], ["custom", "Mes mots"]];
+  const kinds = [["all", t("vocab.all")], ["word", t("vocab.words")], ["phrase", t("vocab.phrases")], ["custom", t("vocab.custom")]];
   const chips = h(
     "div",
     { class: "chips" },
@@ -335,8 +350,8 @@ function renderVocabulary() {
     )
   );
 
-  const frInput = h("input", { type: "text", placeholder: "Français (ex. un livre)", "aria-label": "Français", required: true });
-  const ruInput = h("input", { type: "text", placeholder: "Russe (ex. книга)", "aria-label": "Russe", lang: "ru", required: true });
+  const frInput = h("input", { type: "text", placeholder: t("vocab.frPlaceholder"), "aria-label": t("vocab.frLabel"), required: true });
+  const ruInput = h("input", { type: "text", placeholder: t("vocab.ruPlaceholder"), "aria-label": t("vocab.ruLabel"), lang: "ru", required: true });
   const form = h(
     "form",
     { class: "add-form", onSubmit: (event) => {
@@ -345,11 +360,11 @@ function renderVocabulary() {
     } },
     frInput,
     ruInput,
-    h("button", { class: "btn primary", type: "submit" }, "Ajouter un mot")
+    h("button", { class: "btn primary", type: "submit" }, t("vocab.add"))
   );
 
   refresh();
-  return h("section", {}, h("div", { class: "toolbar" }, search, chips), listHost, form, h("p", { class: "count-note" }, `${items.length} entrées au total.`));
+  return h("section", {}, h("div", { class: "toolbar" }, search, chips), listHost, form, h("p", { class: "count-note" }, t("vocab.total", { total: items.length })));
 }
 
 function addCustom(fr, ru) {
@@ -358,7 +373,7 @@ function addCustom(fr, ru) {
   if (!cleanFr || !cleanRu) return;
   const exists = allItems().some((item) => item.ru.toLocaleLowerCase() === cleanRu.toLocaleLowerCase());
   if (exists) {
-    window.alert("Ce mot russe est déjà dans le vocabulaire.");
+    window.alert(t("vocab.duplicate"));
     return;
   }
   state.custom.push({ id: `c${Date.now().toString(36)}`, ru: cleanRu, fr: cleanFr, kind: "custom" });
@@ -388,17 +403,22 @@ function renderSettings() {
 
   const direction = h(
     "select",
-    { "aria-label": "Sens des cartes", onChange: (event) => update({ direction: event.target.value }) },
-    Object.entries(DIRECTION_LABELS).map(([value, text]) => h("option", { value, selected: settings.direction === value }, text))
+    { "aria-label": t("settings.direction"), onChange: (event) => update({ direction: event.target.value }) },
+    DIRECTIONS.map((value) => h("option", { value, selected: settings.direction === value }, t(`direction.${value}`)))
+  );
+  const language = h(
+    "select",
+    { "aria-label": t("settings.language"), onChange: (event) => setLanguage(event.target.value) },
+    LANGUAGES.map((value) => h("option", { value, selected: normalizeLanguage(settings.uiLang) === value }, t(`lang.${value}`)))
   );
   const voice = h(
     "select",
-    { "aria-label": "Voix", onChange: (event) => update({ voice: event.target.value }) },
-    Object.entries(VOICE_LABELS).map(([value, text]) => h("option", { value, selected: settings.voice === value }, text))
+    { "aria-label": t("settings.voice"), onChange: (event) => update({ voice: event.target.value }) },
+    VOICES.map((value) => h("option", { value, selected: settings.voice === value }, t(`voice.${value}`)))
   );
   const rateLabel = h("span", {}, `${settings.rate.toFixed(2)}×`);
   const rate = h("input", {
-    type: "range", min: "0.6", max: "1.2", step: "0.05", value: String(settings.rate), "aria-label": "Vitesse",
+    type: "range", min: "0.6", max: "1.2", step: "0.05", value: String(settings.rate), "aria-label": t("settings.rate"),
     onInput: (event) => {
       const value = Number(event.target.value);
       rateLabel.textContent = `${value.toFixed(2)}×`;
@@ -406,11 +426,11 @@ function renderSettings() {
     }
   });
   const perDay = h("input", {
-    type: "number", min: "0", max: "100", value: String(settings.newPerDay), "aria-label": "Nouvelles cartes par jour",
+    type: "number", min: "0", max: "100", value: String(settings.newPerDay), "aria-label": t("settings.newPerDay"),
     onChange: (event) => update({ newPerDay: Math.max(0, Math.min(100, Math.round(Number(event.target.value) || 0))) })
   });
   const autoplay = h("input", {
-    type: "checkbox", checked: settings.autoplay, "aria-label": "Lecture automatique",
+    type: "checkbox", checked: settings.autoplay, "aria-label": t("settings.autoplay"),
     onChange: (event) => update({ autoplay: event.target.checked })
   });
 
@@ -423,18 +443,19 @@ function renderSettings() {
     h(
       "div",
       { class: "settings" },
-      row("Sens des cartes", "Le changement de sens garde des progressions séparées.", direction),
-      row("Nouvelles cartes par jour", null, perDay),
-      row("Lecture automatique", "Prononce le russe dès qu’il apparaît.", autoplay),
-      row("Voix", null, voice),
-      row("Vitesse de la voix", null, h("div", {}, rate, " ", rateLabel))
+      row(t("settings.language"), t("settings.languageNote"), language),
+      row(t("settings.direction"), t("settings.directionNote"), direction),
+      row(t("settings.newPerDay"), null, perDay),
+      row(t("settings.autoplay"), t("settings.autoplayNote"), autoplay),
+      row(t("settings.voice"), null, voice),
+      row(t("settings.rate"), null, h("div", {}, rate, " ", rateLabel))
     ),
-    h("p", {}, h("button", { class: "btn danger", type: "button", onClick: resetProgress }, "Réinitialiser la progression"))
+    h("p", {}, h("button", { class: "btn danger", type: "button", onClick: resetProgress }, t("settings.reset")))
   );
 }
 
 function resetProgress() {
-  if (!window.confirm("Effacer toute la progression ? Vos mots personnels sont conservés.")) return;
+  if (!window.confirm(t("settings.resetConfirm"))) return;
   state.schedules = {};
   state.introduced = {};
   state.log = {};
@@ -445,10 +466,15 @@ function resetProgress() {
 
 // ---- shell -----------------------------------------------------------------
 function render() {
+  applyStaticText();
   document.querySelectorAll(".tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.view === view));
   const content = view === "vocabulary" ? renderVocabulary() : view === "settings" ? renderSettings() : renderReview();
   app.replaceChildren(content);
 }
+
+document.querySelectorAll(".lang-btn").forEach((button) => {
+  button.addEventListener("click", () => setLanguage(button.dataset.lang));
+});
 
 document.querySelectorAll(".tab").forEach((tab) => {
   tab.addEventListener("click", () => {
@@ -481,5 +507,5 @@ loadAll()
     render();
   })
   .catch(() => {
-    app.replaceChildren(h("p", { class: "empty" }, "Impossible de charger le vocabulaire. Lancez l’application avec le script de démarrage."));
+    app.replaceChildren(h("p", { class: "empty" }, t("load.error")));
   });
