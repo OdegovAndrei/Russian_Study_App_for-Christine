@@ -1,0 +1,56 @@
+name: Build Windows exe
+
+# Run it by hand: GitHub -> Actions -> "Build Windows exe" -> Run workflow.
+# The finished RussianStudy.exe is attached to the run as an artifact.
+# Pushing a tag like v1.0 also publishes it as a GitHub Release.
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt pyinstaller
+
+      - name: Run tests
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Build the executable
+        run: pyinstaller --noconfirm --clean russian-study.spec
+
+      - name: Smoke test the exe
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath "dist\RussianStudy.exe" -ArgumentList "5199" -PassThru -WindowStyle Hidden
+          $ok = $false
+          for ($i = 0; $i -lt 40 -and -not $ok; $i++) {
+            Start-Sleep -Seconds 1
+            try { $ok = (Invoke-WebRequest -UseBasicParsing "http://localhost:5199/").Content -match "Russian Study" } catch {}
+          }
+          Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue
+          if (-not $ok) { throw "The exe did not serve the app" }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RussianStudy-windows
+          path: dist/RussianStudy.exe
+
+      - name: Publish release (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/RussianStudy.exe

@@ -4,9 +4,12 @@ import asyncio
 import hashlib
 import json
 import os
+import socket
 import sys
 import tempfile
 import threading
+import urllib.request
+import webbrowser
 from datetime import datetime
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -17,10 +20,31 @@ try:
 except ImportError:  # the browser voice is used instead
     edge_tts = None
 
-PROJECT_DIR = Path(__file__).resolve().parent
-WEB_DIR = PROJECT_DIR / "web"
-CACHE_DIR = PROJECT_DIR / ".tts-cache"
-STATE_FILE = PROJECT_DIR / "user-data" / "russian-study.json"
+def resolve_paths(frozen, bundle_dir, executable, source_file):
+    """Where to read the interface from and where to keep user data.
+
+    From source everything lives in the project folder. In a PyInstaller
+    build the interface is unpacked into a temp bundle, while progress and
+    the speech cache stay next to the executable so they survive restarts.
+    """
+    if frozen:
+        data_root = Path(executable).parent
+        web = Path(bundle_dir) / "web"
+    else:
+        data_root = Path(source_file).resolve().parent
+        web = data_root / "web"
+    return {
+        "web": web,
+        "cache": data_root / ".tts-cache",
+        "state": data_root / "user-data" / "russian-study.json",
+    }
+
+
+FROZEN = bool(getattr(sys, "frozen", False))
+_PATHS = resolve_paths(FROZEN, getattr(sys, "_MEIPASS", None), sys.executable, __file__)
+WEB_DIR = _PATHS["web"]
+CACHE_DIR = _PATHS["cache"]
+STATE_FILE = _PATHS["state"]
 DEFAULT_PORT = 5174
 VOICES = {"ru-RU-SvetlanaNeural", "ru-RU-DmitryNeural"}
 MAX_STATE_BYTES = 32 * 1024 * 1024
@@ -305,12 +329,41 @@ def make_server(port, web_dir=WEB_DIR, cache_dir=CACHE_DIR, state_file=STATE_FIL
     return ThreadingHTTPServer(("127.0.0.1", port), handler)
 
 
+def pick_port(start, attempts=10):
+    """First free port in [start, start + attempts)."""
+    for port in range(start, start + attempts):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+            try:
+                probe.bind(("127.0.0.1", port))
+            except OSError:
+                continue
+            return port
+    raise OSError(f"Aucun port libre entre {start} et {start + attempts - 1}")
+
+
+def already_running(port):
+    """True when Russian Study itself already answers on this port."""
+    try:
+        with urllib.request.urlopen(f"http://localhost:{port}/", timeout=1.5) as reply:
+            return b"Russian Study" in reply.read(4096)
+    except (OSError, ValueError):
+        return False
+
+
 def main():
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_PORT
+    requested = int(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_PORT
+    if already_running(requested):
+        print(f"Russian Study tourne deja: http://localhost:{requested}", flush=True)
+        webbrowser.open(f"http://localhost:{requested}/")
+        return
+    port = pick_port(requested)
     httpd = make_server(port)
-    print(f"Russian Study: http://localhost:{port}  (Ctrl+C pour arreter)")
+    print(f"Russian Study: http://localhost:{port}  (Ctrl+C pour arreter)", flush=True)
+    if FROZEN:
+        print("Fermez cette fenetre pour arreter l'application.", flush=True)
+        threading.Timer(1.0, lambda: webbrowser.open(f"http://localhost:{port}/")).start()
     if edge_tts is None:
-        print("edge-tts n'est pas installe: la voix du navigateur sera utilisee.")
+        print("edge-tts n'est pas installe: la voix du navigateur sera utilisee.", flush=True)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
