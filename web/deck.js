@@ -85,3 +85,19 @@ export function mergeWords(existing, entries, makeId) {
   }
   return { words, added, skipped };
 }
+
+/** Edits one word in place. The id stays, so the card keeps its schedule. */
+export function updateWord(words, id, { fr, ru }) {
+  const index = words.findIndex((item) => item.id === id);
+  if (index < 0) return { ok: false, reason: "missing", words };
+  const cleanFr = String(fr || "").trim();
+  const cleanRu = String(ru || "").trim();
+  if (!cleanFr || !cleanRu) return { ok: false, reason: "empty", words };
+  const key = cleanRu.toLocaleLowerCase();
+  if (words.some((item, position) => position !== index && item.ru.toLocaleLowerCase() === key)) {
+    return { ok: false, reason: "duplicate", words };
+  }
+  const next = words.slice();
+  next[index] = { ...words[index], fr: cleanFr, ru: cleanRu };
+  return { ok: true, words: next };
+}

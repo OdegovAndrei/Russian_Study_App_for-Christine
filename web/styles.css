@@ -127,6 +127,7 @@ button { font: inherit; }
 .counters strong { color: var(--ink); }
 
 .card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -252,3 +253,6 @@ input[type="search"], input[type="text"], input[type="number"], select {
 .storage-list code { color: var(--muted); font-size: 0.8rem; overflow-wrap: anywhere; }
 .storage-ok { color: var(--good); }
 .storage-bad { color: var(--again); }
+
+.card-edit { position: absolute; top: 12px; right: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 8px; padding: 4px 10px; font-size: 0.85rem; cursor: pointer; }
+.card-edit:hover { color: var(--ink); border-color: var(--accent); }

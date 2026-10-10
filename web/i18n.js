@@ -194,7 +194,11 @@ export const STRINGS = {
     "unit.hour": "h",
     "unit.day": "j",
     "unit.month": "mois",
-    "unit.year": "an"
+    "unit.year": "an",
+    "edit.open": "Modifier",
+    "edit.title": "Modifier le mot",
+    "edit.save": "Enregistrer",
+    "edit.empty": "Les deux champs sont obligatoires."
   },
   en: {
     "tab.review": "Review",
@@ -387,7 +391,11 @@ export const STRINGS = {
     "unit.hour": "h",
     "unit.day": "d",
     "unit.month": "mo",
-    "unit.year": "y"
+    "unit.year": "y",
+    "edit.open": "Edit",
+    "edit.title": "Edit word",
+    "edit.save": "Save",
+    "edit.empty": "Both fields are required."
   }
 };
 

@@ -1,5 +1,5 @@
 import { review, previewIntervals, buildReviewQueue, isNewSchedule, isDueSchedule, isLearningSchedule, migrateSchedule, GRADES, DAY_MS } from "./srs.js";
-import { applyStarter, cardKey, dayKey, expandCards, mergeWords, parseBulk } from "./deck.js";
+import { applyStarter, cardKey, dayKey, expandCards, mergeWords, parseBulk, updateWord } from "./deck.js";
 import { buildTimingStats, buildDueBuckets, buildTimingChanges, formatTiming } from "./timing.js";
 import { createSaver } from "./persistence.js";
 import { configureAnalytics, openReviewAnalyticsModal } from "./review-analytics.js";
@@ -313,6 +313,15 @@ function renderReview() {
     children.push(h("div", { class: "card-back", lang: card.frontLang === "fr" ? "ru" : "fr" }, card.back));
     if (card.frontLang === "fr") children.push(h("div", { class: "card-actions" }, speakButton(card.ru)));
   }
+  children.unshift(
+    h("button", {
+      class: "card-edit",
+      type: "button",
+      title: t("edit.open"),
+      "aria-label": t("edit.open"),
+      onClick: (event) => openEditDialog(card.itemId, event.currentTarget)
+    }, `✎ ${t("edit.open")}`)
+  );
   const cardElement = h("article", { class: "card" }, children);
 
   let controls;
@@ -608,6 +617,53 @@ function closeAddDialog() {
 let dialogOpener = null;
 function onDialogKey(event) {
   if (event.key === "Escape") closeAddDialog();
+}
+
+function openEditDialog(itemId, opener) {
+  const item = state.custom.find((entry) => entry.id === itemId);
+  if (!item) return;
+  dialogOpener = opener || null;
+  const status = h("p", { class: "add-status", role: "status", "aria-live": "polite" });
+  const frInput = h("input", { type: "text", value: item.fr, "aria-label": t("vocab.frLabel"), required: true });
+  const ruInput = h("input", { type: "text", value: item.ru, lang: "ru", "aria-label": t("vocab.ruLabel"), required: true });
+  const form = h(
+    "form",
+    { class: "add-form", onSubmit: (event) => {
+      event.preventDefault();
+      const result = updateWord(state.custom, itemId, { fr: frInput.value, ru: ruInput.value });
+      if (!result.ok) {
+        status.textContent = result.reason === "duplicate" ? t("vocab.duplicate") : t("edit.empty");
+        return;
+      }
+      state.custom = result.words;
+      scheduleSave();
+      closeAddDialog();
+      render();
+    } },
+    frInput,
+    ruInput,
+    h("button", { class: "btn primary", type: "submit" }, t("edit.save"))
+  );
+  const backdrop = h(
+    "div",
+    { class: "modal-backdrop", onClick: (event) => { if (event.target === backdrop) closeAddDialog(); } },
+    h(
+      "section",
+      { class: "modal-panel add-dialog", role: "dialog", "aria-modal": "true", "aria-label": t("edit.title") },
+      h(
+        "div",
+        { class: "add-dialog-head" },
+        h("h3", {}, t("edit.title")),
+        h("button", { class: "modal-close", type: "button", "aria-label": t("add.close"), onClick: closeAddDialog }, "×")
+      ),
+      form,
+      status
+    )
+  );
+  modalRoot.replaceChildren(backdrop);
+  document.addEventListener("keydown", onDialogKey);
+  frInput.focus();
+  frInput.select();
 }
 
 function openAddDialog(opener) {

@@ -71,3 +71,30 @@ test("mergeWords skips Russian duplicates, also inside the batch", () => {
   assert.equal(result.skipped, 2);
   assert.deepEqual(result.words.map((w) => w.ru), ["да", "нет"]);
 });
+
+import { updateWord } from "../web/deck.js";
+
+const WORDS = [
+  { id: "a", ru: "привет", fr: "salut", kind: "word" },
+  { id: "b", ru: "спасибо", fr: "merci", kind: "word" }
+];
+
+test("updateWord changes both sides and keeps the id (so progress is kept)", () => {
+  const result = updateWord(WORDS, "a", { fr: " bonjour ", ru: "здравствуйте" });
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.words[0], { id: "a", ru: "здравствуйте", fr: "bonjour", kind: "word" });
+  assert.equal(result.words[1], WORDS[1]);
+  assert.equal(WORDS[0].fr, "salut");
+});
+
+test("updateWord refuses empty text, a duplicate Russian word and unknown ids", () => {
+  assert.equal(updateWord(WORDS, "a", { fr: "", ru: "x" }).reason, "empty");
+  assert.equal(updateWord(WORDS, "a", { fr: "salut", ru: "СПАСИБО" }).reason, "duplicate");
+  assert.equal(updateWord(WORDS, "zzz", { fr: "a", ru: "b" }).reason, "missing");
+});
+
+test("updateWord allows keeping the same Russian word with a new translation", () => {
+  const result = updateWord(WORDS, "a", { fr: "coucou", ru: "Привет" });
+  assert.equal(result.ok, true);
+  assert.equal(result.words[0].fr, "coucou");
+});
