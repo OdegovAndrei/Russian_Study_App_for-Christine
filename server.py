@@ -4,6 +4,7 @@ import asyncio
 import hashlib
 import json
 import os
+import re
 import socket
 import sys
 import tempfile
@@ -66,17 +67,56 @@ def cache_key(text, voice, rate):
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+class VoiceUnavailable(Exception):
+    def __init__(self, message, code="other"):
+        super().__init__(message)
+        self.code = code
+
+
+TTS_TIMEOUT_SECONDS = 20
+
+
+def classify_tts_error(error):
+    """Turns a synthesis failure into a stable code the interface can explain.
+
+    Codes: not_installed, rejected (the speech service refused us, e.g. 403),
+    network, timeout, empty, other. `detail` is short and has no URLs.
+    """
+    status = getattr(error, "status", None)
+    status = status if isinstance(status, int) else None
+    message = " ".join(str(error).split())
+    message = re.sub(r",?\s*url='[^']*'?", "", message)
+    message = re.sub(r"(wss?|https?)://\S+", "", message).strip(" ,")
+    name = type(error).__name__
+    if isinstance(error, VoiceUnavailable):
+        code = error.code if error.code != "other" else "not_installed"
+    elif isinstance(error, asyncio.TimeoutError):
+        code = "timeout"
+    elif status in (401, 403, 429):
+        code = "rejected"
+    elif isinstance(error, OSError) or "Connect" in name or "getaddrinfo" in message or "Cannot connect" in message:
+        code = "network"
+    else:
+        code = "other"
+    detail = f"{name}: {message}".strip(": ")[:240]
+    return {"code": code, "status": status, "detail": detail}
+
+
 async def synthesize(text, voice, rate):
     if edge_tts is None:
-        raise RuntimeError("edge-tts is not installed")
+        raise VoiceUnavailable("edge-tts is not installed", code="not_installed")
     percent = round_rate_percent(rate)
     communicate = edge_tts.Communicate(normalize_text(text), voice, rate=f"{percent:+d}%")
     chunks = bytearray()
-    async for chunk in communicate.stream():
-        if chunk["type"] == "audio":
-            chunks.extend(chunk["data"])
+
+    async def collect():
+        async for chunk in communicate.stream():
+            if chunk["type"] == "audio":
+                chunks.extend(chunk["data"])
+
+    await asyncio.wait_for(collect(), TTS_TIMEOUT_SECONDS)
     if not chunks:
-        raise RuntimeError("empty audio")
+        raise VoiceUnavailable("empty audio", code="empty")
     return bytes(chunks)
 
 
@@ -364,7 +404,12 @@ class Handler(SimpleHTTPRequestHandler):
             try:
                 audio = asyncio.run(synthesize(text, voice, rate))
             except Exception as error:  # network off, package missing...
-                return self.send_json(502, {"error": f"Synthèse indisponible: {error}"})
+                info = classify_tts_error(error)
+                return self.send_json(502, {
+                    "error": "Synthèse indisponible",
+                    "voice": voice,
+                    **info,
+                })
             atomic_write(path, audio)
         body = path.read_bytes()
         self.send_response(200)
@@ -404,6 +449,10 @@ def pick_port(start, attempts=10):
     """First free port in [start, start + attempts)."""
     for port in range(start, start + attempts):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+            if sys.platform != "win32":
+                # Same as the real server: a port in TIME_WAIT after a restart is usable.
+                # (On Windows this option would allow stealing a busy port, so it is skipped.)
+                probe.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             try:
                 probe.bind(("127.0.0.1", port))
             except OSError:

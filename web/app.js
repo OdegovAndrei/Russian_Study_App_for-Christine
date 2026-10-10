@@ -2,6 +2,7 @@ import { review, previewIntervals, buildReviewQueue, isNewSchedule, isDueSchedul
 import { applyStarter, cardKey, dayKey, expandCards, mergeWords, parseBulk, updateWord } from "./deck.js";
 import { buildTimingStats, buildDueBuckets, buildTimingChanges, formatTiming } from "./timing.js";
 import { loadVoices, pickVoice } from "./voices.js";
+import { classifyFailure } from "./voice-status.js";
 import { createSaver } from "./persistence.js";
 import { configureAnalytics, openReviewAnalyticsModal } from "./review-analytics.js";
 import { LANGUAGES, normalizeLanguage, translate } from "./i18n.js";
@@ -14,6 +15,7 @@ const DEFAULT_SETTINGS = {
   voice: "ru-RU-SvetlanaNeural",
   rate: 0.9,
   autoplay: true,
+  strictVoice: false,
   uiLang: "fr"
 };
 
@@ -40,6 +42,7 @@ function applyStaticText() {
     translate: t,
     locale: normalizeLanguage(state.settings.uiLang) === "en" ? "en-US" : "fr-FR"
   });
+  renderVoiceWarning();
   document.querySelectorAll(".lang-btn").forEach((button) => {
     button.classList.toggle("active", button.dataset.lang === normalizeLanguage(state.settings.uiLang));
   });
@@ -165,62 +168,156 @@ function allItems() {
 }
 
 // ---- speech --------------------------------------------------------------
+// "good" = the neural voice from the local server. Anything else is the
+// system ("default") voice and is always reported in the warning strip.
 let currentAudio = null;
-
-let fallbackVoiceUsed = false;
-let fallbackDetail = "";
+let currentAudioUrl = null;
 // Load the system voice list right away: browsers deliver it asynchronously,
 // and the first utterance would otherwise use the default (female) voice.
 const voicesReady = "speechSynthesis" in window ? loadVoices() : Promise.resolve([]);
+const voiceStatus = { mode: "unknown", reason: null, usedName: "", noGender: false, expanded: false, checking: false };
 
-async function browserSpeak(text) {
-  if (!("speechSynthesis" in window)) return;
-  const wantMale = state.settings.voice === "ru-RU-DmitryNeural";
-  const voices = await voicesReady.then(() => loadVoices());
-  const { voice, matched } = pickVoice(voices, wantMale);
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "ru-RU";
-  if (voice) utterance.voice = voice;
-  utterance.rate = state.settings.rate;
-  // No voice of the requested gender is installed: lower the pitch so the choice is still audible.
-  if (wantMale && !matched) utterance.pitch = 0.6;
-  fallbackDetail = wantMale && !matched ? t("review.noMaleVoice") : voice ? voice.name : "";
-  updateVoiceNote();
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
-}
-
-async function speak(text) {
+function stopAudio() {
   if (currentAudio) {
     currentAudio.pause();
     currentAudio = null;
   }
+  if (currentAudioUrl) {
+    URL.revokeObjectURL(currentAudioUrl);
+    currentAudioUrl = null;
+  }
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+}
+
+async function fetchNeural(text) {
   const { voice, rate } = state.settings;
   const url = `/tts?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}&rate=${rate}`;
+  let response;
   try {
-    const audio = new Audio(url);
+    response = await fetch(url);
+  } catch {
+    throw classifyFailure({ fetchFailed: true });
+  }
+  if (!response.ok) {
+    const body = await response.json().catch(() => null);
+    throw classifyFailure({ status: response.status, body, offline: !navigator.onLine });
+  }
+  return response.blob();
+}
+
+async function chooseSystemVoice() {
+  if (!("speechSynthesis" in window)) return { voice: null, matched: false };
+  const wantMale = state.settings.voice === "ru-RU-DmitryNeural";
+  const voices = await voicesReady.then(() => loadVoices());
+  return { ...pickVoice(voices, wantMale), wantMale };
+}
+
+function setVoiceStatus(patch) {
+  Object.assign(voiceStatus, patch);
+  renderVoiceWarning();
+}
+
+async function browserSpeak(text, reason) {
+  const { voice, matched, wantMale } = await chooseSystemVoice();
+  setVoiceStatus({ mode: "default", reason, usedName: voice ? voice.name : "", noGender: Boolean(wantMale && !matched) });
+  if (!voice || !("speechSynthesis" in window)) return;
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "ru-RU";
+  utterance.voice = voice;
+  utterance.rate = state.settings.rate;
+  // No voice of the requested gender is installed: lower the pitch so the choice is still audible.
+  if (wantMale && !matched) utterance.pitch = 0.6;
+  window.speechSynthesis.speak(utterance);
+}
+
+async function speak(text) {
+  stopAudio();
+  try {
+    const blob = await fetchNeural(text);
+    const audioUrl = URL.createObjectURL(blob);
+    const audio = new Audio(audioUrl);
     currentAudio = audio;
+    currentAudioUrl = audioUrl;
     await audio.play();
-    setFallbackNote(false);
+    setVoiceStatus({ mode: "good", reason: null, usedName: t(`voice.${state.settings.voice}`), noGender: false });
   } catch (error) {
-    // Autoplay blocked before any click: stay silent instead of switching to the system voice.
+    // Autoplay blocked before any click: say nothing and keep the current status.
     if (error && error.name === "NotAllowedError") return;
-    setFallbackNote(true);
-    browserSpeak(text);
+    const reason = error && error.code ? error : { code: "other", detail: String(error && error.message ? error.message : error) };
+    if (state.settings.strictVoice) {
+      setVoiceStatus({ mode: "blocked", reason, usedName: "", noGender: false });
+      return;
+    }
+    await browserSpeak(text, reason);
   }
 }
 
-function updateVoiceNote() {
-  const note = document.getElementById("voice-note");
-  if (!note) return;
-  note.hidden = !fallbackVoiceUsed;
-  note.textContent = fallbackDetail ? `${t("review.fallbackVoice")} · ${fallbackDetail}` : t("review.fallbackVoice");
+/** Checks the neural voice without playing anything, so a problem is shown before the first card. */
+async function probeVoice() {
+  if (voiceStatus.checking) return;
+  voiceStatus.checking = true;
+  renderVoiceWarning();
+  try {
+    await fetchNeural("да");
+    setVoiceStatus({ mode: "good", reason: null, usedName: t(`voice.${state.settings.voice}`), noGender: false, checking: false });
+  } catch (error) {
+    const reason = error && error.code ? error : { code: "other", detail: String(error) };
+    const { voice, matched, wantMale } = await chooseSystemVoice();
+    setVoiceStatus({
+      mode: state.settings.strictVoice ? "blocked" : "default",
+      reason,
+      usedName: state.settings.strictVoice || !voice ? "" : voice.name,
+      noGender: Boolean(wantMale && !matched),
+      checking: false
+    });
+  }
 }
 
-function setFallbackNote(used) {
-  fallbackVoiceUsed = used;
-  if (!used) fallbackDetail = "";
-  updateVoiceNote();
+const voiceWarning = document.getElementById("voice-warning");
+
+function renderVoiceWarning() {
+  const status = voiceStatus;
+  if (status.mode === "good" || status.mode === "unknown") {
+    voiceWarning.hidden = true;
+    voiceWarning.replaceChildren();
+    return;
+  }
+  const reasonCode = status.reason ? status.reason.code : "other";
+  const summary = h(
+    "div",
+    { class: "voice-warning-row" },
+    h("span", { class: "voice-warning-text" }, `⚠ ${t(status.mode === "blocked" ? "vw.blocked" : "vw.default")}`),
+    h("button", {
+      class: "voice-warning-btn",
+      type: "button",
+      "aria-expanded": String(status.expanded),
+      onClick: () => { voiceStatus.expanded = !voiceStatus.expanded; renderVoiceWarning(); }
+    }, `${t("vw.details")} ${status.expanded ? "▴" : "▾"}`),
+    h("button", { class: "voice-warning-btn", type: "button", disabled: status.checking, onClick: probeVoice }, t(status.checking ? "vw.checking" : "vw.recheck"))
+  );
+  const nodes = [summary];
+  if (status.expanded) {
+    const row = (label, value) => h("div", { class: "voice-detail-row" }, h("strong", {}, `${label} `), value);
+    const used = status.mode === "blocked"
+      ? t("vw.usedNone")
+      : status.usedName
+        ? `${status.usedName} (${t("vw.system")})`
+        : t("vw.usedNoVoice");
+    nodes.push(
+      h(
+        "div",
+        { class: "voice-warning-details" },
+        row(t("vw.requested"), t(`voice.${state.settings.voice}`)),
+        row(t("vw.used"), used),
+        row(t("vw.reason"), t(`vw.reason.${reasonCode}`)),
+        status.noGender ? row(t("vw.gender"), t("vw.noMale")) : null,
+        row(t("vw.fix"), t(`vw.fix.${reasonCode}`)),
+        status.reason && status.reason.detail ? row(t("vw.technical"), h("code", {}, status.reason.detail)) : null
+      )
+    );
+  }
+  voiceWarning.replaceChildren(...nodes);
+  voiceWarning.hidden = false;
 }
 
 // ---- review ---------------------------------------------------------------
@@ -355,8 +452,7 @@ function renderReview() {
     );
   }
   const hint = h("p", { class: "hint" }, t("review.hint"));
-  const voiceNote = h("p", { class: "hint", id: "voice-note", hidden: !fallbackVoiceUsed }, fallbackDetail ? `${t("review.fallbackVoice")} · ${fallbackDetail}` : t("review.fallbackVoice"));
-  return h("section", {}, directionBar(), timingBar(), counters, cardElement, controls, hint, voiceNote);
+  return h("section", {}, directionBar(), timingBar(), counters, cardElement, controls, hint);
 }
 
 // ---- direction, plan timing, statistics -------------------------------------
@@ -788,7 +884,7 @@ function renderSettings() {
   );
   const voice = h(
     "select",
-    { "aria-label": t("settings.voice"), onChange: (event) => update({ voice: event.target.value }) },
+    { "aria-label": t("settings.voice"), onChange: (event) => { update({ voice: event.target.value }); probeVoice(); } },
     VOICES.map((value) => h("option", { value, selected: settings.voice === value }, t(`voice.${value}`)))
   );
   const rateLabel = h("span", {}, `${settings.rate.toFixed(2)}×`);
@@ -804,6 +900,10 @@ function renderSettings() {
     type: "checkbox", checked: settings.autoplay, "aria-label": t("settings.autoplay"),
     onChange: (event) => update({ autoplay: event.target.checked })
   });
+  const strictVoice = h("input", {
+    type: "checkbox", checked: Boolean(settings.strictVoice), "aria-label": t("settings.strictVoice"),
+    onChange: (event) => { update({ strictVoice: event.target.checked }); probeVoice(); }
+  });
 
   const row = (title, note, control) =>
     h("div", { class: "setting" }, h("div", {}, h("strong", {}, title), note ? h("small", {}, note) : null), control);
@@ -817,6 +917,7 @@ function renderSettings() {
       row(t("settings.language"), t("settings.languageNote"), language),
       row(t("settings.autoplay"), t("settings.autoplayNote"), autoplay),
       row(t("settings.voice"), null, voice),
+      row(t("settings.strictVoice"), t("settings.strictVoiceNote"), strictVoice),
       row(t("settings.rate"), null, h("div", {}, rate, " ", rateLabel))
     ),
     storageSection(),
@@ -899,6 +1000,7 @@ loadAll()
   .then(() => {
     setSaveStatus("");
     render();
+    probeVoice();
   })
   .catch(() => {
     app.replaceChildren(h("p", { class: "empty" }, t("load.error")));
