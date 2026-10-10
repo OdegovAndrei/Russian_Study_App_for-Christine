@@ -1,0 +1,4412 @@
+[
+ {
+  "id": "w0001",
+  "ru": "здравствуйте / добрый день",
+  "fr": "bonjour",
+  "kind": "word"
+ },
+ {
+  "id": "w0002",
+  "ru": "спасибо",
+  "fr": "merci",
+  "kind": "word"
+ },
+ {
+  "id": "w0003",
+  "ru": "до свидания",
+  "fr": "au revoir",
+  "kind": "word"
+ },
+ {
+  "id": "w0004",
+  "ru": "меня зовут",
+  "fr": "je m'appelle",
+  "kind": "word"
+ },
+ {
+  "id": "w0005",
+  "ru": "привет",
+  "fr": "salut",
+  "kind": "word"
+ },
+ {
+  "id": "w0006",
+  "ru": "до скорого",
+  "fr": "à bientôt",
+  "kind": "word"
+ },
+ {
+  "id": "w0007",
+  "ru": "добрый вечер",
+  "fr": "bonsoir",
+  "kind": "word"
+ },
+ {
+  "id": "w0008",
+  "ru": "хорошего вечера",
+  "fr": "bonne soirée",
+  "kind": "word"
+ },
+ {
+  "id": "w0009",
+  "ru": "я являюсь / я",
+  "fr": "je suis",
+  "kind": "word"
+ },
+ {
+  "id": "w0010",
+  "ru": "русский / русская",
+  "fr": "russe",
+  "kind": "word"
+ },
+ {
+  "id": "w0011",
+  "ru": "очень приятно",
+  "fr": "enchanté",
+  "kind": "word"
+ },
+ {
+  "id": "w0012",
+  "ru": "добро пожаловать",
+  "fr": "bienvenue",
+  "kind": "word"
+ },
+ {
+  "id": "w0013",
+  "ru": "вопросительная частица",
+  "fr": "est-ce que",
+  "kind": "word"
+ },
+ {
+  "id": "w0014",
+  "ru": "говорить по-французски",
+  "fr": "parler français",
+  "kind": "word"
+ },
+ {
+  "id": "w0015",
+  "ru": "как",
+  "fr": "comment",
+  "kind": "word"
+ },
+ {
+  "id": "w0016",
+  "ru": "тебя зовут",
+  "fr": "tu t'appelles",
+  "kind": "word"
+ },
+ {
+  "id": "w0017",
+  "ru": "а ты",
+  "fr": "et toi",
+  "kind": "word"
+ },
+ {
+  "id": "w0018",
+  "ru": "я бы хотел",
+  "fr": "je voudrais",
+  "kind": "word"
+ },
+ {
+  "id": "w0019",
+  "ru": "кофе",
+  "fr": "un café",
+  "kind": "word"
+ },
+ {
+  "id": "w0020",
+  "ru": "круассан",
+  "fr": "un croissant",
+  "kind": "word"
+ },
+ {
+  "id": "w0021",
+  "ru": "чай",
+  "fr": "un thé",
+  "kind": "word"
+ },
+ {
+  "id": "w0022",
+  "ru": "вода",
+  "fr": "de l'eau",
+  "kind": "word"
+ },
+ {
+  "id": "w0023",
+  "ru": "пожалуйста",
+  "fr": "s'il vous plaît",
+  "kind": "word"
+ },
+ {
+  "id": "w0024",
+  "ru": "конечно",
+  "fr": "bien sûr",
+  "kind": "word"
+ },
+ {
+  "id": "w0025",
+  "ru": "сегодня",
+  "fr": "aujourd'hui",
+  "kind": "word"
+ },
+ {
+  "id": "w0026",
+  "ru": "у вас есть",
+  "fr": "vous avez",
+  "kind": "word"
+ },
+ {
+  "id": "w0027",
+  "ru": "хлеб",
+  "fr": "du pain",
+  "kind": "word"
+ },
+ {
+  "id": "w0028",
+  "ru": "сыр",
+  "fr": "le fromage",
+  "kind": "word"
+ },
+ {
+  "id": "w0029",
+  "ru": "сумка, пакет",
+  "fr": "un sac",
+  "kind": "word"
+ },
+ {
+  "id": "w0030",
+  "ru": "багет",
+  "fr": "une baguette",
+  "kind": "word"
+ },
+ {
+  "id": "w0031",
+  "ru": "да",
+  "fr": "oui",
+  "kind": "word"
+ },
+ {
+  "id": "w0032",
+  "ru": "вот, пожалуйста",
+  "fr": "voilà",
+  "kind": "word"
+ },
+ {
+  "id": "w0033",
+  "ru": "извините",
+  "fr": "excusez-moi",
+  "kind": "word"
+ },
+ {
+  "id": "w0034",
+  "ru": "где",
+  "fr": "où",
+  "kind": "word"
+ },
+ {
+  "id": "w0035",
+  "ru": "метро",
+  "fr": "le métro",
+  "kind": "word"
+ },
+ {
+  "id": "w0036",
+  "ru": "вокзал",
+  "fr": "la gare",
+  "kind": "word"
+ },
+ {
+  "id": "w0037",
+  "ru": "аптека",
+  "fr": "la pharmacie",
+  "kind": "word"
+ },
+ {
+  "id": "w0038",
+  "ru": "справа",
+  "fr": "à droite",
+  "kind": "word"
+ },
+ {
+  "id": "w0039",
+  "ru": "слева",
+  "fr": "à gauche",
+  "kind": "word"
+ },
+ {
+  "id": "w0040",
+  "ru": "это / это есть",
+  "fr": "c'est",
+  "kind": "word"
+ },
+ {
+  "id": "w0041",
+  "ru": "завтра",
+  "fr": "demain",
+  "kind": "word"
+ },
+ {
+  "id": "w0042",
+  "ru": "девять",
+  "fr": "neuf",
+  "kind": "word"
+ },
+ {
+  "id": "w0043",
+  "ru": "семь",
+  "fr": "sept",
+  "kind": "word"
+ },
+ {
+  "id": "w0044",
+  "ru": "десять",
+  "fr": "dix",
+  "kind": "word"
+ },
+ {
+  "id": "w0045",
+  "ru": "полдень",
+  "fr": "midi",
+  "kind": "word"
+ },
+ {
+  "id": "w0046",
+  "ru": "сегодня вечером",
+  "fr": "ce soir",
+  "kind": "word"
+ },
+ {
+  "id": "w0047",
+  "ru": "во сколько",
+  "fr": "à quelle heure",
+  "kind": "word"
+ },
+ {
+  "id": "w0048",
+  "ru": "я собираюсь приехать",
+  "fr": "je vais arriver",
+  "kind": "word"
+ },
+ {
+  "id": "w0049",
+  "ru": "отлично",
+  "fr": "parfait",
+  "kind": "word"
+ },
+ {
+  "id": "w0050",
+  "ru": "увидеться",
+  "fr": "se voir",
+  "kind": "word"
+ },
+ {
+  "id": "w0051",
+  "ru": "идти, ехать",
+  "fr": "aller",
+  "kind": "word"
+ },
+ {
+  "id": "w0052",
+  "ru": "работать, заниматься",
+  "fr": "travailler",
+  "kind": "word"
+ },
+ {
+  "id": "w0053",
+  "ru": "уезжать, уходить",
+  "fr": "partir",
+  "kind": "word"
+ },
+ {
+  "id": "w0054",
+  "ru": "учиться, изучать",
+  "fr": "étudier",
+  "kind": "word"
+ },
+ {
+  "id": "w0055",
+  "ru": "мне нужно",
+  "fr": "j'ai besoin de",
+  "kind": "word"
+ },
+ {
+  "id": "w0056",
+  "ru": "помощь",
+  "fr": "l'aide",
+  "kind": "word"
+ },
+ {
+  "id": "w0057",
+  "ru": "я не понимаю",
+  "fr": "je ne comprends pas",
+  "kind": "word"
+ },
+ {
+  "id": "w0058",
+  "ru": "проблема",
+  "fr": "un problème",
+  "kind": "word"
+ },
+ {
+  "id": "w0059",
+  "ru": "карта",
+  "fr": "une carte",
+  "kind": "word"
+ },
+ {
+  "id": "w0060",
+  "ru": "информация, сведения",
+  "fr": "des informations",
+  "kind": "word"
+ },
+ {
+  "id": "w0061",
+  "ru": "ноль",
+  "fr": "zéro",
+  "kind": "word"
+ },
+ {
+  "id": "w0062",
+  "ru": "один",
+  "fr": "un",
+  "kind": "word"
+ },
+ {
+  "id": "w0063",
+  "ru": "два",
+  "fr": "deux",
+  "kind": "word"
+ },
+ {
+  "id": "w0064",
+  "ru": "три",
+  "fr": "trois",
+  "kind": "word"
+ },
+ {
+  "id": "w0065",
+  "ru": "четыре",
+  "fr": "quatre",
+  "kind": "word"
+ },
+ {
+  "id": "w0066",
+  "ru": "пять",
+  "fr": "cinq",
+  "kind": "word"
+ },
+ {
+  "id": "w0067",
+  "ru": "шесть",
+  "fr": "six",
+  "kind": "word"
+ },
+ {
+  "id": "w0068",
+  "ru": "восемь",
+  "fr": "huit",
+  "kind": "word"
+ },
+ {
+  "id": "w0069",
+  "ru": "одиннадцать",
+  "fr": "onze",
+  "kind": "word"
+ },
+ {
+  "id": "w0070",
+  "ru": "двенадцать",
+  "fr": "douze",
+  "kind": "word"
+ },
+ {
+  "id": "w0071",
+  "ru": "тринадцать",
+  "fr": "treize",
+  "kind": "word"
+ },
+ {
+  "id": "w0072",
+  "ru": "четырнадцать",
+  "fr": "quatorze",
+  "kind": "word"
+ },
+ {
+  "id": "w0073",
+  "ru": "пятнадцать",
+  "fr": "quinze",
+  "kind": "word"
+ },
+ {
+  "id": "w0074",
+  "ru": "шестнадцать",
+  "fr": "seize",
+  "kind": "word"
+ },
+ {
+  "id": "w0075",
+  "ru": "семнадцать",
+  "fr": "dix-sept",
+  "kind": "word"
+ },
+ {
+  "id": "w0076",
+  "ru": "восемнадцать",
+  "fr": "dix-huit",
+  "kind": "word"
+ },
+ {
+  "id": "w0077",
+  "ru": "девятнадцать",
+  "fr": "dix-neuf",
+  "kind": "word"
+ },
+ {
+  "id": "w0078",
+  "ru": "двадцать",
+  "fr": "vingt",
+  "kind": "word"
+ },
+ {
+  "id": "w0079",
+  "ru": "сколько",
+  "fr": "combien",
+  "kind": "word"
+ },
+ {
+  "id": "w0080",
+  "ru": "зал, аудитория",
+  "fr": "la salle",
+  "kind": "word"
+ },
+ {
+  "id": "w0081",
+  "ru": "есть, имеется",
+  "fr": "il y a",
+  "kind": "word"
+ },
+ {
+  "id": "w0082",
+  "ru": "ученик, студент",
+  "fr": "un élève",
+  "kind": "word"
+ },
+ {
+  "id": "w0083",
+  "ru": "класс, группа",
+  "fr": "une classe",
+  "kind": "word"
+ },
+ {
+  "id": "w0084",
+  "ru": "стул",
+  "fr": "une chaise",
+  "kind": "word"
+ },
+ {
+  "id": "w0085",
+  "ru": "все",
+  "fr": "tout le monde",
+  "kind": "word"
+ },
+ {
+  "id": "w0086",
+  "ru": "человек",
+  "fr": "une personne",
+  "kind": "word"
+ },
+ {
+  "id": "w0087",
+  "ru": "тридцать",
+  "fr": "trente",
+  "kind": "word"
+ },
+ {
+  "id": "w0088",
+  "ru": "сорок",
+  "fr": "quarante",
+  "kind": "word"
+ },
+ {
+  "id": "w0089",
+  "ru": "пятьдесят",
+  "fr": "cinquante",
+  "kind": "word"
+ },
+ {
+  "id": "w0090",
+  "ru": "шестьдесят",
+  "fr": "soixante",
+  "kind": "word"
+ },
+ {
+  "id": "w0091",
+  "ru": "семьдесят",
+  "fr": "soixante-dix",
+  "kind": "word"
+ },
+ {
+  "id": "w0092",
+  "ru": "восемьдесят",
+  "fr": "quatre-vingts",
+  "kind": "word"
+ },
+ {
+  "id": "w0093",
+  "ru": "девяносто",
+  "fr": "quatre-vingt-dix",
+  "kind": "word"
+ },
+ {
+  "id": "w0094",
+  "ru": "двадцать один",
+  "fr": "vingt et un",
+  "kind": "word"
+ },
+ {
+  "id": "w0095",
+  "ru": "семьдесят один",
+  "fr": "soixante et onze",
+  "kind": "word"
+ },
+ {
+  "id": "w0096",
+  "ru": "восемьдесят один",
+  "fr": "quatre-vingt-un",
+  "kind": "word"
+ },
+ {
+  "id": "w0097",
+  "ru": "девяносто один",
+  "fr": "quatre-vingt-onze",
+  "kind": "word"
+ },
+ {
+  "id": "w0098",
+  "ru": "сто",
+  "fr": "cent",
+  "kind": "word"
+ },
+ {
+  "id": "w0099",
+  "ru": "один евро",
+  "fr": "un euro",
+  "kind": "word"
+ },
+ {
+  "id": "w0100",
+  "ru": "тогда, значит",
+  "fr": "alors",
+  "kind": "word"
+ },
+ {
+  "id": "w0101",
+  "ru": "получается, выходит",
+  "fr": "ça fait",
+  "kind": "word"
+ },
+ {
+  "id": "w0102",
+  "ru": "всего",
+  "fr": "en tout",
+  "kind": "word"
+ },
+ {
+  "id": "w0103",
+  "ru": "ждать",
+  "fr": "attendre",
+  "kind": "word"
+ },
+ {
+  "id": "w0104",
+  "ru": "скидка",
+  "fr": "une réduction",
+  "kind": "word"
+ },
+ {
+  "id": "w0105",
+  "ru": "сто один",
+  "fr": "cent un",
+  "kind": "word"
+ },
+ {
+  "id": "w0106",
+  "ru": "двести",
+  "fr": "deux cents",
+  "kind": "word"
+ },
+ {
+  "id": "w0107",
+  "ru": "двести три",
+  "fr": "deux cent trois",
+  "kind": "word"
+ },
+ {
+  "id": "w0108",
+  "ru": "тысяча",
+  "fr": "mille",
+  "kind": "word"
+ },
+ {
+  "id": "w0109",
+  "ru": "десять тысяч",
+  "fr": "dix mille",
+  "kind": "word"
+ },
+ {
+  "id": "w0110",
+  "ru": "сто тысяч",
+  "fr": "cent mille",
+  "kind": "word"
+ },
+ {
+  "id": "w0111",
+  "ru": "миллион",
+  "fr": "un million",
+  "kind": "word"
+ },
+ {
+  "id": "w0112",
+  "ru": "два миллиона",
+  "fr": "deux millions",
+  "kind": "word"
+ },
+ {
+  "id": "w0113",
+  "ru": "миллиард",
+  "fr": "un milliard",
+  "kind": "word"
+ },
+ {
+  "id": "w0114",
+  "ru": "около, примерно",
+  "fr": "environ",
+  "kind": "word"
+ },
+ {
+  "id": "w0115",
+  "ru": "город",
+  "fr": "une ville",
+  "kind": "word"
+ },
+ {
+  "id": "w0116",
+  "ru": "житель",
+  "fr": "un habitant",
+  "kind": "word"
+ },
+ {
+  "id": "w0117",
+  "ru": "регион",
+  "fr": "une région",
+  "kind": "word"
+ },
+ {
+  "id": "w0118",
+  "ru": "парижский / парижская",
+  "fr": "parisien / parisienne",
+  "kind": "word"
+ },
+ {
+  "id": "w0119",
+  "ru": "насчитывать",
+  "fr": "compter",
+  "kind": "word"
+ },
+ {
+  "id": "w0120",
+  "ru": "вокруг",
+  "fr": "autour",
+  "kind": "word"
+ },
+ {
+  "id": "w0121",
+  "ru": "почти",
+  "fr": "presque",
+  "kind": "word"
+ },
+ {
+  "id": "w0122",
+  "ru": "здание",
+  "fr": "un bâtiment",
+  "kind": "word"
+ },
+ {
+  "id": "w0123",
+  "ru": "доллар",
+  "fr": "un dollar",
+  "kind": "word"
+ },
+ {
+  "id": "w0124",
+  "ru": "первый / первая",
+  "fr": "premier / première",
+  "kind": "word"
+ },
+ {
+  "id": "w0125",
+  "ru": "второй / вторая",
+  "fr": "deuxième",
+  "kind": "word"
+ },
+ {
+  "id": "w0126",
+  "ru": "третий / третья",
+  "fr": "troisième",
+  "kind": "word"
+ },
+ {
+  "id": "w0127",
+  "ru": "четвёртый / четвёртая",
+  "fr": "quatrième",
+  "kind": "word"
+ },
+ {
+  "id": "w0128",
+  "ru": "пятый / пятая",
+  "fr": "cinquième",
+  "kind": "word"
+ },
+ {
+  "id": "w0129",
+  "ru": "шестой / шестая",
+  "fr": "sixième",
+  "kind": "word"
+ },
+ {
+  "id": "w0130",
+  "ru": "седьмой / седьмая",
+  "fr": "septième",
+  "kind": "word"
+ },
+ {
+  "id": "w0131",
+  "ru": "восьмой / восьмая",
+  "fr": "huitième",
+  "kind": "word"
+ },
+ {
+  "id": "w0132",
+  "ru": "девятый / девятая",
+  "fr": "neuvième",
+  "kind": "word"
+ },
+ {
+  "id": "w0133",
+  "ru": "десятый / десятая",
+  "fr": "dixième",
+  "kind": "word"
+ },
+ {
+  "id": "w0134",
+  "ru": "это стоит",
+  "fr": "ça coûte",
+  "kind": "word"
+ },
+ {
+  "id": "w0135",
+  "ru": "платить картой",
+  "fr": "payer par carte",
+  "kind": "word"
+ },
+ {
+  "id": "w0136",
+  "ru": "меню",
+  "fr": "le menu",
+  "kind": "word"
+ },
+ {
+  "id": "w0137",
+  "ru": "утро, утром",
+  "fr": "le matin",
+  "kind": "word"
+ },
+ {
+  "id": "w0138",
+  "ru": "магазин",
+  "fr": "le magasin",
+  "kind": "word"
+ },
+ {
+  "id": "w0139",
+  "ru": "открыт",
+  "fr": "ouvert",
+  "kind": "word"
+ },
+ {
+  "id": "w0140",
+  "ru": "закрыт",
+  "fr": "fermé",
+  "kind": "word"
+ },
+ {
+  "id": "w0141",
+  "ru": "с девяти часов до полудня",
+  "fr": "de neuf heures à midi",
+  "kind": "word"
+ },
+ {
+  "id": "w0142",
+  "ru": "после полудня",
+  "fr": "l'après-midi",
+  "kind": "word"
+ },
+ {
+  "id": "w0143",
+  "ru": "ситуация",
+  "fr": "une situation",
+  "kind": "word"
+ },
+ {
+  "id": "w0144",
+  "ru": "резюмировать / кратко пересказать",
+  "fr": "résumer",
+  "kind": "word"
+ },
+ {
+  "id": "w0145",
+  "ru": "сначала",
+  "fr": "d'abord",
+  "kind": "word"
+ },
+ {
+  "id": "w0146",
+  "ru": "затем",
+  "fr": "ensuite",
+  "kind": "word"
+ },
+ {
+  "id": "w0147",
+  "ru": "фамилия/имя",
+  "fr": "le nom",
+  "kind": "word"
+ },
+ {
+  "id": "w0148",
+  "ru": "страна",
+  "fr": "le pays",
+  "kind": "word"
+ },
+ {
+  "id": "w0149",
+  "ru": "язык",
+  "fr": "la langue",
+  "kind": "word"
+ },
+ {
+  "id": "w0150",
+  "ru": "русский/русская",
+  "fr": "russe",
+  "kind": "word"
+ },
+ {
+  "id": "w0151",
+  "ru": "французский/французская",
+  "fr": "français / française",
+  "kind": "word"
+ },
+ {
+  "id": "w0152",
+  "ru": "немного",
+  "fr": "un peu",
+  "kind": "word"
+ },
+ {
+  "id": "w0153",
+  "ru": "говорить",
+  "fr": "parler",
+  "kind": "word"
+ },
+ {
+  "id": "w0154",
+  "ru": "имя",
+  "fr": "le prénom",
+  "kind": "word"
+ },
+ {
+  "id": "w0155",
+  "ru": "ваш, ваша",
+  "fr": "votre",
+  "kind": "word"
+ },
+ {
+  "id": "w0156",
+  "ru": "бланк регистрации",
+  "fr": "une fiche d'inscription",
+  "kind": "word"
+ },
+ {
+  "id": "w0157",
+  "ru": "итальянский / итальянская",
+  "fr": "italien / italienne",
+  "kind": "word"
+ },
+ {
+  "id": "w0158",
+  "ru": "год (возраст)",
+  "fr": "un an / des ans",
+  "kind": "word"
+ },
+ {
+  "id": "w0159",
+  "ru": "мне ... лет",
+  "fr": "j'ai ... ans",
+  "kind": "word"
+ },
+ {
+  "id": "w0160",
+  "ru": "жить в (городе)",
+  "fr": "habiter à",
+  "kind": "word"
+ },
+ {
+  "id": "w0161",
+  "ru": "закрываться/закрывать",
+  "fr": "fermer",
+  "kind": "word"
+ },
+ {
+  "id": "w0162",
+  "ru": "каждый день",
+  "fr": "tous les jours",
+  "kind": "word"
+ },
+ {
+  "id": "w0163",
+  "ru": "кроме",
+  "fr": "sauf",
+  "kind": "word"
+ },
+ {
+  "id": "w0164",
+  "ru": "понедельник",
+  "fr": "lundi",
+  "kind": "word"
+ },
+ {
+  "id": "w0165",
+  "ru": "вторник",
+  "fr": "mardi",
+  "kind": "word"
+ },
+ {
+  "id": "w0166",
+  "ru": "среда",
+  "fr": "mercredi",
+  "kind": "word"
+ },
+ {
+  "id": "w0167",
+  "ru": "четверг",
+  "fr": "jeudi",
+  "kind": "word"
+ },
+ {
+  "id": "w0168",
+  "ru": "пятница",
+  "fr": "vendredi",
+  "kind": "word"
+ },
+ {
+  "id": "w0169",
+  "ru": "суббота",
+  "fr": "samedi",
+  "kind": "word"
+ },
+ {
+  "id": "w0170",
+  "ru": "воскресенье",
+  "fr": "dimanche",
+  "kind": "word"
+ },
+ {
+  "id": "w0171",
+  "ru": "подожди",
+  "fr": "attends",
+  "kind": "word"
+ },
+ {
+  "id": "w0172",
+  "ru": "я смотрю",
+  "fr": "je regarde",
+  "kind": "word"
+ },
+ {
+  "id": "w0173",
+  "ru": "девятнадцать часов",
+  "fr": "dix-neuf heures",
+  "kind": "word"
+ },
+ {
+  "id": "w0174",
+  "ru": "знать, уметь",
+  "fr": "savoir",
+  "kind": "word"
+ },
+ {
+  "id": "w0175",
+  "ru": "центр",
+  "fr": "le centre",
+  "kind": "word"
+ },
+ {
+  "id": "w0176",
+  "ru": "закрытие",
+  "fr": "une fermeture",
+  "kind": "word"
+ },
+ {
+  "id": "w0177",
+  "ru": "вставать",
+  "fr": "se lever",
+  "kind": "word"
+ },
+ {
+  "id": "w0178",
+  "ru": "ложиться спать",
+  "fr": "se coucher",
+  "kind": "word"
+ },
+ {
+  "id": "w0179",
+  "ru": "ужинать",
+  "fr": "dîner",
+  "kind": "word"
+ },
+ {
+  "id": "w0180",
+  "ru": "вечер",
+  "fr": "le soir",
+  "kind": "word"
+ },
+ {
+  "id": "w0181",
+  "ru": "завтракать",
+  "fr": "prendre le petit-déjeuner",
+  "kind": "word"
+ },
+ {
+  "id": "w0182",
+  "ru": "возвращаться домой",
+  "fr": "rentrer",
+  "kind": "word"
+ },
+ {
+  "id": "w0183",
+  "ru": "свободен/свободна",
+  "fr": "libre",
+  "kind": "word"
+ },
+ {
+  "id": "w0184",
+  "ru": "занят/занята",
+  "fr": "occupé / occupée",
+  "kind": "word"
+ },
+ {
+  "id": "w0185",
+  "ru": "следующий / следующая",
+  "fr": "prochain / prochaine",
+  "kind": "word"
+ },
+ {
+  "id": "w0186",
+  "ru": "нет",
+  "fr": "non",
+  "kind": "word"
+ },
+ {
+  "id": "w0187",
+  "ru": "хорошо, договорились",
+  "fr": "d'accord",
+  "kind": "word"
+ },
+ {
+  "id": "w0188",
+  "ru": "яблоко",
+  "fr": "une pomme",
+  "kind": "word"
+ },
+ {
+  "id": "w0189",
+  "ru": "молоко",
+  "fr": "le lait",
+  "kind": "word"
+ },
+ {
+  "id": "w0190",
+  "ru": "килограмм (чего-то)",
+  "fr": "un kilo de",
+  "kind": "word"
+ },
+ {
+  "id": "w0191",
+  "ru": "бутылка (чего-то)",
+  "fr": "une bouteille de",
+  "kind": "word"
+ },
+ {
+  "id": "w0192",
+  "ru": "что-то ещё",
+  "fr": "autre chose",
+  "kind": "word"
+ },
+ {
+  "id": "w0193",
+  "ru": "список покупок",
+  "fr": "une liste de courses",
+  "kind": "word"
+ },
+ {
+  "id": "w0194",
+  "ru": "холодно",
+  "fr": "il fait froid",
+  "kind": "word"
+ },
+ {
+  "id": "w0195",
+  "ru": "хорошая погода",
+  "fr": "il fait beau",
+  "kind": "word"
+ },
+ {
+  "id": "w0196",
+  "ru": "жарко",
+  "fr": "il fait chaud",
+  "kind": "word"
+ },
+ {
+  "id": "w0197",
+  "ru": "идёт дождь",
+  "fr": "il pleut",
+  "kind": "word"
+ },
+ {
+  "id": "w0198",
+  "ru": "пальто",
+  "fr": "un manteau",
+  "kind": "word"
+ },
+ {
+  "id": "w0199",
+  "ru": "обувь",
+  "fr": "des chaussures",
+  "kind": "word"
+ },
+ {
+  "id": "w0200",
+  "ru": "брюки",
+  "fr": "un pantalon",
+  "kind": "word"
+ },
+ {
+  "id": "w0201",
+  "ru": "платье",
+  "fr": "une robe",
+  "kind": "word"
+ },
+ {
+  "id": "w0202",
+  "ru": "надевать",
+  "fr": "mettre",
+  "kind": "word"
+ },
+ {
+  "id": "w0203",
+  "ru": "зонт",
+  "fr": "le parapluie",
+  "kind": "word"
+ },
+ {
+  "id": "w0204",
+  "ru": "солнце",
+  "fr": "le soleil",
+  "kind": "word"
+ },
+ {
+  "id": "w0205",
+  "ru": "отец",
+  "fr": "le père",
+  "kind": "word"
+ },
+ {
+  "id": "w0206",
+  "ru": "мать",
+  "fr": "la mère",
+  "kind": "word"
+ },
+ {
+  "id": "w0207",
+  "ru": "брат",
+  "fr": "le frère",
+  "kind": "word"
+ },
+ {
+  "id": "w0208",
+  "ru": "сестра",
+  "fr": "la sœur",
+  "kind": "word"
+ },
+ {
+  "id": "w0209",
+  "ru": "родители",
+  "fr": "les parents",
+  "kind": "word"
+ },
+ {
+  "id": "w0210",
+  "ru": "дети",
+  "fr": "les enfants",
+  "kind": "word"
+ },
+ {
+  "id": "w0211",
+  "ru": "квартира",
+  "fr": "un appartement",
+  "kind": "word"
+ },
+ {
+  "id": "w0212",
+  "ru": "дом",
+  "fr": "une maison",
+  "kind": "word"
+ },
+ {
+  "id": "w0213",
+  "ru": "комната/спальня",
+  "fr": "la chambre",
+  "kind": "word"
+ },
+ {
+  "id": "w0214",
+  "ru": "жить в (помещении)",
+  "fr": "habiter dans",
+  "kind": "word"
+ },
+ {
+  "id": "w0215",
+  "ru": "вот",
+  "fr": "voici",
+  "kind": "word"
+ },
+ {
+  "id": "w0216",
+  "ru": "фотография",
+  "fr": "une photo",
+  "kind": "word"
+ },
+ {
+  "id": "w0217",
+  "ru": "семья",
+  "fr": "une famille",
+  "kind": "word"
+ },
+ {
+  "id": "w0218",
+  "ru": "высокий/высокая, большой/большая",
+  "fr": "grand / grande",
+  "kind": "word"
+ },
+ {
+  "id": "w0219",
+  "ru": "маленький/маленькая",
+  "fr": "petit / petite",
+  "kind": "word"
+ },
+ {
+  "id": "w0220",
+  "ru": "приятный, симпатичный",
+  "fr": "sympathique",
+  "kind": "word"
+ },
+ {
+  "id": "w0221",
+  "ru": "добрый/добрая",
+  "fr": "gentil / gentille",
+  "kind": "word"
+ },
+ {
+  "id": "w0222",
+  "ru": "довольный/довольная",
+  "fr": "content / contente",
+  "kind": "word"
+ },
+ {
+  "id": "w0223",
+  "ru": "уставший/уставшая",
+  "fr": "fatigué / fatiguée",
+  "kind": "word"
+ },
+ {
+  "id": "w0224",
+  "ru": "молодой/молодая",
+  "fr": "jeune",
+  "kind": "word"
+ },
+ {
+  "id": "w0225",
+  "ru": "старый/старая",
+  "fr": "vieux / vieille",
+  "kind": "word"
+ },
+ {
+  "id": "w0226",
+  "ru": "красивый/красивая",
+  "fr": "beau / belle",
+  "kind": "word"
+ },
+ {
+  "id": "w0227",
+  "ru": "очень",
+  "fr": "très",
+  "kind": "word"
+ },
+ {
+  "id": "w0228",
+  "ru": "перерыв",
+  "fr": "une pause",
+  "kind": "word"
+ },
+ {
+  "id": "w0229",
+  "ru": "офис, кабинет",
+  "fr": "le bureau",
+  "kind": "word"
+ },
+ {
+  "id": "w0230",
+  "ru": "рядом с",
+  "fr": "près de",
+  "kind": "word"
+ },
+ {
+  "id": "w0231",
+  "ru": "неделя",
+  "fr": "la semaine",
+  "kind": "word"
+ },
+ {
+  "id": "w0232",
+  "ru": "обычно",
+  "fr": "d'habitude",
+  "kind": "word"
+ },
+ {
+  "id": "w0233",
+  "ru": "недорогой",
+  "fr": "pas cher",
+  "kind": "word"
+ },
+ {
+  "id": "w0234",
+  "ru": "симпатичный, классный",
+  "fr": "sympa",
+  "kind": "word"
+ },
+ {
+  "id": "w0235",
+  "ru": "произноситься по буквам",
+  "fr": "s'épeler",
+  "kind": "word"
+ },
+ {
+  "id": "w0236",
+  "ru": "это пишется",
+  "fr": "ça s'écrit",
+  "kind": "word"
+ },
+ {
+  "id": "w0237",
+  "ru": "номер",
+  "fr": "le numéro",
+  "kind": "word"
+ },
+ {
+  "id": "w0238",
+  "ru": "телефон",
+  "fr": "le téléphone",
+  "kind": "word"
+ },
+ {
+  "id": "w0239",
+  "ru": "позвонить кому-то",
+  "fr": "appeler quelqu'un",
+  "kind": "word"
+ },
+ {
+  "id": "w0240",
+  "ru": "email-адрес",
+  "fr": "une adresse email",
+  "kind": "word"
+ },
+ {
+  "id": "w0241",
+  "ru": "месяц",
+  "fr": "le mois",
+  "kind": "word"
+ },
+ {
+  "id": "w0242",
+  "ru": "январь",
+  "fr": "janvier",
+  "kind": "word"
+ },
+ {
+  "id": "w0243",
+  "ru": "февраль",
+  "fr": "février",
+  "kind": "word"
+ },
+ {
+  "id": "w0244",
+  "ru": "март",
+  "fr": "mars",
+  "kind": "word"
+ },
+ {
+  "id": "w0245",
+  "ru": "апрель",
+  "fr": "avril",
+  "kind": "word"
+ },
+ {
+  "id": "w0246",
+  "ru": "май",
+  "fr": "mai",
+  "kind": "word"
+ },
+ {
+  "id": "w0247",
+  "ru": "июнь",
+  "fr": "juin",
+  "kind": "word"
+ },
+ {
+  "id": "w0248",
+  "ru": "июль",
+  "fr": "juillet",
+  "kind": "word"
+ },
+ {
+  "id": "w0249",
+  "ru": "август",
+  "fr": "août",
+  "kind": "word"
+ },
+ {
+  "id": "w0250",
+  "ru": "сентябрь",
+  "fr": "septembre",
+  "kind": "word"
+ },
+ {
+  "id": "w0251",
+  "ru": "октябрь",
+  "fr": "octobre",
+  "kind": "word"
+ },
+ {
+  "id": "w0252",
+  "ru": "ноябрь",
+  "fr": "novembre",
+  "kind": "word"
+ },
+ {
+  "id": "w0253",
+  "ru": "декабрь",
+  "fr": "décembre",
+  "kind": "word"
+ },
+ {
+  "id": "w0254",
+  "ru": "дата",
+  "fr": "la date",
+  "kind": "word"
+ },
+ {
+  "id": "w0255",
+  "ru": "задание",
+  "fr": "le devoir",
+  "kind": "word"
+ },
+ {
+  "id": "w0256",
+  "ru": "к понедельнику",
+  "fr": "pour lundi",
+  "kind": "word"
+ },
+ {
+  "id": "w0257",
+  "ru": "занятие, курс",
+  "fr": "le cours",
+  "kind": "word"
+ },
+ {
+  "id": "w0258",
+  "ru": "начинаться",
+  "fr": "commencer",
+  "kind": "word"
+ },
+ {
+  "id": "w0259",
+  "ru": "этаж",
+  "fr": "un étage",
+  "kind": "word"
+ },
+ {
+  "id": "w0260",
+  "ru": "библиотека",
+  "fr": "la bibliothèque",
+  "kind": "word"
+ },
+ {
+  "id": "w0261",
+  "ru": "деканат, секретариат",
+  "fr": "le secrétariat",
+  "kind": "word"
+ },
+ {
+  "id": "w0262",
+  "ru": "после",
+  "fr": "après",
+  "kind": "word"
+ },
+ {
+  "id": "w0263",
+  "ru": "с опозданием",
+  "fr": "en retard",
+  "kind": "word"
+ },
+ {
+  "id": "w0264",
+  "ru": "записываться",
+  "fr": "s'inscrire",
+  "kind": "word"
+ },
+ {
+  "id": "w0265",
+  "ru": "комната",
+  "fr": "une chambre",
+  "kind": "word"
+ },
+ {
+  "id": "w0266",
+  "ru": "аренда",
+  "fr": "le loyer",
+  "kind": "word"
+ },
+ {
+  "id": "w0267",
+  "ru": "свободный",
+  "fr": "libre",
+  "kind": "word"
+ },
+ {
+  "id": "w0268",
+  "ru": "начиная с",
+  "fr": "à partir de",
+  "kind": "word"
+ },
+ {
+  "id": "w0269",
+  "ru": "общежитие, резиденция",
+  "fr": "la résidence",
+  "kind": "word"
+ },
+ {
+  "id": "w0270",
+  "ru": "искать",
+  "fr": "chercher",
+  "kind": "word"
+ },
+ {
+  "id": "w0271",
+  "ru": "студент / студентка",
+  "fr": "étudiant / étudiante",
+  "kind": "word"
+ },
+ {
+  "id": "w0272",
+  "ru": "сосед по квартире",
+  "fr": "le colocataire",
+  "kind": "word"
+ },
+ {
+  "id": "w0273",
+  "ru": "окно",
+  "fr": "la fenêtre",
+  "kind": "word"
+ },
+ {
+  "id": "w0274",
+  "ru": "кухня",
+  "fr": "la cuisine",
+  "kind": "word"
+ },
+ {
+  "id": "w0275",
+  "ru": "закрывать",
+  "fr": "fermer",
+  "kind": "word"
+ },
+ {
+  "id": "w0276",
+  "ru": "мочь",
+  "fr": "pouvoir",
+  "kind": "word"
+ },
+ {
+  "id": "w0277",
+  "ru": "билет",
+  "fr": "un billet",
+  "kind": "word"
+ },
+ {
+  "id": "w0278",
+  "ru": "пересадка",
+  "fr": "la correspondance",
+  "kind": "word"
+ },
+ {
+  "id": "w0279",
+  "ru": "платформа",
+  "fr": "le quai",
+  "kind": "word"
+ },
+ {
+  "id": "w0280",
+  "ru": "отправление",
+  "fr": "le départ",
+  "kind": "word"
+ },
+ {
+  "id": "w0281",
+  "ru": "брать, садиться на транспорт",
+  "fr": "prendre",
+  "kind": "word"
+ },
+ {
+  "id": "w0282",
+  "ru": "трамвай",
+  "fr": "le tram",
+  "kind": "word"
+ },
+ {
+  "id": "w0283",
+  "ru": "пересаживаться, менять",
+  "fr": "changer",
+  "kind": "word"
+ },
+ {
+  "id": "w0284",
+  "ru": "поезд",
+  "fr": "le train",
+  "kind": "word"
+ },
+ {
+  "id": "w0285",
+  "ru": "болит",
+  "fr": "avoir mal à",
+  "kind": "word"
+ },
+ {
+  "id": "w0286",
+  "ru": "голова",
+  "fr": "la tête",
+  "kind": "word"
+ },
+ {
+  "id": "w0287",
+  "ru": "врач",
+  "fr": "le médecin",
+  "kind": "word"
+ },
+ {
+  "id": "w0288",
+  "ru": "быть должным, нужно",
+  "fr": "devoir",
+  "kind": "word"
+ },
+ {
+  "id": "w0289",
+  "ru": "видеть, обратиться к",
+  "fr": "voir",
+  "kind": "word"
+ },
+ {
+  "id": "w0290",
+  "ru": "университетский",
+  "fr": "universitaire",
+  "kind": "word"
+ },
+ {
+  "id": "w0291",
+  "ru": "печатать",
+  "fr": "imprimer",
+  "kind": "word"
+ },
+ {
+  "id": "w0292",
+  "ru": "документ",
+  "fr": "un document",
+  "kind": "word"
+ },
+ {
+  "id": "w0293",
+  "ru": "студенческий билет",
+  "fr": "la carte étudiante",
+  "kind": "word"
+ },
+ {
+  "id": "w0294",
+  "ru": "аппарат",
+  "fr": "la machine",
+  "kind": "word"
+ },
+ {
+  "id": "w0295",
+  "ru": "здесь",
+  "fr": "ici",
+  "kind": "word"
+ },
+ {
+  "id": "w0296",
+  "ru": "вход",
+  "fr": "une entrée",
+  "kind": "word"
+ },
+ {
+  "id": "w0297",
+  "ru": "печать, распечатка",
+  "fr": "une impression",
+  "kind": "word"
+ },
+ {
+  "id": "w0298",
+  "ru": "использовать",
+  "fr": "utiliser",
+  "kind": "word"
+ },
+ {
+  "id": "w0299",
+  "ru": "столовая",
+  "fr": "la cafétéria",
+  "kind": "word"
+ },
+ {
+  "id": "w0300",
+  "ru": "студенческое меню",
+  "fr": "le menu étudiant",
+  "kind": "word"
+ },
+ {
+  "id": "w0301",
+  "ru": "предпочитать",
+  "fr": "préférer",
+  "kind": "word"
+ },
+ {
+  "id": "w0302",
+  "ru": "потому что",
+  "fr": "parce que",
+  "kind": "word"
+ },
+ {
+  "id": "w0303",
+  "ru": "что",
+  "fr": "quoi",
+  "kind": "word"
+ },
+ {
+  "id": "w0304",
+  "ru": "сэндвич",
+  "fr": "un sandwich",
+  "kind": "word"
+ },
+ {
+  "id": "w0305",
+  "ru": "заниматься спортом",
+  "fr": "faire du sport",
+  "kind": "word"
+ },
+ {
+  "id": "w0306",
+  "ru": "делать, заниматься",
+  "fr": "faire",
+  "kind": "word"
+ },
+ {
+  "id": "w0307",
+  "ru": "спорт",
+  "fr": "le sport",
+  "kind": "word"
+ },
+ {
+  "id": "w0308",
+  "ru": "слушать музыку",
+  "fr": "écouter de la musique",
+  "kind": "word"
+ },
+ {
+  "id": "w0309",
+  "ru": "слушать",
+  "fr": "écouter",
+  "kind": "word"
+ },
+ {
+  "id": "w0310",
+  "ru": "музыка",
+  "fr": "la musique",
+  "kind": "word"
+ },
+ {
+  "id": "w0311",
+  "ru": "кино",
+  "fr": "le cinéma",
+  "kind": "word"
+ },
+ {
+  "id": "w0312",
+  "ru": "любить, нравиться",
+  "fr": "aimer",
+  "kind": "word"
+ },
+ {
+  "id": "w0313",
+  "ru": "спокойный, тихий",
+  "fr": "calme",
+  "kind": "word"
+ },
+ {
+  "id": "w0314",
+  "ru": "приглашать",
+  "fr": "inviter",
+  "kind": "word"
+ },
+ {
+  "id": "w0315",
+  "ru": "извини",
+  "fr": "désolé",
+  "kind": "word"
+ },
+ {
+  "id": "w0316",
+  "ru": "я не могу",
+  "fr": "je ne peux pas",
+  "kind": "word"
+ },
+ {
+  "id": "w0317",
+  "ru": "хотеть",
+  "fr": "vouloir",
+  "kind": "word"
+ },
+ {
+  "id": "w0318",
+  "ru": "в другой раз",
+  "fr": "une autre fois",
+  "kind": "word"
+ },
+ {
+  "id": "w0319",
+  "ru": "другой, другая",
+  "fr": "autre",
+  "kind": "word"
+ },
+ {
+  "id": "w0320",
+  "ru": "раз, однажды",
+  "fr": "une fois",
+  "kind": "word"
+ },
+ {
+  "id": "w0321",
+  "ru": "приходить",
+  "fr": "venir",
+  "kind": "word"
+ },
+ {
+  "id": "w0322",
+  "ru": "больной",
+  "fr": "malade",
+  "kind": "word"
+ },
+ {
+  "id": "w0323",
+  "ru": "терять",
+  "fr": "perdre",
+  "kind": "word"
+ },
+ {
+  "id": "w0324",
+  "ru": "паспорт",
+  "fr": "le passeport",
+  "kind": "word"
+ },
+ {
+  "id": "w0325",
+  "ru": "перед",
+  "fr": "devant",
+  "kind": "word"
+ },
+ {
+  "id": "w0326",
+  "ru": "повторять, готовиться",
+  "fr": "réviser",
+  "kind": "word"
+ },
+ {
+  "id": "w0327",
+  "ru": "встреча, запись",
+  "fr": "un rendez-vous",
+  "kind": "word"
+ },
+ {
+  "id": "w0328",
+  "ru": "автобус",
+  "fr": "un bus",
+  "kind": "word"
+ },
+ {
+  "id": "w0329",
+  "ru": "университет",
+  "fr": "une université",
+  "kind": "word"
+ },
+ {
+  "id": "w0330",
+  "ru": "принести",
+  "fr": "apporter",
+  "kind": "word"
+ },
+ {
+  "id": "w0331",
+  "ru": "передвигаться",
+  "fr": "se déplacer",
+  "kind": "word"
+ },
+ {
+  "id": "w0332",
+  "ru": "спрашивать, просить",
+  "fr": "demander",
+  "kind": "word"
+ },
+ {
+  "id": "w0333",
+  "ru": "простой",
+  "fr": "simple",
+  "kind": "word"
+ },
+ {
+  "id": "w0334",
+  "ru": "Меня зовут Андрей.",
+  "fr": "Je m'appelle André.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0335",
+  "ru": "Я русский.",
+  "fr": "Je suis russe.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0336",
+  "ru": "Как тебя зовут?",
+  "fr": "Comment tu t'appelles ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0337",
+  "ru": "А ты?",
+  "fr": "Et toi ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0338",
+  "ru": "Я бы хотел кофе, пожалуйста.",
+  "fr": "Je voudrais un café, s'il vous plaît.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0339",
+  "ru": "У вас есть хлеб?",
+  "fr": "Est-ce que vous avez du pain ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0340",
+  "ru": "Извините.",
+  "fr": "Excusez-moi.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0341",
+  "ru": "Где метро?",
+  "fr": "Où est le métro ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0342",
+  "ru": "Увидимся завтра?",
+  "fr": "On se voit demain ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0343",
+  "ru": "Мне нужна помощь.",
+  "fr": "J'ai besoin d'aide.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0344",
+  "ru": "Я не понимаю.",
+  "fr": "Je ne comprends pas.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0345",
+  "ru": "Сколько учеников?",
+  "fr": "Il y a combien d'élèves ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0346",
+  "ru": "Четырнадцать учеников.",
+  "fr": "Il y a quatorze élèves.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0347",
+  "ru": "Сколько это выходит всего?",
+  "fr": "Ça fait combien en tout ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0348",
+  "ru": "Это выходит девяносто пять евро.",
+  "fr": "Ça fait quatre-vingt-quinze euros.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0349",
+  "ru": "Сколько жителей в Париже?",
+  "fr": "Paris a combien d'habitants ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0350",
+  "ru": "В Париже около двух миллионов жителей.",
+  "fr": "Paris a environ deux millions d'habitants.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0351",
+  "ru": "Где первое кафе?",
+  "fr": "Où est le premier café ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0352",
+  "ru": "Второе кафе справа.",
+  "fr": "Le deuxième café est à droite.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0353",
+  "ru": "Сколько это стоит?",
+  "fr": "Combien ça coûte ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0354",
+  "ru": "Я бы хотел оплатить картой.",
+  "fr": "Je voudrais payer par carte.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0355",
+  "ru": "Магазин открыт с девяти до полудня.",
+  "fr": "Le magasin est ouvert de neuf heures à midi.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0356",
+  "ru": "Сегодня он закрыт.",
+  "fr": "Aujourd'hui, il est fermé.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0357",
+  "ru": "Сначала я бы хотел кофе.",
+  "fr": "D'abord, je voudrais un café.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0358",
+  "ru": "Затем метро слева.",
+  "fr": "Ensuite, le métro est à gauche.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0359",
+  "ru": "Как вас зовут? (анкета)",
+  "fr": "Votre nom, s'il vous plaît ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0360",
+  "ru": "Я говорю по-русски и немного по-французски.",
+  "fr": "Je parle russe et un peu français.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0361",
+  "ru": "Мне двадцать пять лет.",
+  "fr": "J'ai vingt-cinq ans.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0362",
+  "ru": "Я живу в Лионе.",
+  "fr": "J'habite à Lyon.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0363",
+  "ru": "Кроме воскресенья.",
+  "fr": "Sauf le dimanche.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0364",
+  "ru": "Открыто каждый день.",
+  "fr": "Ouvert tous les jours.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0365",
+  "ru": "Я встаю в семь.",
+  "fr": "Je me lève à sept heures.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0366",
+  "ru": "Я ложусь спать в одиннадцать.",
+  "fr": "Je me couche à onze heures.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0367",
+  "ru": "Ты свободен в следующий понедельник?",
+  "fr": "Tu es libre lundi prochain ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0368",
+  "ru": "Я занят, но свободен в среду.",
+  "fr": "Je suis occupé, mais je suis libre mercredi.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0369",
+  "ru": "Килограмм яблок, пожалуйста.",
+  "fr": "Un kilo de pommes, s'il vous plaît.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0370",
+  "ru": "Бутылка воды и хлеб.",
+  "fr": "Une bouteille d'eau et du pain.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0371",
+  "ru": "Холодно. Я надеваю пальто.",
+  "fr": "Il fait froid. Je mets un manteau.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0372",
+  "ru": "Идёт дождь.",
+  "fr": "Il pleut.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0373",
+  "ru": "Это мой отец, моя мать и мой брат.",
+  "fr": "C'est mon père, ma mère et mon frère.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0374",
+  "ru": "Мы живём в квартире.",
+  "fr": "Nous habitons dans un appartement.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0375",
+  "ru": "Она высокая и очень приятная.",
+  "fr": "Elle est grande et très sympathique.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0376",
+  "ru": "Он маленький, но очень добрый.",
+  "fr": "Il est petit, mais il est très gentil.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0377",
+  "ru": "У меня перерыв в полдень.",
+  "fr": "J'ai une pause à midi.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0378",
+  "ru": "Рядом с офисом есть кафе.",
+  "fr": "Il y a un café près du bureau.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0379",
+  "ru": "Как это пишется?",
+  "fr": "Ça s'écrit comment ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0380",
+  "ru": "Мой номер…",
+  "fr": "Mon numéro est…",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0381",
+  "ru": "Задание к 12 октября.",
+  "fr": "Le devoir est pour le 12 octobre.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0382",
+  "ru": "Какая дата?",
+  "fr": "Quelle est la date ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0383",
+  "ru": "Где аудитория B12?",
+  "fr": "Où est la salle B12 ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0384",
+  "ru": "На первом этаже.",
+  "fr": "Au premier étage.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0385",
+  "ru": "Курс начинается в девять.",
+  "fr": "Le cours commence à neuf heures.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0386",
+  "ru": "Я опоздаю.",
+  "fr": "Je vais arriver en retard.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0387",
+  "ru": "Я ищу комнату.",
+  "fr": "Je cherche une chambre.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0388",
+  "ru": "Сколько стоит аренда?",
+  "fr": "Combien coûte le loyer ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0389",
+  "ru": "Можешь закрыть окно?",
+  "fr": "Tu peux fermer la fenêtre ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0390",
+  "ru": "Конечно.",
+  "fr": "Bien sûr.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0391",
+  "ru": "Мне билет до центра.",
+  "fr": "Je voudrais un billet pour le centre.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0392",
+  "ru": "Где пересадка?",
+  "fr": "Où est la correspondance ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0393",
+  "ru": "Поезд отправляется…",
+  "fr": "Le train part…",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0394",
+  "ru": "Подожди меня!",
+  "fr": "Attends-moi !",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0395",
+  "ru": "У меня болит голова.",
+  "fr": "J'ai mal à la tête.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0396",
+  "ru": "Мне нужен врач.",
+  "fr": "J'ai besoin d'un médecin.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0397",
+  "ru": "Можно распечатать здесь?",
+  "fr": "Je peux imprimer ici ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0398",
+  "ru": "Студенческая карта",
+  "fr": "La carte étudiante",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0399",
+  "ru": "Я предпочитаю…",
+  "fr": "Je préfère…",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0400",
+  "ru": "Мне нравится…",
+  "fr": "J'aime…",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0401",
+  "ru": "Хочешь пойти в кино?",
+  "fr": "Tu veux aller au cinéma ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0402",
+  "ru": "Извини, я не могу.",
+  "fr": "Désolé, je ne peux pas.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0403",
+  "ru": "Я не могу прийти сегодня.",
+  "fr": "Je ne peux pas venir aujourd'hui.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0404",
+  "ru": "потому что я болею",
+  "fr": "parce que je suis malade",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0405",
+  "ru": "Я потерял(а) карту.",
+  "fr": "J'ai perdu ma carte.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0406",
+  "ru": "Я повторяю к занятию.",
+  "fr": "Je révise pour le cours.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0407",
+  "ru": "У меня встреча.",
+  "fr": "J'ai un rendez-vous.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0408",
+  "ru": "на следующей неделе",
+  "fr": "la semaine prochaine",
+  "kind": "word"
+ },
+ {
+  "id": "w0409",
+  "ru": "через, спустя",
+  "fr": "dans",
+  "kind": "word"
+ },
+ {
+  "id": "w0410",
+  "ru": "как только",
+  "fr": "dès que",
+  "kind": "word"
+ },
+ {
+  "id": "w0411",
+  "ru": "планировать, предусматривать",
+  "fr": "prévoir",
+  "kind": "word"
+ },
+ {
+  "id": "w0412",
+  "ru": "обещать",
+  "fr": "promettre",
+  "kind": "word"
+ },
+ {
+  "id": "w0413",
+  "ru": "вероятно",
+  "fr": "probablement",
+  "kind": "word"
+ },
+ {
+  "id": "w0414",
+  "ru": "наверняка, несомненно",
+  "fr": "certainement",
+  "kind": "word"
+ },
+ {
+  "id": "w0415",
+  "ru": "заканчивать",
+  "fr": "finir",
+  "kind": "word"
+ },
+ {
+  "id": "w0416",
+  "ru": "папка, дело, пакет документов",
+  "fr": "un dossier",
+  "kind": "word"
+ },
+ {
+  "id": "w0417",
+  "ru": "продавать",
+  "fr": "vendre",
+  "kind": "word"
+ },
+ {
+  "id": "w0418",
+  "ru": "велосипед",
+  "fr": "un vélo",
+  "kind": "word"
+ },
+ {
+  "id": "w0419",
+  "ru": "выбирать",
+  "fr": "choisir",
+  "kind": "word"
+ },
+ {
+  "id": "w0420",
+  "ru": "отвечать",
+  "fr": "répondre",
+  "kind": "word"
+ },
+ {
+  "id": "w0421",
+  "ru": "возвращаться",
+  "fr": "rentrer",
+  "kind": "word"
+ },
+ {
+  "id": "w0422",
+  "ru": "готовить, подготавливать",
+  "fr": "préparer",
+  "kind": "word"
+ },
+ {
+  "id": "w0423",
+  "ru": "представлять, презентовать",
+  "fr": "présenter",
+  "kind": "word"
+ },
+ {
+  "id": "w0424",
+  "ru": "онлайн",
+  "fr": "en ligne",
+  "kind": "word"
+ },
+ {
+  "id": "w0425",
+  "ru": "посещать",
+  "fr": "visiter",
+  "kind": "word"
+ },
+ {
+  "id": "w0426",
+  "ru": "выставка",
+  "fr": "une exposition",
+  "kind": "word"
+ },
+ {
+  "id": "w0427",
+  "ru": "подтверждение",
+  "fr": "une confirmation",
+  "kind": "word"
+ },
+ {
+  "id": "w0428",
+  "ru": "электронное письмо",
+  "fr": "un courriel",
+  "kind": "word"
+ },
+ {
+  "id": "w0429",
+  "ru": "по, через; посредством",
+  "fr": "par",
+  "kind": "word"
+ },
+ {
+  "id": "w0430",
+  "ru": "бронирование",
+  "fr": "une réservation",
+  "kind": "word"
+ },
+ {
+  "id": "w0431",
+  "ru": "непредвиденное обстоятельство",
+  "fr": "un imprévu",
+  "kind": "word"
+ },
+ {
+  "id": "w0432",
+  "ru": "погода, прогноз погоды",
+  "fr": "la météo",
+  "kind": "word"
+ },
+ {
+  "id": "w0433",
+  "ru": "результат",
+  "fr": "un résultat",
+  "kind": "word"
+ },
+ {
+  "id": "w0434",
+  "ru": "готовый / готовая",
+  "fr": "prêt / prête",
+  "kind": "word"
+ },
+ {
+  "id": "w0435",
+  "ru": "доступный, свободный",
+  "fr": "disponible",
+  "kind": "word"
+ },
+ {
+  "id": "w0436",
+  "ru": "успеть, добиться успеха",
+  "fr": "réussir",
+  "kind": "word"
+ },
+ {
+  "id": "w0437",
+  "ru": "получать",
+  "fr": "recevoir",
+  "kind": "word"
+ },
+ {
+  "id": "w0438",
+  "ru": "отправлять",
+  "fr": "envoyer",
+  "kind": "word"
+ },
+ {
+  "id": "w0439",
+  "ru": "бронировать",
+  "fr": "réserver",
+  "kind": "word"
+ },
+ {
+  "id": "w0440",
+  "ru": "нужно, придётся",
+  "fr": "falloir",
+  "kind": "word"
+ },
+ {
+  "id": "w0441",
+  "ru": "идти (о дожде)",
+  "fr": "pleuvoir",
+  "kind": "word"
+ },
+ {
+  "id": "w0442",
+  "ru": "помогать",
+  "fr": "aider",
+  "kind": "word"
+ },
+ {
+  "id": "w0443",
+  "ru": "фильм",
+  "fr": "un film",
+  "kind": "word"
+ },
+ {
+  "id": "w0444",
+  "ru": "сеанс",
+  "fr": "une séance",
+  "kind": "word"
+ },
+ {
+  "id": "w0445",
+  "ru": "команда",
+  "fr": "une équipe",
+  "kind": "word"
+ },
+ {
+  "id": "w0446",
+  "ru": "план",
+  "fr": "un plan",
+  "kind": "word"
+ },
+ {
+  "id": "w0447",
+  "ru": "остановка",
+  "fr": "un arrêt",
+  "kind": "word"
+ },
+ {
+  "id": "w0448",
+  "ru": "выходить, спускаться",
+  "fr": "descendre",
+  "kind": "word"
+ },
+ {
+  "id": "w0449",
+  "ru": "следовать",
+  "fr": "suivre",
+  "kind": "word"
+ },
+ {
+  "id": "w0450",
+  "ru": "поворачивать",
+  "fr": "tourner",
+  "kind": "word"
+ },
+ {
+  "id": "w0451",
+  "ru": "прямо",
+  "fr": "tout droit",
+  "kind": "word"
+ },
+ {
+  "id": "w0452",
+  "ru": "прямой / прямая; прямо",
+  "fr": "droit / droite",
+  "kind": "word"
+ },
+ {
+  "id": "w0453",
+  "ru": "направо",
+  "fr": "à droite",
+  "kind": "word"
+ },
+ {
+  "id": "w0454",
+  "ru": "план, карта-схема",
+  "fr": "un plan",
+  "kind": "word"
+ },
+ {
+  "id": "w0455",
+  "ru": "вчера",
+  "fr": "hier",
+  "kind": "word"
+ },
+ {
+  "id": "w0456",
+  "ru": "красивый / красивая",
+  "fr": "beau / belle",
+  "kind": "word"
+ },
+ {
+  "id": "w0457",
+  "ru": "событие",
+  "fr": "un événement",
+  "kind": "word"
+ },
+ {
+  "id": "w0458",
+  "ru": "рассказывать",
+  "fr": "raconter",
+  "kind": "word"
+ },
+ {
+  "id": "w0459",
+  "ru": "в итоге",
+  "fr": "finalement",
+  "kind": "word"
+ },
+ {
+  "id": "w0460",
+  "ru": "задержка",
+  "fr": "un retard",
+  "kind": "word"
+ },
+ {
+  "id": "w0461",
+  "ru": "падать; ломаться",
+  "fr": "tomber",
+  "kind": "word"
+ },
+ {
+  "id": "w0462",
+  "ru": "выходные",
+  "fr": "le week-end",
+  "kind": "word"
+ },
+ {
+  "id": "w0463",
+  "ru": "обедать",
+  "fr": "déjeuner",
+  "kind": "word"
+ },
+ {
+  "id": "w0464",
+  "ru": "провести день",
+  "fr": "passer une journée",
+  "kind": "word"
+ },
+ {
+  "id": "w0465",
+  "ru": "проводить, проходить",
+  "fr": "passer",
+  "kind": "word"
+ },
+ {
+  "id": "w0466",
+  "ru": "день",
+  "fr": "une journée",
+  "kind": "word"
+ },
+ {
+  "id": "w0467",
+  "ru": "насыщенный / насыщенная",
+  "fr": "bien rempli / remplie",
+  "kind": "word"
+ },
+ {
+  "id": "w0468",
+  "ru": "заполненный / наполненная",
+  "fr": "rempli / remplie",
+  "kind": "word"
+ },
+ {
+  "id": "w0469",
+  "ru": "прибывать",
+  "fr": "arriver",
+  "kind": "word"
+ },
+ {
+  "id": "w0470",
+  "ru": "позже",
+  "fr": "plus tard",
+  "kind": "word"
+ },
+ {
+  "id": "w0471",
+  "ru": "рано",
+  "fr": "tôt",
+  "kind": "word"
+ },
+ {
+  "id": "w0472",
+  "ru": "пропустить, опоздать на",
+  "fr": "rater",
+  "kind": "word"
+ },
+ {
+  "id": "w0473",
+  "ru": "отменённый / отменённая",
+  "fr": "supprimé / supprimée",
+  "kind": "word"
+ },
+ {
+  "id": "w0474",
+  "ru": "повторять",
+  "fr": "répéter",
+  "kind": "word"
+ },
+ {
+  "id": "w0475",
+  "ru": "в начале",
+  "fr": "au début",
+  "kind": "word"
+ },
+ {
+  "id": "w0476",
+  "ru": "начало",
+  "fr": "le début",
+  "kind": "word"
+ },
+ {
+  "id": "w0477",
+  "ru": "сломаться",
+  "fr": "tomber en panne",
+  "kind": "word"
+ },
+ {
+  "id": "w0478",
+  "ru": "поломка",
+  "fr": "une panne",
+  "kind": "word"
+ },
+ {
+  "id": "w0479",
+  "ru": "к счастью",
+  "fr": "heureusement",
+  "kind": "word"
+ },
+ {
+  "id": "w0480",
+  "ru": "продолжать",
+  "fr": "continuer",
+  "kind": "word"
+ },
+ {
+  "id": "w0481",
+  "ru": "решение",
+  "fr": "une solution",
+  "kind": "word"
+ },
+ {
+  "id": "w0482",
+  "ru": "вместо этого",
+  "fr": "à la place",
+  "kind": "word"
+ },
+ {
+  "id": "w0483",
+  "ru": "непредвиденный / непредвиденная",
+  "fr": "imprévu / imprévue",
+  "kind": "word"
+ },
+ {
+  "id": "w0484",
+  "ru": "выход, совместная прогулка",
+  "fr": "une sortie",
+  "kind": "word"
+ },
+ {
+  "id": "w0485",
+  "ru": "встречаться",
+  "fr": "se retrouver",
+  "kind": "word"
+ },
+ {
+  "id": "w0486",
+  "ru": "посещение, экскурсия",
+  "fr": "une visite",
+  "kind": "word"
+ },
+ {
+  "id": "w0487",
+  "ru": "временное окно",
+  "fr": "un créneau",
+  "kind": "word"
+ },
+ {
+  "id": "w0488",
+  "ru": "сведения, справочная информация",
+  "fr": "un renseignement",
+  "kind": "word"
+ },
+ {
+  "id": "w0489",
+  "ru": "подходить",
+  "fr": "convenir",
+  "kind": "word"
+ },
+ {
+  "id": "w0490",
+  "ru": "подтверждать",
+  "fr": "confirmer",
+  "kind": "word"
+ },
+ {
+  "id": "w0491",
+  "ru": "по поводу",
+  "fr": "au sujet de",
+  "kind": "word"
+ },
+ {
+  "id": "w0492",
+  "ru": "залог",
+  "fr": "la caution",
+  "kind": "word"
+ },
+ {
+  "id": "w0493",
+  "ru": "арендная плата",
+  "fr": "le loyer",
+  "kind": "word"
+ },
+ {
+  "id": "w0494",
+  "ru": "коммунальные расходы включены",
+  "fr": "charges comprises",
+  "kind": "word"
+ },
+ {
+  "id": "w0495",
+  "ru": "расход, начисление",
+  "fr": "une charge",
+  "kind": "word"
+ },
+ {
+  "id": "w0496",
+  "ru": "включённый / включённая",
+  "fr": "compris / comprise",
+  "kind": "word"
+ },
+ {
+  "id": "w0497",
+  "ru": "меблированный / меблированная",
+  "fr": "meublé / meublée",
+  "kind": "word"
+ },
+ {
+  "id": "w0498",
+  "ru": "квадратный метр",
+  "fr": "un mètre carré",
+  "kind": "word"
+ },
+ {
+  "id": "w0499",
+  "ru": "метр",
+  "fr": "un mètre",
+  "kind": "word"
+ },
+ {
+  "id": "w0500",
+  "ru": "квадратный / квадратная",
+  "fr": "carré / carrée",
+  "kind": "word"
+ },
+ {
+  "id": "w0501",
+  "ru": "светлый / светлая",
+  "fr": "lumineux / lumineuse",
+  "kind": "word"
+ },
+ {
+  "id": "w0502",
+  "ru": "просторный / просторная",
+  "fr": "spacieux / spacieuse",
+  "kind": "word"
+ },
+ {
+  "id": "w0503",
+  "ru": "дорогой / дорогая",
+  "fr": "cher / chère",
+  "kind": "word"
+ },
+ {
+  "id": "w0504",
+  "ru": "район",
+  "fr": "le quartier",
+  "kind": "word"
+ },
+ {
+  "id": "w0505",
+  "ru": "магазины и местные услуги",
+  "fr": "les commerces",
+  "kind": "word"
+ },
+ {
+  "id": "w0506",
+  "ru": "добираться до",
+  "fr": "se rendre à",
+  "kind": "word"
+ },
+ {
+  "id": "w0507",
+  "ru": "шум",
+  "fr": "le bruit",
+  "kind": "word"
+ },
+ {
+  "id": "w0508",
+  "ru": "оживлённый / оживлённая",
+  "fr": "vivant / vivante",
+  "kind": "word"
+ },
+ {
+  "id": "w0509",
+  "ru": "договор аренды",
+  "fr": "le bail",
+  "kind": "word"
+ },
+ {
+  "id": "w0510",
+  "ru": "свободный, доступный",
+  "fr": "disponible",
+  "kind": "word"
+ },
+ {
+  "id": "w0511",
+  "ru": "животные разрешены",
+  "fr": "les animaux sont acceptés",
+  "kind": "word"
+ },
+ {
+  "id": "w0512",
+  "ru": "животное",
+  "fr": "un animal",
+  "kind": "word"
+ },
+ {
+  "id": "w0513",
+  "ru": "принимать, разрешать",
+  "fr": "accepter",
+  "kind": "word"
+ },
+ {
+  "id": "w0514",
+  "ru": "подписывать",
+  "fr": "signer",
+  "kind": "word"
+ },
+ {
+  "id": "w0515",
+  "ru": "приоритет",
+  "fr": "une priorité",
+  "kind": "word"
+ },
+ {
+  "id": "w0516",
+  "ru": "преимущество",
+  "fr": "un avantage",
+  "kind": "word"
+ },
+ {
+  "id": "w0517",
+  "ru": "недостаток",
+  "fr": "un inconvénient",
+  "kind": "word"
+ },
+ {
+  "id": "w0518",
+  "ru": "подходить кому-либо",
+  "fr": "convenir à",
+  "kind": "word"
+ },
+ {
+  "id": "w0519",
+  "ru": "подходить, устраивать",
+  "fr": "convenir",
+  "kind": "word"
+ },
+ {
+  "id": "w0520",
+  "ru": "пакет документов, досье",
+  "fr": "un dossier",
+  "kind": "word"
+ },
+ {
+  "id": "w0521",
+  "ru": "похожий",
+  "fr": "similaire",
+  "kind": "word"
+ },
+ {
+  "id": "w0522",
+  "ru": "проверять, уточнять",
+  "fr": "vérifier",
+  "kind": "word"
+ },
+ {
+  "id": "w0523",
+  "ru": "задержка, опоздание",
+  "fr": "un retard",
+  "kind": "word"
+ },
+ {
+  "id": "w0524",
+  "ru": "путь, платформа",
+  "fr": "la voie",
+  "kind": "word"
+ },
+ {
+  "id": "w0525",
+  "ru": "предупреждать",
+  "fr": "prévenir",
+  "kind": "word"
+ },
+ {
+  "id": "w0526",
+  "ru": "пересесть на другую линию",
+  "fr": "changer de ligne",
+  "kind": "word"
+ },
+ {
+  "id": "w0527",
+  "ru": "менять",
+  "fr": "changer",
+  "kind": "word"
+ },
+ {
+  "id": "w0528",
+  "ru": "линия",
+  "fr": "une ligne",
+  "kind": "word"
+ },
+ {
+  "id": "w0529",
+  "ru": "выходить из транспорта",
+  "fr": "descendre",
+  "kind": "word"
+ },
+ {
+  "id": "w0530",
+  "ru": "прямой, без пересадок",
+  "fr": "direct / directe",
+  "kind": "word"
+ },
+ {
+  "id": "w0531",
+  "ru": "станция",
+  "fr": "une station",
+  "kind": "word"
+ },
+ {
+  "id": "w0532",
+  "ru": "переносить на более позднее время",
+  "fr": "reporter",
+  "kind": "word"
+ },
+ {
+  "id": "w0533",
+  "ru": "переносить на более раннее время",
+  "fr": "avancer",
+  "kind": "word"
+ },
+ {
+  "id": "w0534",
+  "ru": "быть свободным, доступным",
+  "fr": "être disponible",
+  "kind": "word"
+ },
+ {
+  "id": "w0535",
+  "ru": "Тебе подходит?",
+  "fr": "Ça te va ?",
+  "kind": "word"
+ },
+ {
+  "id": "w0536",
+  "ru": "переносить, перемещать",
+  "fr": "déplacer",
+  "kind": "word"
+ },
+ {
+  "id": "w0537",
+  "ru": "сбор, комиссия",
+  "fr": "des frais",
+  "kind": "word"
+ },
+ {
+  "id": "w0538",
+  "ru": "тариф",
+  "fr": "un tarif",
+  "kind": "word"
+ },
+ {
+  "id": "w0539",
+  "ru": "происшествие, неполадка",
+  "fr": "un incident",
+  "kind": "word"
+ },
+ {
+  "id": "w0540",
+  "ru": "встретиться",
+  "fr": "se retrouver",
+  "kind": "word"
+ },
+ {
+  "id": "w0541",
+  "ru": "отменять",
+  "fr": "annuler",
+  "kind": "word"
+ },
+ {
+  "id": "w0542",
+  "ru": "катер, лодка",
+  "fr": "le bateau",
+  "kind": "word"
+ },
+ {
+  "id": "w0543",
+  "ru": "шаттл, рейс-замена",
+  "fr": "la navette",
+  "kind": "word"
+ },
+ {
+  "id": "w0544",
+  "ru": "ветер",
+  "fr": "le vent",
+  "kind": "word"
+ },
+ {
+  "id": "w0545",
+  "ru": "сохранять, оставлять в силе",
+  "fr": "maintenir",
+  "kind": "word"
+ },
+ {
+  "id": "w0546",
+  "ru": "временной слот",
+  "fr": "un créneau",
+  "kind": "word"
+ },
+ {
+  "id": "w0547",
+  "ru": "досье, пакет документов",
+  "fr": "un dossier",
+  "kind": "word"
+ },
+ {
+  "id": "w0548",
+  "ru": "получатель",
+  "fr": "un destinataire",
+  "kind": "word"
+ },
+ {
+  "id": "w0549",
+  "ru": "прикладывать, присоединять",
+  "fr": "joindre",
+  "kind": "word"
+ },
+ {
+  "id": "w0550",
+  "ru": "сохранять",
+  "fr": "garder",
+  "kind": "word"
+ },
+ {
+  "id": "w0551",
+  "ru": "квитанция",
+  "fr": "un reçu",
+  "kind": "word"
+ },
+ {
+  "id": "w0552",
+  "ru": "заполнять",
+  "fr": "remplir",
+  "kind": "word"
+ },
+ {
+  "id": "w0553",
+  "ru": "стойка приёма, регистратура",
+  "fr": "un accueil",
+  "kind": "word"
+ },
+ {
+  "id": "w0554",
+  "ru": "испытывать боль в",
+  "fr": "avoir mal à",
+  "kind": "word"
+ },
+ {
+  "id": "w0555",
+  "ru": "боль",
+  "fr": "le mal",
+  "kind": "word"
+ },
+ {
+  "id": "w0556",
+  "ru": "иметь повышенную температуру",
+  "fr": "avoir de la fièvre",
+  "kind": "word"
+ },
+ {
+  "id": "w0557",
+  "ru": "температура, жар",
+  "fr": "une fièvre",
+  "kind": "word"
+ },
+ {
+  "id": "w0558",
+  "ru": "кашель",
+  "fr": "la toux",
+  "kind": "word"
+ },
+ {
+  "id": "w0559",
+  "ru": "уже, начиная с",
+  "fr": "depuis",
+  "kind": "word"
+ },
+ {
+  "id": "w0560",
+  "ru": "горло",
+  "fr": "la gorge",
+  "kind": "word"
+ },
+ {
+  "id": "w0561",
+  "ru": "дышать",
+  "fr": "respirer",
+  "kind": "word"
+ },
+ {
+  "id": "w0562",
+  "ru": "симптом",
+  "fr": "un symptôme",
+  "kind": "word"
+ },
+ {
+  "id": "w0563",
+  "ru": "пить",
+  "fr": "boire",
+  "kind": "word"
+ },
+ {
+  "id": "w0564",
+  "ru": "отдыхать",
+  "fr": "se reposer",
+  "kind": "word"
+ },
+ {
+  "id": "w0565",
+  "ru": "регулярно",
+  "fr": "régulièrement",
+  "kind": "word"
+ },
+ {
+  "id": "w0566",
+  "ru": "продолжаться, продолжать",
+  "fr": "continuer",
+  "kind": "word"
+ },
+ {
+  "id": "w0567",
+  "ru": "связаться",
+  "fr": "contacter",
+  "kind": "word"
+ },
+ {
+  "id": "w0568",
+  "ru": "сухой кашель",
+  "fr": "une toux sèche",
+  "kind": "word"
+ },
+ {
+  "id": "w0569",
+  "ru": "сухой / сухая",
+  "fr": "sec / sèche",
+  "kind": "word"
+ },
+ {
+  "id": "w0570",
+  "ru": "аллергия",
+  "fr": "une allergie",
+  "kind": "word"
+ },
+ {
+  "id": "w0571",
+  "ru": "текущее лечение",
+  "fr": "un traitement en cours",
+  "kind": "word"
+ },
+ {
+  "id": "w0572",
+  "ru": "лечение",
+  "fr": "un traitement",
+  "kind": "word"
+ },
+ {
+  "id": "w0573",
+  "ru": "инструкция по применению",
+  "fr": "le mode d'emploi",
+  "kind": "word"
+ },
+ {
+  "id": "w0574",
+  "ru": "способ, режим",
+  "fr": "le mode",
+  "kind": "word"
+ },
+ {
+  "id": "w0575",
+  "ru": "использование, применение",
+  "fr": "un emploi",
+  "kind": "word"
+ },
+ {
+  "id": "w0576",
+  "ru": "удостоверение личности",
+  "fr": "une pièce d'identité",
+  "kind": "word"
+ },
+ {
+  "id": "w0577",
+  "ru": "документ; часть",
+  "fr": "une pièce",
+  "kind": "word"
+ },
+ {
+  "id": "w0578",
+  "ru": "личность",
+  "fr": "une identité",
+  "kind": "word"
+ },
+ {
+  "id": "w0579",
+  "ru": "подтверждение адреса",
+  "fr": "un justificatif de domicile",
+  "kind": "word"
+ },
+ {
+  "id": "w0580",
+  "ru": "подтверждающий документ",
+  "fr": "un justificatif",
+  "kind": "word"
+ },
+ {
+  "id": "w0581",
+  "ru": "место проживания",
+  "fr": "le domicile",
+  "kind": "word"
+ },
+ {
+  "id": "w0582",
+  "ru": "форма, бланк",
+  "fr": "un formulaire",
+  "kind": "word"
+ },
+ {
+  "id": "w0583",
+  "ru": "назначенная встреча, приём",
+  "fr": "un rendez-vous",
+  "kind": "word"
+ },
+ {
+  "id": "w0584",
+  "ru": "свидетельство о рождении, выписка о рождении",
+  "fr": "un acte de naissance",
+  "kind": "word"
+ },
+ {
+  "id": "w0585",
+  "ru": "акт, официальная запись",
+  "fr": "un acte",
+  "kind": "word"
+ },
+ {
+  "id": "w0586",
+  "ru": "рождение",
+  "fr": "la naissance",
+  "kind": "word"
+ },
+ {
+  "id": "w0587",
+  "ru": "передавать, отправлять",
+  "fr": "transmettre",
+  "kind": "word"
+ },
+ {
+  "id": "w0588",
+  "ru": "загружать, сдавать",
+  "fr": "déposer",
+  "kind": "word"
+ },
+ {
+  "id": "w0589",
+  "ru": "полный, заполненный",
+  "fr": "complet / complète",
+  "kind": "word"
+ },
+ {
+  "id": "w0590",
+  "ru": "инструкция, задание",
+  "fr": "une consigne",
+  "kind": "word"
+ },
+ {
+  "id": "w0591",
+  "ru": "сдать работу",
+  "fr": "rendre un travail",
+  "kind": "word"
+ },
+ {
+  "id": "w0592",
+  "ru": "сдавать, возвращать",
+  "fr": "rendre",
+  "kind": "word"
+ },
+ {
+  "id": "w0593",
+  "ru": "работа, задание",
+  "fr": "un travail",
+  "kind": "word"
+ },
+ {
+  "id": "w0594",
+  "ru": "прикреплять, прилагать",
+  "fr": "joindre",
+  "kind": "word"
+ },
+ {
+  "id": "w0595",
+  "ru": "крайний срок",
+  "fr": "la date limite",
+  "kind": "word"
+ },
+ {
+  "id": "w0596",
+  "ru": "предельный, крайний",
+  "fr": "limite",
+  "kind": "word"
+ },
+ {
+  "id": "w0597",
+  "ru": "файл",
+  "fr": "un fichier",
+  "kind": "word"
+ },
+ {
+  "id": "w0598",
+  "ru": "заниматься, отвечать за",
+  "fr": "s'occuper de",
+  "kind": "word"
+ },
+ {
+  "id": "w0599",
+  "ru": "быть ответственным за",
+  "fr": "être chargé / chargée de",
+  "kind": "word"
+ },
+ {
+  "id": "w0600",
+  "ru": "ответственный / ответственная",
+  "fr": "chargé / chargée",
+  "kind": "word"
+ },
+ {
+  "id": "w0601",
+  "ru": "управлять, вести",
+  "fr": "gérer",
+  "kind": "word"
+ },
+ {
+  "id": "w0602",
+  "ru": "стажировка, практика",
+  "fr": "un stage",
+  "kind": "word"
+ },
+ {
+  "id": "w0603",
+  "ru": "проект",
+  "fr": "un projet",
+  "kind": "word"
+ },
+ {
+  "id": "w0604",
+  "ru": "участвовать в",
+  "fr": "participer à",
+  "kind": "word"
+ },
+ {
+  "id": "w0605",
+  "ru": "участвовать",
+  "fr": "participer",
+  "kind": "word"
+ },
+ {
+  "id": "w0606",
+  "ru": "добиться успеха, успешно выполнить",
+  "fr": "réussir",
+  "kind": "word"
+ },
+ {
+  "id": "w0607",
+  "ru": "опыт, впечатление",
+  "fr": "une expérience",
+  "kind": "word"
+ },
+ {
+  "id": "w0608",
+  "ru": "вложенный файл",
+  "fr": "un fichier joint",
+  "kind": "word"
+ },
+ {
+  "id": "w0609",
+  "ru": "прикреплённый / прикреплённая",
+  "fr": "joint / jointe",
+  "kind": "word"
+ },
+ {
+  "id": "w0610",
+  "ru": "отсутствовать",
+  "fr": "être absent / absente",
+  "kind": "word"
+ },
+ {
+  "id": "w0611",
+  "ru": "отсутствующий / отсутствующая",
+  "fr": "absent / absente",
+  "kind": "word"
+ },
+ {
+  "id": "w0612",
+  "ru": "договориться",
+  "fr": "se mettre d'accord",
+  "kind": "word"
+ },
+ {
+  "id": "w0613",
+  "ru": "соглашение",
+  "fr": "un accord",
+  "kind": "word"
+ },
+ {
+  "id": "w0614",
+  "ru": "тема, вопрос",
+  "fr": "un sujet",
+  "kind": "word"
+ },
+ {
+  "id": "w0615",
+  "ru": "во вложении, приложенный",
+  "fr": "ci-joint / ci-jointe",
+  "kind": "word"
+ },
+ {
+  "id": "w0616",
+  "ru": "не могли бы вы",
+  "fr": "pourriez-vous",
+  "kind": "word"
+ },
+ {
+  "id": "w0617",
+  "ru": "с уважением",
+  "fr": "cordialement",
+  "kind": "word"
+ },
+ {
+  "id": "w0618",
+  "ru": "версия",
+  "fr": "une version",
+  "kind": "word"
+ },
+ {
+  "id": "w0619",
+  "ru": "подвести промежуточный итог",
+  "fr": "faire le point",
+  "kind": "word"
+ },
+ {
+  "id": "w0620",
+  "ru": "пункт, точка",
+  "fr": "un point",
+  "kind": "word"
+ },
+ {
+  "id": "w0621",
+  "ru": "ход выполнения, прогресс",
+  "fr": "un avancement",
+  "kind": "word"
+ },
+ {
+  "id": "w0622",
+  "ru": "исправление",
+  "fr": "une correction",
+  "kind": "word"
+ },
+ {
+  "id": "w0623",
+  "ru": "атмосфера",
+  "fr": "une ambiance",
+  "kind": "word"
+ },
+ {
+  "id": "w0624",
+  "ru": "сцена",
+  "fr": "une scène",
+  "kind": "word"
+ },
+ {
+  "id": "w0625",
+  "ru": "внезапно",
+  "fr": "soudain",
+  "kind": "word"
+ },
+ {
+  "id": "w0626",
+  "ru": "хорошо провести время",
+  "fr": "passer un bon moment",
+  "kind": "word"
+ },
+ {
+  "id": "w0627",
+  "ru": "было много людей",
+  "fr": "il y avait du monde",
+  "kind": "word"
+ },
+ {
+  "id": "w0628",
+  "ru": "приглашение",
+  "fr": "une invitation",
+  "kind": "word"
+ },
+ {
+  "id": "w0629",
+  "ru": "с удовольствием",
+  "fr": "avec plaisir",
+  "kind": "word"
+ },
+ {
+  "id": "w0630",
+  "ru": "удовольствие",
+  "fr": "le plaisir",
+  "kind": "word"
+ },
+ {
+  "id": "w0631",
+  "ru": "вежливо отклонять",
+  "fr": "décliner",
+  "kind": "word"
+ },
+ {
+  "id": "w0632",
+  "ru": "мне подходит",
+  "fr": "ça me va",
+  "kind": "word"
+ },
+ {
+  "id": "w0633",
+  "ru": "вариант",
+  "fr": "une option",
+  "kind": "word"
+ },
+ {
+  "id": "w0634",
+  "ru": "в помещении",
+  "fr": "à l'intérieur",
+  "kind": "word"
+ },
+ {
+  "id": "w0635",
+  "ru": "внутреннее пространство",
+  "fr": "un intérieur",
+  "kind": "word"
+ },
+ {
+  "id": "w0636",
+  "ru": "бюджет",
+  "fr": "un budget",
+  "kind": "word"
+ },
+ {
+  "id": "w0637",
+  "ru": "забронировать место",
+  "fr": "réserver une place",
+  "kind": "word"
+ },
+ {
+  "id": "w0638",
+  "ru": "место",
+  "fr": "une place",
+  "kind": "word"
+ },
+ {
+  "id": "w0639",
+  "ru": "мастер-класс, практическое занятие",
+  "fr": "un atelier",
+  "kind": "word"
+ },
+ {
+  "id": "w0640",
+  "ru": "люди, народ",
+  "fr": "le monde",
+  "kind": "word"
+ },
+ {
+  "id": "w0641",
+  "ru": "обожать, очень любить",
+  "fr": "adorer",
+  "kind": "word"
+ },
+ {
+  "id": "w0642",
+  "ru": "разочаровывающий",
+  "fr": "décevant / décevante",
+  "kind": "word"
+ },
+ {
+  "id": "w0643",
+  "ru": "выбор",
+  "fr": "un choix",
+  "kind": "word"
+ },
+ {
+  "id": "w0644",
+  "ru": "рекомендовать",
+  "fr": "recommander",
+  "kind": "word"
+ },
+ {
+  "id": "w0645",
+  "ru": "лучший / лучшая",
+  "fr": "le meilleur / la meilleure",
+  "kind": "word"
+ },
+ {
+  "id": "w0646",
+  "ru": "критерий",
+  "fr": "un critère",
+  "kind": "word"
+ },
+ {
+  "id": "w0647",
+  "ru": "компромисс",
+  "fr": "un compromis",
+  "kind": "word"
+ },
+ {
+  "id": "w0648",
+  "ru": "быть согласным",
+  "fr": "être d'accord",
+  "kind": "word"
+ },
+ {
+  "id": "w0649",
+  "ru": "решать",
+  "fr": "décider",
+  "kind": "word"
+ },
+ {
+  "id": "w0650",
+  "ru": "подтвердить участие",
+  "fr": "confirmer sa présence",
+  "kind": "word"
+ },
+ {
+  "id": "w0651",
+  "ru": "присутствие, участие",
+  "fr": "la présence",
+  "kind": "word"
+ },
+ {
+  "id": "w0652",
+  "ru": "Назови окончания futur simple по порядку: je, tu, il/elle/on, nous, vous, ils/elles.",
+  "fr": "-ai, -as, -a, -ons, -ez, -ont",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0653",
+  "ru": "Завтра я буду работать.",
+  "fr": "Demain, je travaillerai.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0654",
+  "ru": "Ты закончишь папку.",
+  "fr": "Tu finiras le dossier.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0655",
+  "ru": "Она продаст свой велосипед.",
+  "fr": "Elle vendra son vélo.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0656",
+  "ru": "Мы выберем дату.",
+  "fr": "Nous choisirons une date.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0657",
+  "ru": "Вы ответите завтра.",
+  "fr": "Vous répondrez demain.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0658",
+  "ru": "Они уедут в пятницу.",
+  "fr": "Ils partiront vendredi.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0659",
+  "ru": "Когда занятие закончится, я вернусь домой.",
+  "fr": "Quand le cours finira, je rentrerai chez moi.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0660",
+  "ru": "Я буду готов(а).",
+  "fr": "Je serai prêt(e).",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0661",
+  "ru": "У меня будет время.",
+  "fr": "J'aurai le temps.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0662",
+  "ru": "Я пойду в библиотеку.",
+  "fr": "J'irai à la bibliothèque.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0663",
+  "ru": "Я сделаю бронирование.",
+  "fr": "Je ferai la réservation.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0664",
+  "ru": "Я смогу подтвердить завтра.",
+  "fr": "Je pourrai confirmer demain.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0665",
+  "ru": "Я захочу узнать больше.",
+  "fr": "Je voudrai en savoir plus.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0666",
+  "ru": "Я должен(на) буду прийти раньше.",
+  "fr": "Je devrai arriver plus tôt.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0667",
+  "ru": "Я буду знать ответ завтра.",
+  "fr": "Je saurai la réponse demain.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0668",
+  "ru": "Я увижу результаты.",
+  "fr": "Je verrai les résultats.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0669",
+  "ru": "Они придут позже.",
+  "fr": "Ils viendront plus tard.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0670",
+  "ru": "Вы получите подтверждение по электронной почте.",
+  "fr": "Vous recevrez une confirmation par courriel.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0671",
+  "ru": "Нужно будет забронировать до пятницы.",
+  "fr": "Il faudra réserver avant vendredi.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0672",
+  "ru": "Если у тебя будет время, мы пойдём в кино.",
+  "fr": "Si tu as le temps, nous irons au cinéma.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0673",
+  "ru": "Я отправлю письмо сегодня вечером.",
+  "fr": "J'enverrai un courriel ce soir.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0674",
+  "ru": "Завтра, вероятно, будет дождь.",
+  "fr": "Il pleuvra probablement demain.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0675",
+  "ru": "Сядьте на трамвай 3 и сделайте пересадку на «Репюблик».",
+  "fr": "Prenez le tram 3 et changez à République.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0676",
+  "ru": "Выходите на следующей остановке.",
+  "fr": "Descendez à la prochaine station.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0677",
+  "ru": "Следуйте по линии 1.",
+  "fr": "Suivez la ligne 1.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0678",
+  "ru": "Поверните направо.",
+  "fr": "Tournez à droite.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0679",
+  "ru": "Не пересаживайтесь здесь.",
+  "fr": "Ne changez pas de ligne ici.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0680",
+  "ru": "Возьмите его.",
+  "fr": "Prenez-le.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0681",
+  "ru": "Не берите его.",
+  "fr": "Ne le prenez pas.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0682",
+  "ru": "Идите туда.",
+  "fr": "Allez-y.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0683",
+  "ru": "Посмотри на план.",
+  "fr": "Regarde le plan.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0684",
+  "ru": "Расскажи об этом Лее.",
+  "fr": "Parles-en à Léa.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0685",
+  "ru": "Будь осторожен / осторожна.",
+  "fr": "Sois prudent(e).",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0686",
+  "ru": "Будьте осторожны.",
+  "fr": "Soyez prudent(e)s.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0687",
+  "ru": "Имейте билет наготове.",
+  "fr": "Ayez votre billet prêt.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0688",
+  "ru": "Пожалуйста, подождите минуту.",
+  "fr": "Veuillez attendre un instant.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0689",
+  "ru": "Что ты делал на выходных?",
+  "fr": "Qu'est-ce que tu as fait ce week-end ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0690",
+  "ru": "У меня был насыщенный день.",
+  "fr": "J'ai eu une journée bien remplie.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0691",
+  "ru": "Мы уехали рано и приехали около полудня.",
+  "fr": "Nous sommes partis tôt et nous sommes arrivés vers midi.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0692",
+  "ru": "Можете повторить время прибытия?",
+  "fr": "Vous pouvez répéter l'heure d'arrivée ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0693",
+  "ru": "К счастью, мы нашли решение.",
+  "fr": "Heureusement, nous avons trouvé une solution.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0694",
+  "ru": "Что можно сделать вместо этого?",
+  "fr": "Qu'est-ce qu'on peut faire à la place ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0695",
+  "ru": "Я хотел(а) бы посмотреть квартиру.",
+  "fr": "Je voudrais visiter l'appartement.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0696",
+  "ru": "Не могли бы вы предложить время?",
+  "fr": "Pourriez-vous me proposer un créneau ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0697",
+  "ru": "Я хотел(а) бы узнать, включены ли платежи.",
+  "fr": "J'aimerais savoir si les charges sont comprises.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0698",
+  "ru": "Я мог(ла) бы прийти в четверг.",
+  "fr": "Je pourrais venir jeudi.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0699",
+  "ru": "Коммунальные расходы включены?",
+  "fr": "Les charges sont comprises ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0700",
+  "ru": "Эта квартира светлее другой.",
+  "fr": "Cet appartement est plus lumineux que l'autre.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0701",
+  "ru": "Я живу там два года.",
+  "fr": "J'y habite depuis deux ans.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0702",
+  "ru": "Квартира всё ещё свободна?",
+  "fr": "L'appartement est toujours disponible ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0703",
+  "ru": "Какой ваш главный приоритет?",
+  "fr": "Quelle est votre priorité principale ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0704",
+  "ru": "У вас есть похожая квартира?",
+  "fr": "Est-ce que vous avez un appartement similaire ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0705",
+  "ru": "Поезд задерживается на двадцать пять минут.",
+  "fr": "Le train a vingt-cinq minutes de retard.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0706",
+  "ru": "Нам нужно пересесть на République.",
+  "fr": "Nous devons changer à République.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0707",
+  "ru": "Можно перенести встречу?",
+  "fr": "Est-ce qu'on peut reporter le rendez-vous ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0708",
+  "ru": "Я хотел бы изменить бронирование.",
+  "fr": "Je voudrais modifier ma réservation.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0709",
+  "ru": "Из-за ветра катер отменён.",
+  "fr": "À cause du vent, le bateau est annulé.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0710",
+  "ru": "Мой билет остаётся действительным?",
+  "fr": "Est-ce que mon billet reste valable ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0711",
+  "ru": "Бланк? Я заполняю его.",
+  "fr": "Le formulaire ? Je le remplis.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0712",
+  "ru": "Я отвечаю ей.",
+  "fr": "Je lui réponds.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0713",
+  "ru": "В центр? Я иду туда завтра.",
+  "fr": "Au centre ? J'y vais demain.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0714",
+  "ru": "У меня болит горло уже два дня.",
+  "fr": "J'ai mal à la gorge depuis deux jours.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0715",
+  "ru": "Отдохните и регулярно пейте.",
+  "fr": "Reposez-vous et buvez régulièrement.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0716",
+  "ru": "У вас есть аллергии?",
+  "fr": "Avez-vous des allergies ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0717",
+  "ru": "Мне нужно подтверждение адреса.",
+  "fr": "J'ai besoin d'un justificatif de domicile.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0718",
+  "ru": "Мне нужен этот документ для dossier.",
+  "fr": "J'ai besoin de ce document pour mon dossier.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0719",
+  "ru": "Я хотел бы записаться на приём.",
+  "fr": "Je voudrais prendre rendez-vous.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0720",
+  "ru": "Прикрепите файл к сообщению.",
+  "fr": "Joignez le fichier au message.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0721",
+  "ru": "Я занимаюсь утренними запросами.",
+  "fr": "Je m'occupe des demandes du matin.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0722",
+  "ru": "Я участвовал в проекте.",
+  "fr": "J'ai participé à un projet.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0723",
+  "ru": "Можешь отправить мне последний файл?",
+  "fr": "Peux-tu m'envoyer le dernier fichier ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0724",
+  "ru": "Пишу вам по поводу курса.",
+  "fr": "Je vous écris au sujet du cours.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0725",
+  "ru": "Я завершил документ, который вы просили.",
+  "fr": "J'ai terminé le document que vous avez demandé.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0726",
+  "ru": "Погода была хорошая.",
+  "fr": "Il faisait beau.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0727",
+  "ru": "Мы приехали в шесть часов.",
+  "fr": "Nous sommes arrivés à dix-huit heures.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0728",
+  "ru": "Перед сценой было много людей.",
+  "fr": "Il y avait beaucoup de monde devant la scène.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0729",
+  "ru": "Мы ждали автобус, когда пошёл дождь.",
+  "fr": "Nous attendions le bus quand la pluie a commencé.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0730",
+  "ru": "Хочешь пойти с нами?",
+  "fr": "Tu veux venir avec nous ?",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0731",
+  "ru": "Это самый практичный вариант.",
+  "fr": "C'est l'option la plus pratique.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0732",
+  "ru": "Атмосфера была очень приятной.",
+  "fr": "L'ambiance était très agréable.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0733",
+  "ru": "Это самое тихое место.",
+  "fr": "C'est l'endroit le plus calme.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0734",
+  "ru": "Это хороший компромисс.",
+  "fr": "C'est un bon compromis.",
+  "kind": "phrase"
+ },
+ {
+  "id": "w0735",
+  "ru": "Выберем самый удобный вариант.",
+  "fr": "Choisissons l'option la plus pratique.",
+  "kind": "phrase"
+ }
+]

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Russian Study</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1 class="brand">Russian Study <span>français → русский</span></h1>
+      <nav class="tabs" aria-label="Sections">
+        <button type="button" class="tab active" data-view="review">Révision</button>
+        <button type="button" class="tab" data-view="vocabulary">Vocabulaire</button>
+        <button type="button" class="tab" data-view="settings">Réglages</button>
+      </nav>
+      <span class="save-indicator" id="save-indicator" aria-live="polite"></span>
+    </header>
+    <main id="app" aria-live="polite"></main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

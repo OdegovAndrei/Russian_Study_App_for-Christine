@@ -1,0 +1,8 @@
+.DS_Store
+.venv/
+.tts-cache/
+user-data/
+__pycache__/
+*.py[cod]
+.env
+.env.*
