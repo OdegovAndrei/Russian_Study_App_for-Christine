@@ -9,9 +9,10 @@ import server
 class ResolvePathsTest(unittest.TestCase):
     def test_source_run_keeps_everything_in_the_project_folder(self):
         paths = server.resolve_paths(frozen=False, bundle_dir=None, executable=None, source_file="/proj/server.py")
-        self.assertEqual(paths["web"], Path("/proj/web"))
-        self.assertEqual(paths["state"], Path("/proj/user-data/russian-study.json"))
-        self.assertEqual(paths["cache"], Path("/proj/.tts-cache"))
+        root = Path("/proj").resolve()  # on Windows this gains a drive letter
+        self.assertEqual(paths["web"], root / "web")
+        self.assertEqual(paths["state"], root / "user-data" / "russian-study.json")
+        self.assertEqual(paths["cache"], root / ".tts-cache")
 
     def test_frozen_run_reads_web_from_bundle_and_writes_next_to_the_exe(self):
         paths = server.resolve_paths(frozen=True, bundle_dir="/tmp/_MEI123", executable="/home/me/RussianStudy.exe", source_file="x")
