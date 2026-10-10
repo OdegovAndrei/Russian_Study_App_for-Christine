@@ -78,6 +78,59 @@ class ServerTestCase(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertEqual(data, b"ID3fake")
 
+    def put_state(self, state):
+        return self.request("PUT", "/api/state", json.dumps(state).encode(), {"Content-Type": "application/json"})
+
+    def get_state(self):
+        status, data = self.request("GET", "/api/state")
+        return status, json.loads(data)
+
+    def test_revision_increments_and_stale_writers_are_rejected(self):
+        status, data = self.put_state({"custom": [1]})
+        self.assertEqual(status, 200)
+        self.assertEqual(json.loads(data)["rev"], 1)
+        status, data = self.put_state({"custom": [1, 2], "rev": 1})
+        self.assertEqual(json.loads(data)["rev"], 2)
+        # a second window still holding revision 1 must not overwrite revision 2
+        status, data = self.put_state({"custom": ["stale"], "rev": 1})
+        self.assertEqual(status, 409)
+        _, body = self.get_state()
+        self.assertEqual(body["state"]["custom"], [1, 2])
+
+    def test_previous_version_is_kept_as_backup_and_daily_copy(self):
+        self.put_state({"custom": ["first"]})
+        _, data = self.put_state({"custom": ["second"], "rev": 1})
+        backup = json.loads((self.state_file.parent / "russian-study.backup.json").read_text(encoding="utf-8"))
+        self.assertEqual(backup["custom"], ["first"])
+        daily = list((self.state_file.parent / "backups").glob("russian-study-*.json"))
+        self.assertEqual(len(daily), 1)
+
+    def test_old_daily_backups_are_pruned_to_seven(self):
+        backups = self.state_file.parent / "backups"
+        backups.mkdir(parents=True)
+        for day in range(1, 11):
+            (backups / f"russian-study-2020-01-{day:02d}.json").write_text("{}", encoding="utf-8")
+        self.put_state({"custom": []})
+        self.put_state({"custom": ["x"], "rev": 1})
+        names = sorted(path.name for path in backups.glob("russian-study-*.json"))
+        self.assertEqual(len(names), 7)
+        self.assertNotIn("russian-study-2020-01-01.json", names)
+
+    def test_corrupt_state_file_falls_back_to_backup(self):
+        self.put_state({"custom": ["keep"]})
+        self.put_state({"custom": ["keep", "more"], "rev": 1})
+        self.state_file.write_text("{ not json", encoding="utf-8")
+        status, body = self.get_state()
+        self.assertEqual(status, 200)
+        self.assertTrue(body["recovered"])
+        self.assertEqual(body["state"]["custom"], ["keep"])
+
+    def test_corrupt_state_without_backup_is_an_error_not_an_empty_state(self):
+        self.state_file.parent.mkdir(parents=True)
+        self.state_file.write_text("{ not json", encoding="utf-8")
+        status, _ = self.get_state()
+        self.assertEqual(status, 500)
+
     def test_script_and_style_types_do_not_depend_on_the_os_registry(self):
         web = Path(self.tmp.name) / "web"
         (web / "app.js").write_text("export {};", encoding="utf-8")

@@ -237,3 +237,6 @@ input[type="search"], input[type="text"], input[type="number"], select {
 .add-dialog textarea { width: 100%; font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); resize: vertical; }
 .add-status { color: var(--muted); min-height: 1.5em; margin: 12px 0 0; }
 .add-dialog .chips { margin-bottom: 12px; }
+
+.banner { display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 10px 16px; background: var(--amber-soft); color: var(--ink); border-bottom: 1px solid var(--amber); }
+.banner[hidden] { display: none; }

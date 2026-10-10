@@ -177,7 +177,11 @@ export const STRINGS = {
     "add.bulkPlaceholder": "bonjour ; здравствуйте\nun livre ; книга\nмолоко ; le lait",
     "add.bulkSubmit": "Ajouter tout (Ctrl/⌘+Entrée)",
     "add.done": "✓ Ajouté : {fr} — {ru}",
-    "add.summary": "Ajoutés : {added} · Ignorés (déjà présents) : {skipped} · Lignes invalides : {invalid}"
+    "add.summary": "Ajoutés : {added} · Ignorés (déjà présents) : {skipped} · Lignes invalides : {invalid}",
+    "banner.loadFailed": "Impossible de lire la progression : rien n’est enregistré pour éviter d’écraser vos données. Vérifiez que le serveur tourne, puis rechargez.",
+    "banner.conflict": "La progression a été modifiée dans une autre fenêtre. Rechargez pour continuer sans perdre de données.",
+    "banner.recovered": "Le fichier principal était endommagé : la dernière copie de sauvegarde a été restaurée.",
+    "banner.reload": "Recharger"
   },
   en: {
     "tab.review": "Review",
@@ -353,7 +357,11 @@ export const STRINGS = {
     "add.bulkPlaceholder": "bonjour ; здравствуйте\nun livre ; книга\nмолоко ; le lait",
     "add.bulkSubmit": "Add all (Ctrl/⌘+Enter)",
     "add.done": "✓ Added: {fr} — {ru}",
-    "add.summary": "Added: {added} · Skipped (already present): {skipped} · Invalid lines: {invalid}"
+    "add.summary": "Added: {added} · Skipped (already present): {skipped} · Invalid lines: {invalid}",
+    "banner.loadFailed": "Could not read your progress: nothing is being saved so your data is not overwritten. Check that the server is running, then reload.",
+    "banner.conflict": "Your progress was changed in another window. Reload to continue without losing data.",
+    "banner.recovered": "The main file was damaged: the latest backup copy was restored.",
+    "banner.reload": "Reload"
   }
 };
 

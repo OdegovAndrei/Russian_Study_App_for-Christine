@@ -7,6 +7,7 @@ import os
 import sys
 import tempfile
 import threading
+from datetime import datetime
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -22,7 +23,8 @@ CACHE_DIR = PROJECT_DIR / ".tts-cache"
 STATE_FILE = PROJECT_DIR / "user-data" / "russian-study.json"
 DEFAULT_PORT = 5174
 VOICES = {"ru-RU-SvetlanaNeural", "ru-RU-DmitryNeural"}
-MAX_STATE_BYTES = 8 * 1024 * 1024
+MAX_STATE_BYTES = 32 * 1024 * 1024
+DAILY_BACKUPS_TO_KEEP = 7
 MAX_TTS_CHARS = 600
 STATE_LOCK = threading.Lock()
 
@@ -54,13 +56,69 @@ async def synthesize(text, voice, rate):
     return bytes(chunks)
 
 
+def fsync_directory(directory):
+    """Best effort: make the rename itself durable (not possible on Windows)."""
+    try:
+        descriptor = os.open(directory, os.O_RDONLY)
+    except OSError:
+        return
+    try:
+        os.fsync(descriptor)
+    except OSError:
+        pass
+    finally:
+        os.close(descriptor)
+
+
+def read_state_file(path):
+    """Returns the parsed object, or None when the file is missing. Raises ValueError if corrupt."""
+    try:
+        raw = path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return None
+    state = json.loads(raw)
+    if not isinstance(state, dict):
+        raise ValueError("state is not an object")
+    return state
+
+
+def backup_paths(state_file):
+    return state_file.with_name("russian-study.backup.json"), state_file.parent / "backups"
+
+
+def keep_backups(state_file):
+    """Copies the current file aside (latest + one per day, newest 7 days) before it is replaced."""
+    try:
+        current = read_state_file(state_file)
+    except (OSError, ValueError):
+        return  # never replace a good backup with a damaged file
+    if current is None:
+        return
+    raw = state_file.read_bytes()
+    latest, daily_dir = backup_paths(state_file)
+    atomic_write(latest, raw)
+    today = datetime.now().strftime("%Y-%m-%d")
+    daily = daily_dir / f"russian-study-{today}.json"
+    if not daily.exists():
+        atomic_write(daily, raw)
+    old = sorted(daily_dir.glob("russian-study-*.json"))
+    for path in old[:-DAILY_BACKUPS_TO_KEEP]:
+        try:
+            path.unlink()
+        except OSError:
+            pass
+
+
 def atomic_write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     handle, temp_name = tempfile.mkstemp(dir=path.parent, prefix=path.name, suffix=".tmp")
     try:
         with os.fdopen(handle, "wb") as stream:
             stream.write(data)
+            stream.flush()
+            os.fsync(stream.fileno())
         os.replace(temp_name, path)
+        fsync_directory(path.parent)
     except BaseException:
         try:
             os.unlink(temp_name)
@@ -142,12 +200,21 @@ class Handler(SimpleHTTPRequestHandler):
     def handle_state_get(self):
         with STATE_LOCK:
             try:
-                state = json.loads(self.state_file.read_text(encoding="utf-8"))
-            except FileNotFoundError:
-                return self.send_json(200, {"exists": False, "state": None})
+                state = read_state_file(self.state_file)
+                if state is None:
+                    return self.send_json(200, {"exists": False, "state": None})
+                return self.send_json(200, {"exists": True, "state": state})
             except (OSError, ValueError):
+                pass
+            # The main file is damaged: serve the last good copy rather than nothing.
+            latest, _ = backup_paths(self.state_file)
+            try:
+                state = read_state_file(latest)
+            except (OSError, ValueError):
+                state = None
+            if state is None:
                 return self.send_json(500, {"error": "Fichier de progression illisible."})
-        self.send_json(200, {"exists": True, "state": state})
+        self.send_json(200, {"exists": True, "state": state, "recovered": True})
 
     def handle_state_put(self):
         try:
@@ -165,10 +232,26 @@ class Handler(SimpleHTTPRequestHandler):
             return self.send_json(400, {"error": "Un objet JSON est attendu"})
         with STATE_LOCK:
             try:
+                on_disk = read_state_file(self.state_file)
+            except ValueError:
+                # Damaged file: continue the revision count from the last good copy.
+                try:
+                    on_disk = read_state_file(backup_paths(self.state_file)[0])
+                except (OSError, ValueError):
+                    on_disk = None
+            except OSError as error:
+                return self.send_json(500, {"error": f"Lecture impossible: {error}"})
+            disk_rev = int(on_disk.get("rev", 0)) if on_disk and str(on_disk.get("rev", 0)).isdigit() else 0
+            client_rev = state.get("rev", 0)
+            if not isinstance(client_rev, int) or client_rev < disk_rev:
+                return self.send_json(409, {"error": "Modifié ailleurs", "rev": disk_rev})
+            state["rev"] = disk_rev + 1
+            try:
+                keep_backups(self.state_file)
                 atomic_write(self.state_file, json.dumps(state, ensure_ascii=False).encode("utf-8"))
             except OSError as error:
                 return self.send_json(500, {"error": f"Écriture impossible: {error}"})
-        self.send_json(200, {"ok": True})
+        self.send_json(200, {"ok": True, "rev": state["rev"]})
 
     # -- speech ----------------------------------------------------------
     def handle_tts(self, query):

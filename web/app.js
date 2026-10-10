@@ -1,6 +1,7 @@
 import { newCardState, review, previewIntervals, GRADES, DAY_MS } from "./srs.js";
 import { applyStarter, buildQueue, cardKey, dayKey, expandCards, mergeWords, parseBulk } from "./deck.js";
 import { buildTimingStats, buildDueBuckets, buildTimingChanges, formatTiming } from "./timing.js";
+import { createSaver } from "./persistence.js";
 import { configureAnalytics, openReviewAnalyticsModal } from "./review-analytics.js";
 import { LANGUAGES, normalizeLanguage, translate } from "./i18n.js";
 
@@ -30,6 +31,7 @@ function applyStaticText() {
     element.textContent = t(element.dataset.i18n);
   });
   document.querySelector(".tabs").setAttribute("aria-label", t("nav.label"));
+  if (bannerKey && !banner.hidden && banner.firstChild) banner.firstChild.textContent = t(bannerKey);
   configureAnalytics({
     translate: t,
     locale: normalizeLanguage(state.settings.uiLang) === "en" ? "en-US" : "fr-FR"
@@ -51,7 +53,7 @@ let session = null;
 let vocabFilter = { text: "" };
 
 function defaultState() {
-  return { version: 2, seeded: false, settings: { ...DEFAULT_SETTINGS }, schedules: {}, custom: [], logs: [] };
+  return { version: 2, rev: 0, seeded: false, settings: { ...DEFAULT_SETTINGS }, schedules: {}, custom: [], logs: [] };
 }
 
 function normalizeState(raw) {
@@ -60,6 +62,7 @@ function normalizeState(raw) {
   return {
     version: 2,
     seeded: raw.seeded === true,
+    rev: Number.isInteger(raw.rev) ? raw.rev : 0,
     settings: { ...base.settings, ...(raw.settings || {}) },
     schedules: raw.schedules && typeof raw.schedules === "object" ? raw.schedules : {},
     custom: Array.isArray(raw.custom) ? raw.custom.filter((item) => item && item.id && item.ru && item.fr) : [],
@@ -83,34 +86,53 @@ function h(tag, props = {}, ...children) {
 }
 
 // ---- persistence -------------------------------------------------------
-let saveTimer = null;
-let saveChain = Promise.resolve();
+const banner = document.getElementById("banner");
+let bannerKey = null;
+
+function showBanner(key, withReload = false) {
+  bannerKey = key;
+  banner.replaceChildren(
+    h("span", {}, t(key)),
+    withReload ? h("button", { class: "btn", type: "button", onClick: () => window.location.reload() }, t("banner.reload")) : null
+  );
+  banner.hidden = false;
+}
 
 function setSaveStatus(text) {
   saveIndicator.textContent = text;
 }
 
+const saver = createSaver({
+  getState: () => state,
+  setRev: (rev) => { state.rev = rev; },
+  onStatus: (status) => setSaveStatus(t(`save.${status === "saving" ? "saving" : status === "saved" ? "saved" : "error"}`)),
+  onConflict: () => showBanner("banner.conflict", true)
+});
+
 function scheduleSave() {
-  setSaveStatus(t("save.saving"));
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    const body = JSON.stringify(state);
-    saveChain = saveChain
-      .then(() => fetch("/api/state", { method: "PUT", headers: { "Content-Type": "application/json" }, body }))
-      .then((response) => {
-        if (!response.ok) throw new Error(String(response.status));
-        setSaveStatus(t("save.saved"));
-      })
-      .catch(() => setSaveStatus(t("save.error")));
-  }, 300);
+  saver.schedule();
 }
 
+// Do not lose the last answer when the tab is closed or hidden.
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") saver.flush();
+});
+window.addEventListener("pagehide", () => saver.flush());
+
 async function loadAll() {
-  const response = await fetch("/api/state").catch(() => null);
-  if (response && response.ok) {
-    const payload = await response.json();
-    state = normalizeState(payload.state);
+  let payload = null;
+  try {
+    const response = await fetch("/api/state");
+    if (!response.ok) throw new Error(String(response.status));
+    payload = await response.json();
+  } catch {
+    // Never continue with an empty state here: the next save would overwrite the real file.
+    saver.block();
+    showBanner("banner.loadFailed", true);
+    return;
   }
+  state = normalizeState(payload.state);
+  if (payload.recovered) showBanner("banner.recovered");
   if (!state.seeded) {
     const starter = await fetch("starter.json").then((reply) => (reply.ok ? reply.json() : [])).catch(() => []);
     state = applyStarter(state, starter);
