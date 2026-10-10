@@ -198,7 +198,8 @@ export const STRINGS = {
     "edit.open": "Modifier",
     "edit.title": "Modifier le mot",
     "edit.save": "Enregistrer",
-    "edit.empty": "Les deux champs sont obligatoires."
+    "edit.empty": "Les deux champs sont obligatoires.",
+    "review.noMaleVoice": "aucune voix masculine russe n’est installée sur cet appareil (ajoutez-en une dans les réglages système)."
   },
   en: {
     "tab.review": "Review",
@@ -395,7 +396,8 @@ export const STRINGS = {
     "edit.open": "Edit",
     "edit.title": "Edit word",
     "edit.save": "Save",
-    "edit.empty": "Both fields are required."
+    "edit.empty": "Both fields are required.",
+    "review.noMaleVoice": "no male Russian voice is installed on this device (add one in the system settings)."
   }
 };
 

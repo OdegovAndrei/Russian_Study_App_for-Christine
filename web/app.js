@@ -1,6 +1,7 @@
 import { review, previewIntervals, buildReviewQueue, isNewSchedule, isDueSchedule, isLearningSchedule, migrateSchedule, GRADES, DAY_MS } from "./srs.js";
 import { applyStarter, cardKey, dayKey, expandCards, mergeWords, parseBulk, updateWord } from "./deck.js";
 import { buildTimingStats, buildDueBuckets, buildTimingChanges, formatTiming } from "./timing.js";
+import { loadVoices, pickVoice } from "./voices.js";
 import { createSaver } from "./persistence.js";
 import { configureAnalytics, openReviewAnalyticsModal } from "./review-analytics.js";
 import { LANGUAGES, normalizeLanguage, translate } from "./i18n.js";
@@ -166,27 +167,25 @@ function allItems() {
 // ---- speech --------------------------------------------------------------
 let currentAudio = null;
 
-const MALE_HINTS = ["yuri", "pavel", "dmitry", "dmitri", "maxim", "mikhail", "male", "man"];
-const FEMALE_HINTS = ["milena", "irina", "svetlana", "katya", "alena", "anna", "female", "woman"];
 let fallbackVoiceUsed = false;
+let fallbackDetail = "";
+// Load the system voice list right away: browsers deliver it asynchronously,
+// and the first utterance would otherwise use the default (female) voice.
+const voicesReady = "speechSynthesis" in window ? loadVoices() : Promise.resolve([]);
 
-function pickBrowserVoice(wantMale) {
-  const voices = window.speechSynthesis.getVoices().filter((voice) => /^ru/i.test(voice.lang));
-  const hints = wantMale ? MALE_HINTS : FEMALE_HINTS;
-  const named = voices.find((voice) => hints.some((hint) => voice.name.toLowerCase().includes(hint)));
-  return { voice: named || voices[0] || null, matched: Boolean(named) };
-}
-
-function browserSpeak(text) {
+async function browserSpeak(text) {
   if (!("speechSynthesis" in window)) return;
   const wantMale = state.settings.voice === "ru-RU-DmitryNeural";
-  const { voice, matched } = pickBrowserVoice(wantMale);
+  const voices = await voicesReady.then(() => loadVoices());
+  const { voice, matched } = pickVoice(voices, wantMale);
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "ru-RU";
   if (voice) utterance.voice = voice;
   utterance.rate = state.settings.rate;
-  // No voice of the requested gender installed: lower the pitch so the choice is still audible.
+  // No voice of the requested gender is installed: lower the pitch so the choice is still audible.
   if (wantMale && !matched) utterance.pitch = 0.6;
+  fallbackDetail = wantMale && !matched ? t("review.noMaleVoice") : voice ? voice.name : "";
+  updateVoiceNote();
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(utterance);
 }
@@ -203,17 +202,25 @@ async function speak(text) {
     currentAudio = audio;
     await audio.play();
     setFallbackNote(false);
-  } catch {
+  } catch (error) {
+    // Autoplay blocked before any click: stay silent instead of switching to the system voice.
+    if (error && error.name === "NotAllowedError") return;
     setFallbackNote(true);
     browserSpeak(text);
   }
 }
 
-function setFallbackNote(used) {
-  if (fallbackVoiceUsed === used) return;
-  fallbackVoiceUsed = used;
+function updateVoiceNote() {
   const note = document.getElementById("voice-note");
-  if (note) note.hidden = !used;
+  if (!note) return;
+  note.hidden = !fallbackVoiceUsed;
+  note.textContent = fallbackDetail ? `${t("review.fallbackVoice")} · ${fallbackDetail}` : t("review.fallbackVoice");
+}
+
+function setFallbackNote(used) {
+  fallbackVoiceUsed = used;
+  if (!used) fallbackDetail = "";
+  updateVoiceNote();
 }
 
 // ---- review ---------------------------------------------------------------
@@ -348,7 +355,7 @@ function renderReview() {
     );
   }
   const hint = h("p", { class: "hint" }, t("review.hint"));
-  const voiceNote = h("p", { class: "hint", id: "voice-note", hidden: !fallbackVoiceUsed }, t("review.fallbackVoice"));
+  const voiceNote = h("p", { class: "hint", id: "voice-note", hidden: !fallbackVoiceUsed }, fallbackDetail ? `${t("review.fallbackVoice")} · ${fallbackDetail}` : t("review.fallbackVoice"));
   return h("section", {}, directionBar(), timingBar(), counters, cardElement, controls, hint, voiceNote);
 }
 
