@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Russian Study</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="analytics.css" />
   </head>
   <body>
     <header class="topbar">
@@ -12,6 +13,7 @@
       <nav class="tabs" aria-label="Sections">
         <button type="button" class="tab active" data-view="review" data-i18n="tab.review">Révision</button>
         <button type="button" class="tab" data-view="vocabulary" data-i18n="tab.vocabulary">Vocabulaire</button>
+        <button type="button" class="tab" data-view="stats" data-i18n="tab.stats">Statistiques</button>
         <button type="button" class="tab" data-view="settings" data-i18n="tab.settings">Réglages</button>
       </nav>
       <div class="lang-switch" role="group" aria-label="Language / Langue">
@@ -21,6 +23,7 @@
       <span class="save-indicator" id="save-indicator" aria-live="polite"></span>
     </header>
     <main id="app" aria-live="polite"></main>
+    <div id="modal-root"></div>
     <script type="module" src="app.js"></script>
   </body>
 </html>

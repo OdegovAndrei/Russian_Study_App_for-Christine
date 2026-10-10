@@ -31,7 +31,7 @@ export function expandCards(items, direction) {
   return items.flatMap((item) => directions.map((dir) => makeCard(item, dir)));
 }
 
-export function buildQueue({ items, direction, schedules, now, newPerDay, introducedToday }) {
+export function buildQueue({ items, direction, schedules, now }) {
   const due = [];
   const fresh = [];
   for (const card of expandCards(items, direction)) {
@@ -40,6 +40,5 @@ export function buildQueue({ items, direction, schedules, now, newPerDay, introd
     else if (state.due <= now) due.push({ ...card, state });
   }
   due.sort((left, right) => left.state.due - right.state.due);
-  const room = Math.max(0, newPerDay - introducedToday);
-  return { due, new: fresh.slice(0, room) };
+  return { due, new: fresh };
 }
