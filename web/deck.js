@@ -42,3 +42,11 @@ export function buildQueue({ items, direction, schedules, now }) {
   due.sort((left, right) => left.state.due - right.state.due);
   return { due, new: fresh };
 }
+
+/** Adds the bundled starter words to a state that has never been seeded. */
+export function applyStarter(state, starter) {
+  if (state.seeded) return state;
+  const known = new Set(state.custom.map((item) => item.ru.toLocaleLowerCase()));
+  const fresh = starter.filter((item) => !known.has(item.ru.toLocaleLowerCase()));
+  return { ...state, seeded: true, custom: [...fresh, ...state.custom] };
+}

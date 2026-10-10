@@ -1,5 +1,5 @@
 import { newCardState, review, previewIntervals, GRADES, DAY_MS } from "./srs.js";
-import { buildQueue, cardKey, dayKey, expandCards } from "./deck.js";
+import { applyStarter, buildQueue, cardKey, dayKey, expandCards } from "./deck.js";
 import { buildTimingStats, buildDueBuckets, buildTimingChanges, formatTiming } from "./timing.js";
 import { configureAnalytics, openReviewAnalyticsModal } from "./review-analytics.js";
 import { LANGUAGES, normalizeLanguage, translate } from "./i18n.js";
@@ -51,7 +51,7 @@ let session = null;
 let vocabFilter = { text: "" };
 
 function defaultState() {
-  return { version: 2, settings: { ...DEFAULT_SETTINGS }, schedules: {}, custom: [], logs: [] };
+  return { version: 2, seeded: false, settings: { ...DEFAULT_SETTINGS }, schedules: {}, custom: [], logs: [] };
 }
 
 function normalizeState(raw) {
@@ -59,6 +59,7 @@ function normalizeState(raw) {
   if (!raw || typeof raw !== "object") return base;
   return {
     version: 2,
+    seeded: raw.seeded === true,
     settings: { ...base.settings, ...(raw.settings || {}) },
     schedules: raw.schedules && typeof raw.schedules === "object" ? raw.schedules : {},
     custom: Array.isArray(raw.custom) ? raw.custom.filter((item) => item && item.id && item.ru && item.fr) : [],
@@ -109,6 +110,11 @@ async function loadAll() {
   if (response && response.ok) {
     const payload = await response.json();
     state = normalizeState(payload.state);
+  }
+  if (!state.seeded) {
+    const starter = await fetch("starter.json").then((reply) => (reply.ok ? reply.json() : [])).catch(() => []);
+    state = applyStarter(state, starter);
+    scheduleSave();
   }
 }
 

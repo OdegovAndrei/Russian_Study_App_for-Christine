@@ -78,6 +78,18 @@ class ServerTestCase(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertEqual(data, b"ID3fake")
 
+    def test_script_and_style_types_do_not_depend_on_the_os_registry(self):
+        web = Path(self.tmp.name) / "web"
+        (web / "app.js").write_text("export {};", encoding="utf-8")
+        (web / "styles.css").write_text("a{}", encoding="utf-8")
+        for name, expected in (("app.js", "javascript"), ("styles.css", "text/css")):
+            conn = http.client.HTTPConnection("127.0.0.1", self.port)
+            conn.request("GET", f"/{name}", headers={"Host": f"localhost:{self.port}"})
+            response = conn.getresponse()
+            response.read()
+            conn.close()
+            self.assertIn(expected, response.getheader("Content-Type"))
+
     def test_static_files_served_and_private_paths_hidden(self):
         status, data = self.request("GET", "/")
         self.assertEqual(status, 200)

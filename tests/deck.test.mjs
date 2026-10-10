@@ -46,3 +46,21 @@ test("cardKey and dayKey", () => {
   assert.equal(cardKey("a", "fr-ru"), "a|fr-ru");
   assert.match(dayKey(NOW), /^\d{4}-\d{2}-\d{2}$/);
 });
+
+import { applyStarter } from "../web/deck.js";
+
+test("starter words are seeded once and stay deletable", () => {
+  const starter = [{ id: "s1", ru: "да", fr: "oui", kind: "word" }];
+  const mine = { id: "c1", ru: "книга", fr: "un livre", kind: "custom" };
+  const seeded = applyStarter({ seeded: false, custom: [mine] }, starter);
+  assert.deepEqual(seeded.custom.map((i) => i.id), ["s1", "c1"]);
+  assert.equal(seeded.seeded, true);
+  const cleared = applyStarter({ ...seeded, custom: [] }, starter);
+  assert.equal(cleared.custom.length, 0);
+});
+
+test("starter does not duplicate a Russian word the user already has", () => {
+  const starter = [{ id: "s1", ru: "Да", fr: "oui", kind: "word" }];
+  const seeded = applyStarter({ seeded: false, custom: [{ id: "c1", ru: "да", fr: "oui", kind: "custom" }] }, starter);
+  assert.equal(seeded.custom.length, 1);
+});

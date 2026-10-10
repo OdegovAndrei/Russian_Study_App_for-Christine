@@ -1,0 +1,362 @@
+[
+ {
+  "id": "s001",
+  "fr": "oui",
+  "ru": "да",
+  "kind": "word"
+ },
+ {
+  "id": "s002",
+  "fr": "non",
+  "ru": "нет",
+  "kind": "word"
+ },
+ {
+  "id": "s003",
+  "fr": "bonjour",
+  "ru": "здравствуйте",
+  "kind": "word"
+ },
+ {
+  "id": "s004",
+  "fr": "salut",
+  "ru": "привет",
+  "kind": "word"
+ },
+ {
+  "id": "s005",
+  "fr": "au revoir",
+  "ru": "до свидания",
+  "kind": "word"
+ },
+ {
+  "id": "s006",
+  "fr": "merci",
+  "ru": "спасибо",
+  "kind": "word"
+ },
+ {
+  "id": "s007",
+  "fr": "s'il vous plaît",
+  "ru": "пожалуйста",
+  "kind": "word"
+ },
+ {
+  "id": "s008",
+  "fr": "excusez-moi",
+  "ru": "извините",
+  "kind": "word"
+ },
+ {
+  "id": "s009",
+  "fr": "je",
+  "ru": "я",
+  "kind": "word"
+ },
+ {
+  "id": "s010",
+  "fr": "tu",
+  "ru": "ты",
+  "kind": "word"
+ },
+ {
+  "id": "s011",
+  "fr": "il",
+  "ru": "он",
+  "kind": "word"
+ },
+ {
+  "id": "s012",
+  "fr": "elle",
+  "ru": "она",
+  "kind": "word"
+ },
+ {
+  "id": "s013",
+  "fr": "nous",
+  "ru": "мы",
+  "kind": "word"
+ },
+ {
+  "id": "s014",
+  "fr": "vous",
+  "ru": "вы",
+  "kind": "word"
+ },
+ {
+  "id": "s015",
+  "fr": "ils",
+  "ru": "они",
+  "kind": "word"
+ },
+ {
+  "id": "s016",
+  "fr": "un homme",
+  "ru": "мужчина",
+  "kind": "word"
+ },
+ {
+  "id": "s017",
+  "fr": "une femme",
+  "ru": "женщина",
+  "kind": "word"
+ },
+ {
+  "id": "s018",
+  "fr": "un enfant",
+  "ru": "ребёнок",
+  "kind": "word"
+ },
+ {
+  "id": "s019",
+  "fr": "un ami",
+  "ru": "друг",
+  "kind": "word"
+ },
+ {
+  "id": "s020",
+  "fr": "la famille",
+  "ru": "семья",
+  "kind": "word"
+ },
+ {
+  "id": "s021",
+  "fr": "la maison",
+  "ru": "дом",
+  "kind": "word"
+ },
+ {
+  "id": "s022",
+  "fr": "l'eau",
+  "ru": "вода",
+  "kind": "word"
+ },
+ {
+  "id": "s023",
+  "fr": "le pain",
+  "ru": "хлеб",
+  "kind": "word"
+ },
+ {
+  "id": "s024",
+  "fr": "le lait",
+  "ru": "молоко",
+  "kind": "word"
+ },
+ {
+  "id": "s025",
+  "fr": "le café",
+  "ru": "кофе",
+  "kind": "word"
+ },
+ {
+  "id": "s026",
+  "fr": "le thé",
+  "ru": "чай",
+  "kind": "word"
+ },
+ {
+  "id": "s027",
+  "fr": "manger",
+  "ru": "есть",
+  "kind": "word"
+ },
+ {
+  "id": "s028",
+  "fr": "boire",
+  "ru": "пить",
+  "kind": "word"
+ },
+ {
+  "id": "s029",
+  "fr": "aller",
+  "ru": "идти",
+  "kind": "word"
+ },
+ {
+  "id": "s030",
+  "fr": "avoir",
+  "ru": "иметь",
+  "kind": "word"
+ },
+ {
+  "id": "s031",
+  "fr": "vouloir",
+  "ru": "хотеть",
+  "kind": "word"
+ },
+ {
+  "id": "s032",
+  "fr": "pouvoir",
+  "ru": "мочь",
+  "kind": "word"
+ },
+ {
+  "id": "s033",
+  "fr": "savoir",
+  "ru": "знать",
+  "kind": "word"
+ },
+ {
+  "id": "s034",
+  "fr": "faire",
+  "ru": "делать",
+  "kind": "word"
+ },
+ {
+  "id": "s035",
+  "fr": "voir",
+  "ru": "видеть",
+  "kind": "word"
+ },
+ {
+  "id": "s036",
+  "fr": "parler",
+  "ru": "говорить",
+  "kind": "word"
+ },
+ {
+  "id": "s037",
+  "fr": "aimer",
+  "ru": "любить",
+  "kind": "word"
+ },
+ {
+  "id": "s038",
+  "fr": "bien",
+  "ru": "хорошо",
+  "kind": "word"
+ },
+ {
+  "id": "s039",
+  "fr": "mal",
+  "ru": "плохо",
+  "kind": "word"
+ },
+ {
+  "id": "s040",
+  "fr": "grand",
+  "ru": "большой",
+  "kind": "word"
+ },
+ {
+  "id": "s041",
+  "fr": "petit",
+  "ru": "маленький",
+  "kind": "word"
+ },
+ {
+  "id": "s042",
+  "fr": "nouveau",
+  "ru": "новый",
+  "kind": "word"
+ },
+ {
+  "id": "s043",
+  "fr": "ici",
+  "ru": "здесь",
+  "kind": "word"
+ },
+ {
+  "id": "s044",
+  "fr": "là-bas",
+  "ru": "там",
+  "kind": "word"
+ },
+ {
+  "id": "s045",
+  "fr": "maintenant",
+  "ru": "сейчас",
+  "kind": "word"
+ },
+ {
+  "id": "s046",
+  "fr": "aujourd'hui",
+  "ru": "сегодня",
+  "kind": "word"
+ },
+ {
+  "id": "s047",
+  "fr": "demain",
+  "ru": "завтра",
+  "kind": "word"
+ },
+ {
+  "id": "s048",
+  "fr": "hier",
+  "ru": "вчера",
+  "kind": "word"
+ },
+ {
+  "id": "s049",
+  "fr": "beaucoup",
+  "ru": "много",
+  "kind": "word"
+ },
+ {
+  "id": "s050",
+  "fr": "un (nombre)",
+  "ru": "один",
+  "kind": "word"
+ },
+ {
+  "id": "s051",
+  "fr": "Comment ça va ?",
+  "ru": "Как дела?",
+  "kind": "phrase"
+ },
+ {
+  "id": "s052",
+  "fr": "Je m'appelle Marie.",
+  "ru": "Меня зовут Мария.",
+  "kind": "phrase"
+ },
+ {
+  "id": "s053",
+  "fr": "Enchanté !",
+  "ru": "Очень приятно!",
+  "kind": "phrase"
+ },
+ {
+  "id": "s054",
+  "fr": "Je ne comprends pas.",
+  "ru": "Я не понимаю.",
+  "kind": "phrase"
+ },
+ {
+  "id": "s055",
+  "fr": "Parlez-vous français ?",
+  "ru": "Вы говорите по-французски?",
+  "kind": "phrase"
+ },
+ {
+  "id": "s056",
+  "fr": "Pouvez-vous répéter, s'il vous plaît ?",
+  "ru": "Повторите, пожалуйста.",
+  "kind": "phrase"
+ },
+ {
+  "id": "s057",
+  "fr": "Où est la gare ?",
+  "ru": "Где вокзал?",
+  "kind": "phrase"
+ },
+ {
+  "id": "s058",
+  "fr": "Combien ça coûte ?",
+  "ru": "Сколько это стоит?",
+  "kind": "phrase"
+ },
+ {
+  "id": "s059",
+  "fr": "Je voudrais de l'eau.",
+  "ru": "Я хочу воды.",
+  "kind": "phrase"
+ },
+ {
+  "id": "s060",
+  "fr": "Je viens de France.",
+  "ru": "Я из Франции.",
+  "kind": "phrase"
+ }
+]

@@ -73,6 +73,16 @@ class Handler(SimpleHTTPRequestHandler):
     web_dir = WEB_DIR
     cache_dir = CACHE_DIR
     state_file = STATE_FILE
+    # Windows reads MIME types from the registry, where .js is sometimes
+    # "text/plain" and browsers then refuse to run ES modules.
+    extensions_map = {
+        **SimpleHTTPRequestHandler.extensions_map,
+        ".js": "text/javascript",
+        ".mjs": "text/javascript",
+        ".css": "text/css",
+        ".json": "application/json",
+        ".html": "text/html",
+    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(self.web_dir), **kwargs)
