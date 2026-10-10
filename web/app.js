@@ -1,5 +1,5 @@
-import { newCardState, review, previewIntervals, GRADES, DAY_MS } from "./srs.js";
-import { applyStarter, buildQueue, cardKey, dayKey, expandCards, mergeWords, parseBulk } from "./deck.js";
+import { review, previewIntervals, buildReviewQueue, isNewSchedule, isDueSchedule, isLearningSchedule, migrateSchedule, GRADES, DAY_MS } from "./srs.js";
+import { applyStarter, cardKey, dayKey, expandCards, mergeWords, parseBulk } from "./deck.js";
 import { buildTimingStats, buildDueBuckets, buildTimingChanges, formatTiming } from "./timing.js";
 import { createSaver } from "./persistence.js";
 import { configureAnalytics, openReviewAnalyticsModal } from "./review-analytics.js";
@@ -67,7 +67,9 @@ function normalizeState(raw) {
     seeded: raw.seeded === true,
     rev: Number.isInteger(raw.rev) ? raw.rev : 0,
     settings: { ...base.settings, ...(raw.settings || {}) },
-    schedules: raw.schedules && typeof raw.schedules === "object" ? raw.schedules : {},
+    schedules: raw.schedules && typeof raw.schedules === "object"
+      ? Object.fromEntries(Object.entries(raw.schedules).map(([key, value]) => [key, migrateSchedule(value)]))
+      : {},
     custom: Array.isArray(raw.custom) ? raw.custom.filter((item) => item && item.id && item.ru && item.fr) : [],
     logs: Array.isArray(raw.logs) ? raw.logs.filter((log) => log && log.cardId && Number.isFinite(log.reviewedAt)) : []
   };
@@ -216,29 +218,34 @@ function setFallbackNote(used) {
 
 // ---- review ---------------------------------------------------------------
 function startSession() {
-  const now = Date.now();
-  const queue = buildQueue({
-    items: allItems(),
-    direction: state.settings.direction,
-    schedules: state.schedules,
-    now
-  });
-  session = {
-    queue: [...queue.due, ...queue.new],
-    newKeys: new Set(queue.new.map((card) => card.key)),
-    revealed: false,
-    done: 0
-  };
+  session = { revealed: false, done: 0, currentKey: null };
+}
+
+// The queue is rebuilt from the schedules every time, like the original app:
+// learning cards first, then the oldest due card, then new cards. The card
+// on screen stays first even if another card becomes due meanwhile.
+function liveQueue() {
+  const cards = expandCards(allItems(), state.settings.direction);
+  const queue = buildReviewQueue({ cards, schedules: state.schedules, now: Date.now() });
+  if (session && session.currentKey) {
+    const index = queue.findIndex((card) => card.key === session.currentKey);
+    if (index > 0) queue.unshift(...queue.splice(index, 1));
+  }
+  return queue;
 }
 
 function currentCard() {
-  return session && session.queue[0];
+  if (!session) return null;
+  const card = liveQueue()[0] || null;
+  session.currentKey = card ? card.key : null;
+  return card;
 }
 
 function reveal() {
-  if (!session || session.revealed || !currentCard()) return;
-  session.revealed = true;
+  if (!session || session.revealed) return;
   const card = currentCard();
+  if (!card) return;
+  session.revealed = true;
   render();
   if (state.settings.autoplay && card.frontLang === "fr") speak(card.ru);
 }
@@ -246,24 +253,12 @@ function reveal() {
 function grade(name) {
   const card = currentCard();
   if (!card || !session.revealed) return;
-  const now = Date.now();
-  const previous = state.schedules[card.key] || newCardState();
-  const next = review(previous, name, now);
-  state.schedules[card.key] = next;
-  const wasNew = session.newKeys.has(card.key);
-  session.newKeys.delete(card.key);
-  state.logs.push({
-    cardId: card.key,
-    rating: name,
-    reviewedAt: now,
-    dueBefore: wasNew ? null : previous.due,
-    dueAfter: next.due,
-    wasNew
-  });
+  const { schedule, log } = review(state.schedules[card.key] || null, name, Date.now());
+  state.schedules[card.key] = schedule;
+  state.logs.push({ cardId: card.key, ...log });
 
-  session.queue.shift();
-  if (name === "again") session.queue.push({ ...card, state: next });
-  else session.done += 1;
+  session.done += 1;
+  session.currentKey = null;
   session.revealed = false;
   scheduleSave();
   render();
@@ -273,7 +268,9 @@ function grade(name) {
 
 function renderReview() {
   if (!session) startSession();
-  const card = currentCard();
+  const queue = liveQueue();
+  const card = queue[0];
+  session.currentKey = card ? card.key : null;
   if (!card && !allItems().length) {
     return h(
       "section",
@@ -294,8 +291,8 @@ function renderReview() {
     );
   }
 
-  const remaining = session.queue.length;
-  const newLeft = session.queue.filter((item) => session.newKeys.has(item.key)).length;
+  const remaining = queue.length;
+  const newLeft = queue.filter((item) => isNewSchedule(state.schedules[item.key])).length;
   const counters = h(
     "div",
     { class: "counters" },
@@ -304,7 +301,7 @@ function renderReview() {
     h("span", {}, t("review.done") + " ", h("strong", {}, session.done))
   );
 
-  const isNew = session.newKeys.has(card.key);
+  const isNew = isNewSchedule(state.schedules[card.key]);
   const label = h("div", { class: "card-label" }, isNew ? t("review.newCard") : t("review.reviewCard"));
   const front = h("div", { class: "card-front", lang: card.frontLang }, card.front);
   const children = [label, front];
@@ -326,7 +323,8 @@ function renderReview() {
       h("button", { class: "btn primary", type: "button", onClick: reveal }, t("review.show"))
     );
   } else {
-    const preview = previewIntervals(card.state || state.schedules[card.key] || newCardState());
+    const units = { min: t("unit.min"), hour: t("unit.hour"), day: t("unit.day"), month: t("unit.month"), year: t("unit.year") };
+    const preview = previewIntervals(state.schedules[card.key] || null, Date.now(), units);
     controls = h(
       "div",
       { class: "grades" },
@@ -457,8 +455,11 @@ function renderStats() {
   const cardIds = new Set(cards.map((card) => card.id));
   const logs = state.logs.filter((log) => cardIds.has(log.cardId));
   const studied = new Set(logs.map((log) => log.cardId)).size;
-  const dueCount = cards.filter((card) => state.schedules[card.id] && state.schedules[card.id].due <= now).length;
-  const masteredCount = cards.filter((card) => (state.schedules[card.id]?.interval || 0) >= 21).length;
+  const dueCount = cards.filter((card) => isDueSchedule(state.schedules[card.id], now)).length;
+  const masteredCount = cards.filter((card) => {
+    const schedule = state.schedules[card.id];
+    return schedule && !isLearningSchedule(schedule) && schedule.scheduled_days >= 21;
+  }).length;
   const correct = logs.filter((log) => log.rating !== "again").length;
   const accuracy = logs.length ? `${Math.round((correct / logs.length) * 100)}%` : "—";
   const today = reviewsToday(now);
@@ -512,13 +513,13 @@ function speakButton(text) {
 // ---- vocabulary -----------------------------------------------------------
 function statusOf(item) {
   const directions = state.settings.direction === "both" ? ["fr-ru", "ru-fr"] : [state.settings.direction];
-  const states = directions.map((dir) => state.schedules[cardKey(item.id, dir)]).filter(Boolean);
-  if (!states.length) return t("status.new");
-  const state0 = states[0];
-  if (state0.interval >= 21) return t("status.mastered");
-  if (state0.due <= Date.now()) return t("status.due");
-  const days = Math.max(1, Math.round((state0.due - Date.now()) / DAY_MS));
-  return state0.interval === 0 ? t("status.learning") : t("status.inDays", { days });
+  const schedule = directions.map((dir) => state.schedules[cardKey(item.id, dir)]).find((entry) => entry && !isNewSchedule(entry));
+  if (!schedule) return t("status.new");
+  if (isDueSchedule(schedule)) return t("status.due");
+  if (isLearningSchedule(schedule)) return t("status.learning");
+  if (schedule.scheduled_days >= 21) return t("status.mastered");
+  const days = Math.max(1, Math.round((schedule.due - Date.now()) / DAY_MS));
+  return t("status.inDays", { days });
 }
 
 function matchesFilter(item) {

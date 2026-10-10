@@ -189,7 +189,12 @@ export const STRINGS = {
     "storage.local": "Fichier de l’application",
     "storage.appdata": "Dossier utilisateur du système",
     "storage.words": "Liste lisible des mots",
-    "storage.unavailable": "indisponible"
+    "storage.unavailable": "indisponible",
+    "unit.min": "min",
+    "unit.hour": "h",
+    "unit.day": "j",
+    "unit.month": "mois",
+    "unit.year": "an"
   },
   en: {
     "tab.review": "Review",
@@ -377,7 +382,12 @@ export const STRINGS = {
     "storage.local": "Application file",
     "storage.appdata": "System user data folder",
     "storage.words": "Readable word list",
-    "storage.unavailable": "unavailable"
+    "storage.unavailable": "unavailable",
+    "unit.min": "min",
+    "unit.hour": "h",
+    "unit.day": "d",
+    "unit.month": "mo",
+    "unit.year": "y"
   }
 };
 

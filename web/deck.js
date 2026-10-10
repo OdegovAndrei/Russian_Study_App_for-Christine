@@ -31,18 +31,6 @@ export function expandCards(items, direction) {
   return items.flatMap((item) => directions.map((dir) => makeCard(item, dir)));
 }
 
-export function buildQueue({ items, direction, schedules, now }) {
-  const due = [];
-  const fresh = [];
-  for (const card of expandCards(items, direction)) {
-    const state = schedules[card.key];
-    if (!state) fresh.push(card);
-    else if (state.due <= now) due.push({ ...card, state });
-  }
-  due.sort((left, right) => left.state.due - right.state.due);
-  return { due, new: fresh };
-}
-
 /** Adds the bundled starter words to a state that has never been seeded. */
 export function applyStarter(state, starter) {
   if (state.seeded) return state;
