@@ -64,3 +64,34 @@ test("starter does not duplicate a Russian word the user already has", () => {
   const seeded = applyStarter({ seeded: false, custom: [{ id: "c1", ru: "да", fr: "oui", kind: "custom" }] }, starter);
   assert.equal(seeded.custom.length, 1);
 });
+
+import { parseBulk, mergeWords } from "../web/deck.js";
+
+test("parseBulk reads one pair per line and detects the Russian side", () => {
+  const { entries, invalid } = parseBulk("bonjour ; здравствуйте\nкнига | un livre\n\n  merci\t спасибо ");
+  assert.deepEqual(entries, [
+    { fr: "bonjour", ru: "здравствуйте" },
+    { fr: "un livre", ru: "книга" },
+    { fr: "merci", ru: "спасибо" }
+  ]);
+  assert.deepEqual(invalid, []);
+});
+
+test("parseBulk reports lines without two parts", () => {
+  const { entries, invalid } = parseBulk("oui ; да\nseulement\n ; vide\na ; b ; c");
+  assert.equal(entries.length, 2);
+  assert.deepEqual(invalid, [2, 3]);
+  assert.deepEqual(entries[1], { fr: "a", ru: "b ; c" });
+});
+
+test("mergeWords skips Russian duplicates, also inside the batch", () => {
+  const existing = [{ id: "c1", ru: "да", fr: "oui", kind: "custom" }];
+  const result = mergeWords(existing, [
+    { fr: "oui", ru: "Да" },
+    { fr: "non", ru: "нет" },
+    { fr: "nein", ru: "НЕТ" }
+  ], () => "n1");
+  assert.equal(result.added, 1);
+  assert.equal(result.skipped, 2);
+  assert.deepEqual(result.words.map((w) => w.ru), ["да", "нет"]);
+});

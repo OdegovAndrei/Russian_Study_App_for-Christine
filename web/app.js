@@ -1,5 +1,5 @@
 import { newCardState, review, previewIntervals, GRADES, DAY_MS } from "./srs.js";
-import { applyStarter, buildQueue, cardKey, dayKey, expandCards } from "./deck.js";
+import { applyStarter, buildQueue, cardKey, dayKey, expandCards, mergeWords, parseBulk } from "./deck.js";
 import { buildTimingStats, buildDueBuckets, buildTimingChanges, formatTiming } from "./timing.js";
 import { configureAnalytics, openReviewAnalyticsModal } from "./review-analytics.js";
 import { LANGUAGES, normalizeLanguage, translate } from "./i18n.js";
@@ -530,36 +530,133 @@ function renderVocabulary() {
     refresh();
   });
 
-  const frInput = h("input", { type: "text", placeholder: t("vocab.frPlaceholder"), "aria-label": t("vocab.frLabel"), required: true });
-  const ruInput = h("input", { type: "text", placeholder: t("vocab.ruPlaceholder"), "aria-label": t("vocab.ruLabel"), lang: "ru", required: true });
   const form = h(
-    "form",
-    { class: "add-form", onSubmit: (event) => {
-      event.preventDefault();
-      addCustom(frInput.value, ruInput.value);
-    } },
-    frInput,
-    ruInput,
-    h("button", { class: "btn primary", type: "submit" }, t("vocab.add"))
+    "p",
+    {},
+    h("button", { class: "btn primary", type: "button", onClick: (event) => openAddDialog(event.currentTarget) }, `+ ${t("vocab.add")}`)
   );
 
   refresh();
   return h("section", {}, form, h("div", { class: "toolbar" }, search), listHost);
 }
 
-function addCustom(fr, ru) {
-  const cleanFr = fr.trim();
-  const cleanRu = ru.trim();
-  if (!cleanFr || !cleanRu) return;
-  const exists = allItems().some((item) => item.ru.toLocaleLowerCase() === cleanRu.toLocaleLowerCase());
-  if (exists) {
-    window.alert(t("vocab.duplicate"));
-    return;
+let idCounter = 0;
+function newWordId() {
+  idCounter += 1;
+  return `c${Date.now().toString(36)}${idCounter.toString(36)}`;
+}
+
+function addWords(entries) {
+  const result = mergeWords(state.custom, entries, newWordId);
+  if (result.added) {
+    state.custom = result.words;
+    session = null;
+    scheduleSave();
+    render();
   }
-  state.custom.push({ id: `c${Date.now().toString(36)}`, ru: cleanRu, fr: cleanFr, kind: "custom" });
-  session = null;
-  scheduleSave();
-  render();
+  return result;
+}
+
+// ---- "add words" dialog, reachable from every view ---------------------------
+function closeAddDialog() {
+  modalRoot.replaceChildren();
+  document.removeEventListener("keydown", onDialogKey);
+  if (dialogOpener && document.contains(dialogOpener)) dialogOpener.focus();
+  dialogOpener = null;
+}
+
+let dialogOpener = null;
+function onDialogKey(event) {
+  if (event.key === "Escape") closeAddDialog();
+}
+
+function openAddDialog(opener) {
+  dialogOpener = opener || null;
+  let mode = "single";
+  const status = h("p", { class: "add-status", role: "status", "aria-live": "polite" });
+  const body = h("div", {});
+
+  const frInput = h("input", { type: "text", placeholder: t("vocab.frPlaceholder"), "aria-label": t("vocab.frLabel"), required: true });
+  const ruInput = h("input", { type: "text", placeholder: t("vocab.ruPlaceholder"), "aria-label": t("vocab.ruLabel"), lang: "ru", required: true });
+  const singleForm = h(
+    "form",
+    { class: "add-form", onSubmit: (event) => {
+      event.preventDefault();
+      const result = addWords([{ fr: frInput.value, ru: ruInput.value }]);
+      if (result.added) {
+        status.textContent = t("add.done", { fr: frInput.value.trim(), ru: ruInput.value.trim() });
+        frInput.value = "";
+        ruInput.value = "";
+        frInput.focus();
+      } else {
+        status.textContent = t("vocab.duplicate");
+      }
+    } },
+    frInput,
+    ruInput,
+    h("button", { class: "btn primary", type: "submit" }, t("vocab.add"))
+  );
+
+  const bulkInput = h("textarea", { rows: "8", placeholder: t("add.bulkPlaceholder"), "aria-label": t("add.bulk") });
+  const submitBulk = () => {
+    const { entries, invalid } = parseBulk(bulkInput.value);
+    const result = addWords(entries);
+    const lines = bulkInput.value.split(/\r?\n/);
+    bulkInput.value = invalid.map((number) => lines[number - 1]).join("\n");
+    status.textContent = t("add.summary", { added: result.added, skipped: result.skipped, invalid: invalid.length });
+  };
+  bulkInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+      event.preventDefault();
+      submitBulk();
+    }
+  });
+  const bulkForm = h(
+    "div",
+    {},
+    h("p", { class: "note" }, t("add.bulkHelp")),
+    bulkInput,
+    h("div", { class: "add-form" }, h("button", { class: "btn primary", type: "button", onClick: submitBulk }, t("add.bulkSubmit")))
+  );
+
+  const tabs = h("div", { class: "chips" });
+  const show = (next) => {
+    mode = next;
+    status.textContent = "";
+    tabs.replaceChildren(
+      ...["single", "bulk"].map((value) =>
+        h("button", {
+          class: `chip${mode === value ? " active" : ""}`,
+          type: "button",
+          "aria-pressed": String(mode === value),
+          onClick: () => show(value)
+        }, t(`add.${value}`))
+      )
+    );
+    body.replaceChildren(mode === "single" ? singleForm : bulkForm);
+    (mode === "single" ? frInput : bulkInput).focus();
+  };
+
+  const backdrop = h(
+    "div",
+    { class: "modal-backdrop", onClick: (event) => { if (event.target === backdrop) closeAddDialog(); } },
+    h(
+      "section",
+      { class: "modal-panel add-dialog", role: "dialog", "aria-modal": "true", "aria-label": t("add.title") },
+      h(
+        "div",
+        { class: "add-dialog-head" },
+        h("h3", {}, t("add.title")),
+        h("button", { class: "modal-close", type: "button", "aria-label": t("add.close"), onClick: closeAddDialog }, "×")
+      ),
+      tabs,
+      body,
+      status
+    )
+  );
+  modalRoot.replaceChildren(backdrop);
+  document.addEventListener("keydown", onDialogKey);
+  show("single");
 }
 
 function removeCustom(id) {
@@ -640,6 +737,8 @@ function render() {
   app.replaceChildren(content);
 }
 
+document.getElementById("add-word").addEventListener("click", (event) => openAddDialog(event.currentTarget));
+
 document.querySelectorAll(".lang-btn").forEach((button) => {
   button.addEventListener("click", () => setLanguage(button.dataset.lang));
 });
@@ -653,7 +752,7 @@ document.querySelectorAll(".tab").forEach((tab) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (view !== "review" || event.metaKey || event.ctrlKey || event.altKey) return;
+  if (modalRoot.childElementCount || view !== "review" || event.metaKey || event.ctrlKey || event.altKey) return;
   const target = event.target;
   if (target instanceof HTMLElement && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
   const card = currentCard();

@@ -50,3 +50,50 @@ export function applyStarter(state, starter) {
   const fresh = starter.filter((item) => !known.has(item.ru.toLocaleLowerCase()));
   return { ...state, seeded: true, custom: [...fresh, ...state.custom] };
 }
+
+const CYRILLIC = /[Ѐ-ӿ]/;
+const BULK_SEPARATORS = /\s*[;|\t]\s*/;
+
+/**
+ * One "french ; russian" pair per line (`;`, `|` or a tab). The Cyrillic part
+ * is taken as the Russian side, so either order works.
+ */
+export function parseBulk(text) {
+  const entries = [];
+  const invalid = [];
+  String(text).split(/\r?\n/).forEach((line, index) => {
+    const trimmed = line.trim();
+    if (!trimmed) return;
+    const match = trimmed.search(BULK_SEPARATORS);
+    const parts = match < 0 ? [trimmed] : [trimmed.slice(0, match), trimmed.slice(match).replace(BULK_SEPARATORS, "")];
+    const [first, second] = parts.map((part) => part.trim());
+    if (!first || !second) {
+      invalid.push(index + 1);
+      return;
+    }
+    const swap = CYRILLIC.test(first) && !CYRILLIC.test(second);
+    entries.push(swap ? { fr: second, ru: first } : { fr: first, ru: second });
+  });
+  return { entries, invalid };
+}
+
+/** Appends new words to the list, skipping Russian words that already exist. */
+export function mergeWords(existing, entries, makeId) {
+  const known = new Set(existing.map((item) => item.ru.toLocaleLowerCase()));
+  const words = [...existing];
+  let added = 0;
+  let skipped = 0;
+  for (const entry of entries) {
+    const ru = entry.ru.trim();
+    const fr = entry.fr.trim();
+    const key = ru.toLocaleLowerCase();
+    if (!ru || !fr || known.has(key)) {
+      skipped += 1;
+      continue;
+    }
+    known.add(key);
+    words.push({ id: makeId(), ru, fr, kind: "custom" });
+    added += 1;
+  }
+  return { words, added, skipped };
+}

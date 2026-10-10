@@ -168,7 +168,16 @@ export const STRINGS = {
     "review.noWordsTitle": "Votre vocabulaire est vide",
     "review.noWordsBody": "Ajoutez vos premiers mots dans l’onglet Vocabulaire : ils apparaîtront ici sous forme de cartes.",
     "review.goVocabulary": "Ajouter des mots",
-    "vocab.empty": "Aucun mot pour l’instant. Ajoutez-en avec le formulaire ci-dessus."
+    "vocab.empty": "Aucun mot pour l’instant. Ajoutez-en avec le formulaire ci-dessus.",
+    "add.title": "Ajouter des mots",
+    "add.single": "Un mot",
+    "add.bulk": "Plusieurs mots",
+    "add.close": "Fermer",
+    "add.bulkHelp": "Une paire par ligne : français ; russe (séparateur « ; », « | » ou tabulation). L’ordre n’a pas d’importance : le côté en cyrillique est pris pour le russe.",
+    "add.bulkPlaceholder": "bonjour ; здравствуйте\nun livre ; книга\nмолоко ; le lait",
+    "add.bulkSubmit": "Ajouter tout (Ctrl/⌘+Entrée)",
+    "add.done": "✓ Ajouté : {fr} — {ru}",
+    "add.summary": "Ajoutés : {added} · Ignorés (déjà présents) : {skipped} · Lignes invalides : {invalid}"
   },
   en: {
     "tab.review": "Review",
@@ -335,7 +344,16 @@ export const STRINGS = {
     "review.noWordsTitle": "Your vocabulary is empty",
     "review.noWordsBody": "Add your first words in the Vocabulary tab: they will show up here as cards.",
     "review.goVocabulary": "Add words",
-    "vocab.empty": "No words yet. Add some with the form above."
+    "vocab.empty": "No words yet. Add some with the form above.",
+    "add.title": "Add words",
+    "add.single": "One word",
+    "add.bulk": "Several words",
+    "add.close": "Close",
+    "add.bulkHelp": "One pair per line: French ; Russian (separator “;”, “|” or a tab). Order doesn’t matter: the Cyrillic side is taken as Russian.",
+    "add.bulkPlaceholder": "bonjour ; здравствуйте\nun livre ; книга\nмолоко ; le lait",
+    "add.bulkSubmit": "Add all (Ctrl/⌘+Enter)",
+    "add.done": "✓ Added: {fr} — {ru}",
+    "add.summary": "Added: {added} · Skipped (already present): {skipped} · Invalid lines: {invalid}"
   }
 };
 
